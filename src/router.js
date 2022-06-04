@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Router from "vue-router"
 import Login from "./views/Login.vue"
-import Success from "./views/Success.vue"
+import SuccessCode from "./views/SuccessCode.vue"
 import firebase from "firebase/app"
 
 Vue.use(Router)
@@ -18,7 +18,7 @@ const router = new Router({
     {
       path: "/success",
       name: "success",
-      component: Success,
+      component: SuccessCode,
     },
     {
       path: "*",

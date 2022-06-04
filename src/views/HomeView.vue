@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
@@ -15,10 +15,10 @@ export default {
     HelloWorld,
   },
 }
-</script> -->
+</script>
 
 <!-- test -->
-<template>
+<!-- <template>
   <v-container>
     <div v-if="currentUser == null">
       <v-card width="400px" class="mx-auto mt-5">
@@ -111,4 +111,4 @@ export default {
     },
   },
 }
-</script>
+</script> -->

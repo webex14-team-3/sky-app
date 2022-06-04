@@ -5,14 +5,19 @@ import router from "./router"
 
 createApp(App).use(router).mount("#app")
 
-// test
+// 6月3日test
 import Vue from "vue"
-import "bootstrap/dist/css/bootstrap.css"
+// import VueHead from "vue-head"
+// import BootstrapVue from "bootstrap-vue"
+// import "bootstrap/dist/css/bootstrap.css"
+// import "bootstrap-vue/dist/bootstrap-vue.css"
+// import firebase from "firebase/app"
 import "firebase/auth"
 
-Vue.config.productionTip = false
+// Vue.use(BootstrapVue)
+// Vue.use(VueHead)
 
-// 1.Firebase側の設定のウェブ設定で表示したコードをコピペする
+Vue.config.productionTip = false
 
 new Vue({
   router,
