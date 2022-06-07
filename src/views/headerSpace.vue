@@ -47,7 +47,7 @@
         <!-- ログインパート 終わり -->
       </div>
     </header>
-    <div class="test"></div>
+    <div class="screen"></div>
   </body>
 </template>
 
@@ -230,11 +230,8 @@ body {
 .login .login-button a {
   text-decoration: none;
 }
-/* ログインパート 終わり */
-
-.test {
-  width: 100%;
-  height: 1200px;
-  background-color: #f5d9b77a;
+#menu:hover {
+  cursor: pointer;
 }
+/* ログインパート 終わり */
 </style>

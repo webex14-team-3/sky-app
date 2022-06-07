@@ -3,19 +3,13 @@ import { createRouter, createWebHistory } from "vue-router"
 // ※defaultの有無の違いは、export default ○○の○○のままインポートできる(名前を変える必要がない)。
 //                         export ○○の○○を変更することができる {}の中で好きなような名前に出来る。
 // ex ファイルをexportする際に{}が必要になる場合がある。
-import Login from "./views/Login.vue"
-import HomeScreen from "./views/HomeScreen.vue"
+import headerSpace from "./views/headerSpace.vue"
 
 const routes = [
   {
-    path: "/Login",
-    name: "Login",
-    component: Login,
-  },
-  {
     path: "/",
-    name: "HomeScreen",
-    component: HomeScreen,
+    name: "",
+    component: headerSpace,
   },
 ]
 
