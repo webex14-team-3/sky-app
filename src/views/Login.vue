@@ -1,92 +1,35 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <h2>ログイン画面</h2>
-        <div class="mt-2">
-          <b-form-input
-            v-model="email"
-            type="text"
-            placeholder="メールアドレス"
-          />
-        </div>
-        <div class="mt-2">
-          <b-form-input
-            v-model="password"
-            type="text"
-            placeholder="パスワード"
-          />
-        </div>
-        <div class="mt-2">
-          <b-button block variant="primary" @click="emailLogin"
-            >ログイン</b-button
-          >
-        </div>
-        <div class="mt-2">
-          <b-button block variant="primary" @click="googleLogin"
-            >Google ログイン</b-button
-          >
-        </div>
-        <div class="mt-2">
-          <b-alert v-model="showError" dismissible variant="danger">{{
-            errorMessage
-          }}</b-alert>
-        </div>
-      </div>
-    </div>
-  </div>
+  <button @click="googleLogin">ログイン</button>
+  <p>{{ user }}</p>
 </template>
-<style>
-.mt-2 {
-  margin-top: 2px;
-}
-</style>
 
 <script>
-import firebase from "firebase/app"
-import router from "../router"
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth"
 
 export default {
   name: "logIn",
   data() {
     return {
-      email: "",
-      password: "",
-      errorMessage: "",
-      showError: false,
+      user: null,
     }
   },
   methods: {
-    emailLogin() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then((result) => {
-          console.log(result)
-          router.push("/success")
-        })
-        .catch((error) => {
-          console.log(error)
-          this.errorMessage = error.message
-          this.showError = true
-        })
-    },
     googleLogin() {
-      const provider = new firebase.auth.GoogleAuthProvider()
-
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-          console.log(result.user)
-          router.push("/success")
-        })
-        .catch((error) => {
-          console.log(error)
-          this.errorMessage = error.message
-          this.showError = true
-        })
+      // new"ネームプレート" provider "インスタンス"
+      const provider = new GoogleAuthProvider()
+      const auth = getAuth()
+      signInWithPopup(auth, provider).then((result) => {
+        // const credential = GoogleAuthProvider.credentialFromResult(result)
+        // const token = credential.accessToken
+        this.user = result.user
+      })
     },
   },
 }
 </script>
+
+<style scoped>
+/* template {
+  text-align: center;
+} */
+</style>

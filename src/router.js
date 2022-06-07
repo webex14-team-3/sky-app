@@ -1,49 +1,45 @@
-import Vue from "vue"
-import Router from "vue-router"
+import { createRouter, createWebHistory } from "vue-router"
+// {}は、インポートする際、export defaultだと不必要。exportのみの場合は必要。
+// ※defaultの有無の違いは、export default ○○の○○のままインポートできる(名前を変える必要がない)。
+//                         export ○○の○○を変更することができる {}の中で好きなような名前に出来る。
+// ex ファイルをexportする際に{}が必要になる場合がある。
 import Login from "./views/Login.vue"
-import SuccessCode from "./views/SuccessCode.vue"
-import firebase from "firebase/app"
+import HomeScreen from "./views/HomeScreen.vue"
 
-Vue.use(Router)
+const routes = [
+  {
+    path: "/login",
+    name: "login",
+    component: Login,
+  },
+  {
+    path: "/HomeScreen",
+    name: "HomeScreen",
+    component: HomeScreen,
+  },
+]
 
-const router = new Router({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: "/",
-      name: "login",
-      component: Login,
-    },
-    {
-      path: "/success",
-      name: "success",
-      component: SuccessCode,
-    },
-    {
-      path: "*",
-      name: "login",
-      component: Login,
-    },
-  ],
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
 })
 
 // 未認証の場合はログイン画面へ
-router.beforeResolve((to, from, next) => {
-  console.log(to)
-  if (to.path == "/") {
-    next()
-  } else {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log("認証中")
-        next()
-      } else {
-        console.log("未認証")
-        next({ path: "/" })
-      }
-    })
-  }
-})
+// router.beforeResolve((to, from, next) => {
+//   console.log(to)
+//   if (to.path == "/") {
+//     next()
+//   } else {
+//     firebase.auth().onAuthStateChanged((user) => {
+//       if (user) {
+//         console.log("認証中")
+//         next()
+//       } else {
+//         console.log("未認証")
+//         next({ path: "/" })
+//       }
+//     })
+//   }
+// })
 
 export default router
