@@ -8,12 +8,12 @@ import HomeScreen from "./views/HomeScreen.vue"
 
 const routes = [
   {
-    path: "/login",
-    name: "login",
+    path: "/Login",
+    name: "Login",
     component: Login,
   },
   {
-    path: "/HomeScreen",
+    path: "/",
     name: "HomeScreen",
     component: HomeScreen,
   },

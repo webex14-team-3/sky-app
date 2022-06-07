@@ -10,9 +10,9 @@
               <span class="navicon"></span>
             </label>
             <ul class="menu">
-              <li id="menu">
-                <a href="../ログイン/login.html"
-                  ><span class="menu-text" id="menu-text-one">ログイン</span></a
+              <li id="menu" @click="googleLogin">
+                <a>
+                  <span class="menu-text" id="menu-text-one">ログイン</span></a
                 >
               </li>
               <li>
@@ -38,8 +38,8 @@
 
         <!-- ログインパート 始まり -->
         <section class="login">
-          <button class="login-button">
-            <a href="../ログイン/login.html">
+          <button class="login-button" @click="googleLogin">
+            <a>
               <span class="login-text">ログイン</span>
             </a>
           </button>
@@ -50,6 +50,31 @@
     <div class="test"></div>
   </body>
 </template>
+
+<script>
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth"
+
+export default {
+  name: "logIn",
+  data() {
+    return {
+      user: null,
+    }
+  },
+  methods: {
+    googleLogin() {
+      // new"ネームプレート" provider "インスタンス"
+      const provider = new GoogleAuthProvider()
+      const auth = getAuth()
+      signInWithPopup(auth, provider).then((result) => {
+        // const credential = GoogleAuthProvider.credentialFromResult(result)
+        // const token = credential.accessToken
+        this.user = result.user
+      })
+    },
+  },
+}
+</script>
 
 <style scoped>
 body {
