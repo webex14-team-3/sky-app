@@ -4,12 +4,24 @@ import { createRouter, createWebHistory } from "vue-router"
 //                         export ○○の○○を変更することができる {}の中で好きなような名前に出来る。
 // ex ファイルをexportする際に{}が必要になる場合がある。
 import headerSpace from "./views/headerSpace.vue"
+import homeScreen from "./views/homeScreen.vue"
+import memoFormat from "./views/memoFormat.vue"
 
 const routes = [
   {
     path: "/",
     name: "",
+    component: homeScreen,
+  },
+  {
+    path: "/headerSpace",
+    name: "headerSpace",
     component: headerSpace,
+  },
+  {
+    path: "/memoFormat",
+    name: "memoFormat",
+    component: memoFormat,
   },
 ]
 
