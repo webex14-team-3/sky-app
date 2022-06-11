@@ -15,6 +15,8 @@
           class="container-main-input"
           id="container-main-input"
           name="main"
+          v-model="inputMemo"
+          placeholder="勉強したことをメモに書いて投稿しよう！"
         ></textarea>
       </section>
       <!-- 本文 終わり -->
@@ -58,7 +60,7 @@
 
       <!-- 投稿 始まり -->
       <section class="container-upload">
-        <button class="container-upload-button">
+        <button v-on:click="postMemo" class="container-upload-button">
           <span>投稿</span>
         </button>
       </section>
@@ -67,7 +69,31 @@
   </body>
 </template>
 
-<script></script>
+<script>
+import { collection, addDoc } from "firebase/firestore"
+import { db } from "../firebase"
+
+export default {
+  data() {
+    return {
+      inputMemo: "",
+    }
+  },
+  methods: {
+    postMemo() {
+      const memo = {
+        text: this.inputMemo,
+      }
+      addDoc(collection(db, "memos"), memo).then((ref) => {
+        this.memos.push({
+          id: ref.id,
+          ...memo,
+        })
+      })
+    },
+  },
+}
+</script>
 
 <style scoped>
 body {

@@ -48,16 +48,38 @@
       </div>
     </header>
   </body>
+  <div>
+    <p v-for="memo in memos" :key="memo.id">
+      {{ memo.text }}
+    </p>
+  </div>
   <router-vue />
   <router-link to="memoFormat">
-    <div class="memoFormat">memoFormat</div>
+    <div class="memoFormat">投稿する</div>
   </router-link>
 </template>
 
 <script>
 import headerSpace from "./headerSpace.vue"
+import { collection, getDocs } from "firebase/firestore"
+import { db } from "../firebase"
 
 export default {
+  data() {
+    return {
+      memos: [],
+    }
+  },
+  created() {
+    getDocs(collection(db, "memos")).then((snapshot) => {
+      snapshot.forEach((doc) => {
+        this.memos.push({
+          id: doc.id,
+          ...doc.data(),
+        })
+      })
+    })
+  },
   views: {
     headerSpace,
   },
