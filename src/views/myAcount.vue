@@ -396,14 +396,14 @@ nav li {
 
   /* 投稿する場所 始まり */
   .uploadSpace {
-    height:120px;
-    left:0px;
-    top:350px;
+    height: 120px;
+    left: 0px;
+    top: 350px;
   }
   .uploadSpace-button-text {
-    font-size:20px;
+    font-size: 20px;
   }
-
-  /* 投稿する場所 終わり */
+}
+/* 投稿する場所 終わり */
 /* スマートフォン用 終わり */
 </style>
