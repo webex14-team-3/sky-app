@@ -86,12 +86,16 @@ export default {
         title: this.inputTitle,
         text: this.inputMemo,
       }
-      addDoc(collection(db, "memos"), memo).then((ref) => {
-        this.memos.push({
-          id: ref.id,
-          ...memo,
+      if ((memo.title == "") | (memo.text == "")) {
+        alert("タイトルと本文を入力してください")
+      } else {
+        addDoc(collection(db, "memos"), memo).then((ref) => {
+          this.memos.push({
+            id: ref.id,
+            ...memo,
+          })
         })
-      })
+      }
     },
   },
 }
