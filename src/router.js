@@ -7,6 +7,7 @@ import headerSpace from "./views/headerSpace.vue"
 import homeScreen from "./views/homeScreen.vue"
 import memoFormat from "./views/memoFormat.vue"
 import myAcount from "./views/myAcount.vue"
+import AboutView from "@/views/AboutView.vue"
 
 const routes = [
   {
@@ -28,6 +29,11 @@ const routes = [
     path: "/myAcount",
     name: "myAcount",
     component: myAcount,
+  },
+  {
+    path: "/aboutview",
+    name: "aboutView",
+    component: AboutView,
   },
 ]
 
