@@ -4,7 +4,7 @@
       <span class="title">タイトル</span>
       <!-- タイトル 始まり -->
       <section class="container-title">
-        <input type="text" class="contaner-title-input" />
+        <input type="text" class="contaner-title-input" v-model="inputTitle" />
       </section>
       <!-- タイトル 終わり -->
 
@@ -76,12 +76,14 @@ import { db } from "../firebase"
 export default {
   data() {
     return {
+      inputTitle: "",
       inputMemo: "",
     }
   },
   methods: {
     postMemo() {
       const memo = {
+        title: this.inputTitle,
         text: this.inputMemo,
       }
       addDoc(collection(db, "memos"), memo).then((ref) => {

@@ -50,7 +50,7 @@
   </body>
   <div>
     <p v-for="memo in memos" :key="memo.id">
-      {{ memo.text }}
+      {{ memo.title }}
     </p>
   </div>
   <router-vue />
