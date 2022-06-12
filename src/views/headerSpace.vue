@@ -67,9 +67,8 @@ export default {
       const provider = new GoogleAuthProvider()
       const auth = getAuth()
       signInWithPopup(auth, provider).then((result) => {
-        // const credential = GoogleAuthProvider.credentialFromResult(result)
-        // const token = credential.accessToken
-        this.user = result.user
+        this.$store.commit("updateUserInfo", { uid: result.user.uid })
+        console.log(this.$store.state.user.uid)
       })
     },
   },
