@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <div class="about">
-      <h1 class="profile">プロフィール</h1>
+  <div class="about">
+    <h1 class="profile">プロフィール</h1>
+    <div class="profile-container">
+      <div class="icon"></div>
+      <input type="text" v-model="name" />
+      <button v-on:click="insertUserInfo">保存</button>
+      <div>{{ user.name }}</div>
     </div>
-    <div class="icob"></div>
-    <input type="text" v-model="name" />
-    <button v-on:click="insertUserInfo">保存</button>
-    <div>{{ user.name }}</div>
   </div>
 </template>
 
@@ -52,6 +52,7 @@ export default {
   color: #ac4949;
 }
 .profile {
+  text-align: center;
   width: 100%;
   border-bottom: 2px solid #000;
 }
@@ -61,5 +62,10 @@ export default {
   height: 50px;
   border-radius: 50%;
   color: black;
+}
+
+.profile-container {
+  margin: 0 auto;
+  width: max-content;
 }
 </style>
