@@ -74,11 +74,13 @@ body {
   display: flex;
   justify-content: center;
   position: relative;
+  padding: 0px;
+  margin: 5px 0 0;
 }
 .container {
-  border: 4px solid black;
-  width: 80%;
-  height: 650px;
+  border: 2px solid black;
+  width: 90%;
+  height: 600px;
   display: flex;
   justify-content: center;
   position: relative;
@@ -100,9 +102,10 @@ body {
   top: 90px;
 }
 .container .function {
-  position: absolute;
-  left: 25px;
-  bottom: 115px;
+  position: fixed;
+  left: 90px;
+  bottom: 65px;
+  z-index: 101;
 }
 
 /* タイトル 始まり */
@@ -131,34 +134,44 @@ body {
 
 /* 本文 始まり */
 .container-main {
-  border: 2px solid green;
+  /* border: 2px solid green; */
   width: 90%;
-  height: 100px;
+  height: 70%;
   position: absolute;
   top: 120px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .container-main-input {
-  width: 100%;
-  height: 100px;
+  /* border: 2px solid red; */
+  padding: 7px 5px 10px 5px;
+  overflow: scroll;
+  /* margin: auto auto 150px; */
   font-size: 15px;
   font-weight: 900;
-  padding: 7px 5px 10px 5px;
-  /* overflow: scroll; */
+  resize: none;
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
+  line-height: 1.1em;
 }
 /* 本文 終わり */
 
 /* 機能 始まり */
 .container-function {
-  border: 4px solid #f5a194dd;
+  /* border: 4px solid #f5a194dd; */
   width: 90%;
   height: 45px;
-  position: absolute;
-  bottom: 70px;
+  position: fixed;
+  bottom: 10px;
   display: flex;
   justify-content: space-around;
   background-color: white;
+  z-index: 100;
 }
 .container-function-underbar {
   /* border: 2px solid red; */
@@ -198,19 +211,20 @@ body {
 
 /* 投稿 始まり */
 .container-upload {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   width: 90%;
-  height: 50px;
+  height: 40px;
   position: absolute;
-  bottom: 5px;
+  top: 2px;
   display: flex;
-  justify-content: center;
+  justify-content: end;
 }
 .container-upload-button {
-  border: 2px solid green;
+  /* border: 2px solid green; */
   width: 30%;
   height: 100%;
   background-color: #c7887fdd;
+  border-radius: 5px;
 }
 .container-upload-button:hover {
   cursor: pointer;
@@ -221,9 +235,28 @@ body {
   transform: scale(0.98);
 }
 .container-upload-button span {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 900;
   color: white;
 }
 /* 投稿 終わり */
+@media screen and (max-width: 640px) {
+  body {
+    margin: 5px auto auto;
+  }
+  .container {
+    height: 80vh;
+    width: 90vw;
+  }
+  .container .function {
+    left: 45px;
+    /* bottom: 100px; */
+  }
+  /* .container-function {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    bottom: 50px;
+    line-height: 1.25em;
+  } */
+}
 </style>

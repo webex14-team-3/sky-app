@@ -1,57 +1,139 @@
 <template>
   <body>
-    <header>
-      <div class="header-all">
-        <!-- ナビゲーションパート 始まり -->
-        <section class="nav">
-          <nav class="gMenu">
-            <input class="menu-btn" type="checkbox" id="menu-btn" />
-            <label class="menu-icon" for="menu-btn">
-              <span class="navicon"></span>
-            </label>
-            <ul class="menu">
-              <li id="menu">
-                <a href="../ログイン/login.html"
-                  ><span class="menu-text" id="menu-text-one">ログイン</span></a
-                >
-              </li>
-              <li>
-                <a href="#"
-                  ><span class="menu-text" id="menu-text-two">menu2</span></a
-                >
-              </li>
-              <li>
-                <a href="#"
-                  ><span class="menu-text" id="menu-text-three">menu3</span></a
-                >
-              </li>
-            </ul>
-          </nav>
-        </section>
-        <!-- ナビゲーションパート 終わり -->
+    <div class="homeAll">
+      <!-- タイムラインを入れこむ場所 始まり -->
+      <section class="timelineSpace">
+        <div class="timelineSpace-title-all">
+          <div class="timelineSpace-headerTitle-one">
+            <span>みんなのメモ一覧</span>
+          </div>
+          <div class="timelineSpace-headerTitle-two">
+            <span>コースごとにメモを選んでね！</span>
+            <div class="timelineSpace-button">
+              <select class="Couse-Selecter">
+                <option value="AllCouse">すべて表示</option>
+                <option value="iPhoneAppDevCouse">
+                  iPhoneアプリ開発コース
+                </option>
+                <option value="GameAppDevCouse">Gameアプリ開発コース</option>
+                <option value="webServeDevCouse">webサービス開発コース</option>
+                <option value="WebExpertCouse">WebExpertコース</option>
+                <option value="VideoEditorCouse">VideoEditorコース</option>
+                <option value="UI-UTCouse">UI/UXコース</option>
+                <option value="AICouse">AIコース</option>
+                <option value="PythonCouse">Pythonコース</option>
+              </select>
+              <button class="timelineSpace-button-serch">検索</button>
+            </div>
+          </div>
+          <!-- <div class="timelineSpace-headerTitle-three">
+            <span>他のユーザーが作ったメモを参考にしてみよう！</span>
+          </div> -->
+        </div>
+        <div class="timelineSpace-upload">
+          <div class="timelineSpace-upload-headerTitle">
+            <span> 更新日:2022/06/10 </span>
+          </div>
+          <div class="timelineSpace-upload-user">
+            <div class="timelineSpace-upload-user-information">
+              <input
+                type="submit"
+                value="icon"
+                class="timelineSpace-upload-user-information-iconButton"
+              />
 
-        <!-- テキストパート 始まり -->
-        <section calass="textStyle">
-          <div class="GeekSalon">GeekSalon</div>
-        </section>
-        <!-- テキストパート 終わり -->
+              <div class="timelineSpace-upload-user-information-name">
+                <span>名前</span>
+              </div>
+              <div class="timelineSpace-upload-user-information-course">
+                <span>コース名</span>
+              </div>
+            </div>
+            <div class="timelineSpace-upload-user-favorite">
+              <label>
+                <input
+                  type="checkbox"
+                  class="timelineSpace-upload-user-favorite-input"
+                />
+                <span>お気に入り</span>
+              </label>
+            </div>
+            <nav>
+              <li>
+                <a href="#" class="timelineSpace-upload-user-link">
+                  <div class="timelineSpace-upload-user-link-titleName">
+                    タイトル
+                  </div></a
+                >
+              </li>
+            </nav>
+          </div>
+        </div>
+      </section>
+      <!-- タイムラインに入れこむ場所 終わり -->
 
-        <!-- ログインパート 始まり -->
-        <section class="login">
-          <button class="login-button">
-            <a href="../ログイン/login.html">
-              <span class="login-text">ログイン</span>
-            </a>
+      <!-- ユーザーのアカウントを一覧させる場所 始まり -->
+      <section class="acountSpace">
+        <div class="acountSpace-header">
+          <div class="acountSpace-header-title">
+            <span>みんアカ</span>
+          </div>
+          <div class="acountSpace-header-button">
+            <select class="minaka-Couse-Selecter">
+              <option value="minaka-AllCouse">すべて表示</option>
+              <option value="minaka-iPhoneAppDevCouse">
+                iPhoneアプリ開発コース
+              </option>
+              <option value="minaka-GameAppDevCouse">
+                Gameアプリ開発コース
+              </option>
+              <option value="minaka-webServeDevCouse">
+                webサービス開発コース
+              </option>
+              <option value="minaka-WebExpertCouse">WebExpertコース</option>
+              <option value="minaka-VideoEditorCouse">VideoEditorコース</option>
+              <option value="minaka-UI-UTCouse">UI/UXコース</option>
+              <option value="minaka-AICouse">AIコース</option>
+              <option value="minaka-PythonCouse">Pythonコース</option>
+            </select>
+            <button class="acountSpace-header-button-serch">検索</button>
+          </div>
+        </div>
+        <div class="acountSpace-user">
+          <div class="acountSpace-user-individual">
+            <input
+              type="submit"
+              value="icon"
+              class="acountSpace-user-individual-icon"
+              id="acountSpace-user-individual-icon"
+            />
+            <div class="acountSpace-user-individual-course">
+              <span class="acountSpace-user-individual-course-userName"
+                >あいうえおかきくけこ</span
+              >
+              <span class="acountSpace-user-individual-course-courseName"
+                >Gameアプリ開発コース</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- 投稿する場所 始まり -->
+        <section class="uploadSpace">
+          <button class="uploadSpace-button">
+            <span class="uploadSpace-button-text">投稿する</span>
           </button>
         </section>
-        <!-- ログインパート 終わり -->
-      </div>
-    </header>
+        <!-- 投稿する場所 終わり -->
+      </section>
+      <!-- ユーザーのアカウントを一覧させる場所 終わり -->
+    </div>
   </body>
   <router-vue />
   <router-link to="memoFormat">
     <div class="memoFormat">memoFormat</div>
   </router-link>
+  <router-link to="myAcount">myAcount</router-link>
 </template>
 
 <script>
@@ -65,168 +147,470 @@ export default {
 </script>
 
 <style scoped>
+template {
+  margin: 0px;
+  padding: 0px;
+}
 body {
-  /* border: 4px solid black; */
-  font-family: "Roboto Slab", serif;
-
-  /* user-select: none; */
-}
-.header-all {
-  background-color: #c7887fdd;
-  padding: 10px auto 0;
+  /* border: 2px solid black; */
   width: 100%;
-  height: 100px;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* ナビゲーションパート 始まり */
-.gMenu {
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: 100%;
-  z-index: 99;
-}
-/* メニューアイコンを画面右上に固定しています */
-.gMenu .menu-icon {
-  cursor: pointer;
+  height: 700px;
   position: absolute;
-  left: 45px;
-  top: 48px;
-  padding-top: 5px;
-  height: 12px;
+  top: 0;
+  left: 0;
+  padding: 0px;
+  margin: 0px;
 }
-/* メニューアイコン（三本線）の真ん中の線です */
-.gMenu .menu-icon .navicon {
-  background: #ffc107; /* 色は自由に変更可能です */
-  display: block;
-  height: 8px; /* 太さ */
-  width: 65px; /* 長さ */
-  position: relative;
-  transition: background 0.4s ease-out; /* 形が変わる時のアニメーション */
-}
-/* メニューアイコン（三本線）の上と下の線を疑似要素で追加 */
-.gMenu .menu-icon .navicon::before,
-.gMenu .menu-icon .navicon::after {
-  background: #ffc107; /* 色は自由に変更可能です */
-  content: "";
-  display: block;
+.homeAll {
+  /* border: 2px solid red; */
+  width: 100%;
   height: 100%;
-  position: absolute;
-  transition: all 0.4s ease-out; /* 形が変わる時のアニメーション */
-  width: 100%;
-}
-.gMenu .menu-icon .navicon::before {
-  top: 20px;
-} /* 位置を上にずらしています */
-.gMenu .menu-icon .navicon::after {
-  top: -20px;
-} /* 位置を下にずらしています */
-/* 表示されるメニューです */
-.gMenu .menu {
-  background-color: rgba(255, 255, 255, 0.9);
-  overflow: hidden;
-  max-height: 0; /* ★最初は高さを0にして非表示状態に */
-  transition: max-height 0.6s; /* 表示されるときのアニメーション */
-  text-align: center;
-  list-style: none;
-}
-/* メニュー部分のデザインです */
-.gMenu .menu li:first-of-type {
-  padding-top: 25px;
-  padding-top: 50px;
-}
-.gMenu .menu li a {
-  display: block;
-  padding: 24px 20px;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-.gMenu .menu li a:hover {
-  background-color: #f1f1f1b1;
-}
-/* チェックボックスは常に非表示です */
-.gMenu .menu-btn {
-  display: none;
-}
-/* ▼▼▼以下はチェックボックスがONの時の状態です▼▼▼ */
-.gMenu .menu-btn:checked ~ .menu {
-  max-height: 338px; /* ★チェックボックスがオンの時高さを338pxにして表示させます */
-  transition: max-height 0.6s;
-}
-/* メニューボタンの中央の線を非表示に */
-.gMenu .menu-btn:checked ~ .menu-icon .navicon {
-  background: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
 }
 
-/* メニューボタンの上下の線を45度傾けて✕印を作ります */
-.gMenu .menu-btn:checked ~ .menu-icon .navicon::before {
-  transform: rotate(-45deg);
-  top: 0;
+/* タイムラインを入れこむ場所 始まり */
+.timelineSpace {
+  /* border: 2px solid blue; */
+  width: 75%;
+  height: auto;
+  text-align: center;
 }
-.gMenu .menu-btn:checked ~ .menu-icon .navicon::after {
-  transform: rotate(45deg);
-  top: 0;
+.timelineSpace-title-all {
+  background-color: #c7887fdd;
+  height: 110px;
 }
-.menu-text {
-  background-image: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.timelineSpace-title-all span {
+  color: white;
+}
+.timelineSpace-headerTitle-one {
+  /* border: 4px solid green; */
+  width: 100%;
   font-size: 30px;
   font-weight: bold;
 }
-/* ナビゲーションパート終わり */
-
-/* テキストパート 始まり */
-.textStyle {
-  position: absolute;
+.timelineSpace-headerTitle-two {
+  /* border: 4px solid green; */
+  margin: 5px auto;
 }
-.GeekSalon {
-  /* border: 4px solid black; */
+.Couse-Selecter {
+  width: 200px;
+}
+.timelineSpace-button-serch {
+  border-radius: 2px;
+  border: 1px solid black;
+  font-weight: bold;
+  color: black;
+}
+.timelineSpace-button-serch:hover {
+  cursor: pointer;
+  background-color: rgb(229, 230, 231);
+}
+.timelineSpace-button-serch:active {
+  transform: scale(0.98);
+}
+.timelineSpace-upload {
+  /* border: 2px solid red; */
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden scroll;
+  background-color: rgba(255, 239, 216, 0.747);
+}
+.timelineSpace-upload-headerTitle {
+  /* border: 2px solid red; */
+  width: 90%;
+  height: 5%;
+  margin: 5px auto;
+  display: flex;
+  position: relative;
+}
+.timelineSpace-upload-headerTitle span {
   position: absolute;
   bottom: 0;
-  left: 150px;
-  font-size: 50px;
-  text-align: center;
 }
-/* テキストパート 終わり */
-
-/* ログインパート 始まり */
-.login-button {
-  position: absolute;
-  right: 10px;
-  top: 0;
-  width: 100px;
-  height: 100px;
-  border: 2px solid #c7887fdd;
-  background-color: rgba(255, 235, 205, 0.747);
+.timelineSpace-upload-user {
+  /* border: 2px solid royalblue; */
+  filter: drop-shadow(1px 2px 3px #dddddd);
+  width: 90%;
+  height: 25%;
+  margin: 15px auto;
+  background-color: white;
 }
-.login-button:hover {
+.timelineSpace-upload-user-favorite {
+  /* border: 2px solid red; */
+  display: flex;
+  position: relative;
+}
+.timelineSpace-upload-user-favorite-input {
+  position: relative;
+  top: 0px;
+}
+.timelineSpace-upload-user-favorite-input:hover {
   cursor: pointer;
-  background-color: #fccb90;
 }
-.login-text {
-  color: black;
+.timelineSpace-upload-user-favorite span {
+  /* border: 2px solid blue; */
+  color: red;
   font-weight: bold;
-  font-size: 20px;
+  position: relative;
+  bottom: 0;
 }
-.login .login-button a {
-  text-decoration: none;
+.timelineSpace-upload-user-information {
+  /* border: 2px solid red; */
+  display: flex;
+  position: relative;
+  border-bottom: 3px solid black;
 }
-/* ログインパート 終わり */
-
-.test {
+.timelineSpace-upload-user-information-iconButton {
+  /* border: 2px solid peru; */
+  width: 50px;
+  height: 50px;
+  border-radius: 50% 50%;
+  background-color: aqua;
+  margin: 3px;
+}
+.timelineSpace-upload-user-information-iconButton:hover {
+  cursor: pointer;
+}
+.timelineSpace-upload-user-information-iconButton:active {
+  transform: scale(0.98);
+}
+.timelineSpace-upload-user-information-name {
+  /* border: 2px solid blue; */
+  margin: auto 10px;
+  position: relative;
+  top: 15px;
+}
+.timelineSpace-upload-user-information-course {
+  /* border: 2px solid blue; */
+  margin: auto 10px;
+  position: relative;
+  top: 15px;
+}
+nav {
+  list-style: none;
+}
+nav li {
+  /* border: 2px solid red; */
   width: 100%;
-  height: 1200px;
-  background-color: #f5d9b77a;
+  height: 85px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
 }
-.memoFormat {
+.timelineSpace-upload-user-link-titleName {
   position: absolute;
-  top: 200px;
+  left: 0px;
+}
+/* タイムラインを入れこむ場所 終わり */
+
+/* ユーザーのアカウントを一覧させる場所 始まり */
+.acountSpace {
+  /* border: 2px solid plum; */
+  width: 25%;
+  height: 100%;
+  position: relative;
+  right: 0;
+  top: 0;
+  /* background-color: rgba(255, 239, 216, 0.747); */
+}
+.acountSpace-header {
+  /* border: 2px solid black; */
+  width: 100%;
+  max-width: 100%;
+  height: 110px;
+  background-color: #eda99edd;
+}
+.acountSpace-header-title {
+  /* border: 2px solid green; */
+  width: 100%;
+  height: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.acountSpace-header-title span {
+  /* border: 2px solid red; */
+  height: 40px;
+  font-size: 30px;
+  font-weight: 900;
+  color: white;
+  padding: 0;
+}
+.acountSpace-header-button {
+  /* border: 2px solid brown; */
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  top: 5px;
+}
+.minaka-Couse-Selecter {
+  margin: auto 5px;
+  width: 50%;
+}
+.acountSpace-header-button-serch {
+  border-radius: 2px;
+  border: 1px solid black;
+  font-weight: bold;
+  color: black;
+}
+.acountSpace-header-button-serch:hover {
+  cursor: pointer;
+  background-color: rgb(229, 230, 231);
+}
+.acountSpace-header-button-serch:active {
+  transform: scale(0.98);
+}
+.acountSpace-user {
+  /* border: 2px solid red; */
+  width: 100%;
+  /* heightはautoに変える */
+  height: 100%;
+  overflow: hidden scroll;
+}
+.acountSpace-user-individual {
+  /* border: 2px solid rgb(87, 87, 87); */
+  position: relative;
+  width: 100%;
+  height: 180px;
+  margin: 10px auto;
+}
+.acountSpace-user-individual-icon {
+  /* border: 2px solid blue; */
+  width: 150px;
+  height: 150px;
+  background-color: aqua;
+  border-radius: 50% 50%;
+  position: absolute;
+  top: 15px;
+  left: 10px;
+}
+.acountSpace-user-individual-icon:hover {
+  cursor: pointer;
+}
+.acountSpace-user-individual-icon:active {
+  transform: scale(0.99);
+}
+.acountSpace-user-individual-course {
+  /* border: 2px solid brown; */
+  width: 45%;
+  height: 100%;
+  margin: auto 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  position: absolute;
+  right: 0px;
+}
+.acountSpace-user-individual-course span {
+  /* border: 2px solid red; */
+  width: 100%;
+  height: auto;
+}
+.acountSpace-user-individual-course-userName {
+  /* border: 2px solid orange; */
+  width: 100%;
+  height: min-content;
+  font-size: 13px;
+  padding: 0px;
+  margin: 0px;
+  font-weight: bold;
+  text-align: center;
+  /* border-bottom: 2px solid black; */
+  background-color: rgb(236, 232, 232);
+  position: absolute;
+  top: 30px;
+}
+.acountSpace-user-individual-course-courseName {
+  width: 50px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: gainsboro;
+  height: min-content;
+  position: absolute;
+  top: 80px;
+}
+/* ユーザーのアカウントを一覧させる場所 終わり */
+
+/* 投稿する場所 始まり */
+.uploadSpace {
+  /* border: 2px solid black; */
+  width: 25%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  bottom: 100px;
+  z-index: 100;
+  padding: 0px;
+  margin: 2px;
+}
+.uploadSpace-button {
+  border: 2px solid #ce8d83dd;
+  border-radius: 5px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #dd988edd;
+  color: white;
+  z-index: 100;
+}
+.uploadSpace-button:hover {
+  cursor: pointer;
+  background-color: #be7a70dd;
+  color: rgb(232, 227, 227);
+}
+.uploadSpace-button:active {
+  transform: scale(0.99);
+}
+.uploadSpace-button-text {
+  /* border: 2px solid red; */
+  font-size: 30px;
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  padding: 0px;
+  margin: 0px;
+}
+/* 投稿する場所 終わり */
+
+/* スマートフォン用 始まり */
+@media screen and (max-width: 640px) {
+  body {
+    /* border: 2px solid black; */
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+  }
+  .homeAll {
+    /* border: 2px solid gray; */
+    width: 100vw;
+    height: 100vw;
+  }
+  /* タイムラインを入れこむ場所 始まり */
+  .timelineSpace {
+    /* border: 2px solid blue; */
+    width: 75vw;
+    height: 100vh;
+  }
+  .timelineSpace-title-all {
+  }
+  .timelineSpace-title-all span {
+  }
+  .timelineSpace-headerTitle-one {
+    /* border: 2px solid green; */
+  }
+  .timelineSpace-headerTitle-two {
+    /* border: 2px solid green; */
+  }
+  .timelineSpace-button {
+    /* border: 2px solid green; */
+  }
+  .Couse-Selecter {
+  }
+  .timelineSpace-button-serch {
+  }
+  .timelineSpace-button-serch:hover {
+  }
+  .timelineSpace-button-serch:active {
+  }
+
+  .timelineSpace-upload {
+    /* border: 2px solid red; */
+  }
+  /* タイムラインを入れこむ場所 終わり */
+
+  /* ユーザーのアカウントを一覧させる場所 始まり */
+  .acountSpace {
+    /* border: 2px solid orange; */
+  }
+  .acountSpace-header {
+    /* border: 2px solid black; */
+  }
+  .acountSpace-header-title span {
+    font-size: 20px;
+  }
+  .acountSpace-header-button {
+    /* border: 2px solid red; */
+    height: 40px;
+    position: relative;
+    top: -10px;
+    display: block;
+  }
+  .minaka-Couse-Selecter {
+    width: 80px;
+  }
+  .acountSpace-header-button-serch {
+    font-size: 10px;
+    padding: 0;
+    position: absolute;
+    bottom: 0px;
+    right: 35px;
+  }
+  .acountSpace-user-individual {
+    height: 200px;
+  }
+  .acountSpace-user-individual-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50% 50%;
+    margin: 0px auto;
+    top: 0px;
+  }
+  .acountSpace-user-individual-course {
+    /* border: 2px solid green; */
+    width: 100%;
+    height: 40%;
+    margin: 0px;
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+  }
+  .acountSpace-user-individual-course-userName {
+    /* border: 2px solid black; */
+    width: 100%;
+    font-size: 15px;
+    position: absolute;
+    top: -25px;
+    margin: auto;
+  }
+  .acountSpace-user-individual-course-courseName {
+    /* border: 2px solid orange; */
+    position: absolute;
+    top: 25px;
+    font-size: 15px;
+  }
+
+  /* 投稿するところ 始まり */
+  .uploadSpace {
+    bottom: 20px;
+    height: 100px;
+  }
+  .uploadSpace-button {
+    /* border: 2px solid red; */
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+  }
+  .uploadSpace-button-text {
+    /* border: 2px solid black; */
+    font-size: 20px;
+  }
+  /* 投稿することろ 終わり */
 }
 </style>
