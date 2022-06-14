@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <div class="all">
     <div class="homeAll">
       <!-- タイムラインを入れこむ場所 始まり -->
       <section class="timelineSpace">
@@ -135,52 +135,21 @@
       </section>
       <!-- ユーザーのアカウントを一覧させる場所 終わり -->
     </div>
-  </body>
+  </div>
   <router-vue />
+  <router-link to="memoFormat">
+    <div class="memoFormat">memoFormat</div>
+  </router-link>
+  <router-link to="myAccount">myAccount</router-link>
+  <router-link to="aboutView">aboutView</router-link>
 </template>
 
-<script>
-import headerSpace from "./headerSpace.vue"
-import { collection, getDocs } from "firebase/firestore"
-import { db } from "../firebase"
-
-export default {
-  data() {
-    return {
-      memos: [],
-    }
-  },
-  created() {
-    getDocs(collection(db, "memos")).then((snapshot) => {
-      snapshot.forEach((doc) => {
-        this.memos.push({
-          id: doc.id,
-          ...doc.data(),
-        })
-      })
-    })
-  },
-  views: {
-    headerSpace,
-  },
-}
-</script>
+<script></script>
 
 <style scoped>
-template {
-  margin: 0px;
-  padding: 0px;
-}
-* {
-  z-index: 0;
-}
-body {
+.all {
   /* border: 2px solid black; */
   width: 100%;
-  height: 700px;
-  position: absolute;
-  top: 0;
-  left: 0;
   padding: 0px;
   margin: 0px;
 }

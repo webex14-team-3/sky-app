@@ -7,8 +7,7 @@ export default createStore({
   },
   getters: {},
   mutations: {
-    // stateの中にある値を更新する関数を書く
-    // ※必ずここで書き換える
+    // stateの中にある値を更新するコードを書く
     updateUserInfo(state, user) {
       state.user = user
     },
