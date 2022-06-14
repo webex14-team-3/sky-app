@@ -67,7 +67,15 @@ export default {
       const provider = new GoogleAuthProvider()
       const auth = getAuth()
       signInWithPopup(auth, provider).then((result) => {
-        this.$store.commit("updateUserInfo", { uid: result.user.uid })
+        this.$store.commit("updateUserInfo", {
+          uid: result.user.uid,
+          name: result.user.displayName,
+          img: result.user.photoURL,
+        })
+        // 書き方(個人のIDを取得するコード) templateに書く
+        // {{ this.$store.state.user.uid }}
+        //  {{ this.$store.state.user.img }}
+
         console.log(this.$store.state.user.uid)
       })
     },

@@ -2,11 +2,13 @@ import { createStore } from "vuex"
 
 export default createStore({
   state: {
+    // 使いたいデータを書く
     user: null,
   },
   getters: {},
   mutations: {
-    stateの中にある値を更新するコードを書く
+    // stateの中にある値を更新する関数を書く
+    // ※必ずここで書き換える
     updateUserInfo(state, user) {
       state.user = user
     },
