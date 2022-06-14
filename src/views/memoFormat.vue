@@ -21,8 +21,8 @@
       </section>
       <!-- 本文 終わり -->
 
-      <span class="function">機能</span>
       <!-- 機能 始まり -->
+      <!-- <span class="function">機能</span>
       <section class="container-function">
         <button class="container-function-colorChangeButton">
           <span>C</span>
@@ -55,7 +55,7 @@
         <button class="container-function-fail">
           <span>File</span>
         </button>
-      </section>
+      </section> -->
       <!-- 機能 終わり -->
 
       <!-- 投稿 始まり -->
@@ -82,10 +82,11 @@ export default {
   },
   methods: {
     postMemo() {
-      const memo = {
+      let memo = {
         title: this.inputTitle,
         text: this.inputMemo,
       }
+      // タイトルとテキストの両方が書かれていないと投稿できないようにする
       if ((memo.title == "") | (memo.text == "")) {
         alert("タイトルと本文を入力してください")
       } else {
@@ -96,6 +97,9 @@ export default {
           })
         })
       }
+      //テキストエリアを空にしたい
+      memo.title.value = ""
+      memo.memo.value = ""
     },
   },
 }
@@ -252,11 +256,13 @@ body {
   justify-content: end;
 }
 .container-upload-button {
-  /* border: 2px solid green; */
+  /* ボーダーを追加し、homeScreenの投稿ボタンの色に合わせました */
+  border: 2px solid #ce8d83dd;
   width: 30%;
   height: 100%;
-  background-color: #c7887fdd;
+  background-color: #dd988edd;
   border-radius: 5px;
+  color: white;
 }
 .container-upload-button:hover {
   cursor: pointer;

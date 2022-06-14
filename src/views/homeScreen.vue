@@ -36,11 +36,12 @@
           </div>
           <div class="timelineSpace-upload-user">
             <div class="timelineSpace-upload-user-information">
-              <input
-                type="submit"
-                value="icon"
-                class="timelineSpace-upload-user-information-iconButton"
-              />
+              <router-link to="myAcount">
+                <input
+                  type="submit"
+                  value="icon"
+                  class="timelineSpace-upload-user-information-iconButton"
+              /></router-link>
 
               <div class="timelineSpace-upload-user-information-name">
                 <span>名前</span>
@@ -63,10 +64,12 @@
                 <a href="#" class="timelineSpace-upload-user-link">
                   <div class="timelineSpace-upload-user-link-titleName">
                     タイトル
-                  </div></a
-                >
+                  </div>
+                </a>
               </li>
             </nav>
+            <!-- タイトルの表示 -->
+            <p v-for="memo in memos" :key="memo.id">{{ memo.title }}a</p>
           </div>
         </div>
       </section>
@@ -101,12 +104,14 @@
         </div>
         <div class="acountSpace-user">
           <div class="acountSpace-user-individual">
-            <input
-              type="submit"
-              value="icon"
-              class="acountSpace-user-individual-icon"
-              id="acountSpace-user-individual-icon"
-            />
+            <router-link to="myAcount">
+              <input
+                type="submit"
+                value="icon"
+                class="acountSpace-user-individual-icon"
+                id="acountSpace-user-individual-icon"
+            /></router-link>
+
             <div class="acountSpace-user-individual-course">
               <span class="acountSpace-user-individual-course-userName"
                 >あいうえおかきくけこ</span
@@ -119,26 +124,19 @@
         </div>
 
         <!-- 投稿する場所 始まり -->
-        <section class="uploadSpace">
-          <button class="uploadSpace-button">
-            <span class="uploadSpace-button-text">投稿する</span>
-          </button>
-        </section>
+        <router-link to="memoFormat">
+          <section class="uploadSpace">
+            <button class="uploadSpace-button">
+              <span class="uploadSpace-button-text">投稿する</span>
+            </button>
+          </section>
+        </router-link>
         <!-- 投稿する場所 終わり -->
       </section>
       <!-- ユーザーのアカウントを一覧させる場所 終わり -->
     </div>
   </body>
-  <div>
-    <p v-for="memo in memos" :key="memo.id">
-      {{ memo.title }}
-    </p>
-  </div>
   <router-vue />
-  <router-link to="memoFormat">
-    <div class="memoFormat">memoFormat</div>
-  </router-link>
-  <router-link to="myAcount">myAcount</router-link>
 </template>
 
 <script>
@@ -482,7 +480,7 @@ nav li {
   border: 2px solid #ce8d83dd;
   border-radius: 5px;
   padding: 0px;
-  width: 100%;
+  width: 80%;
   height: 100%;
   background-color: #dd988edd;
   color: white;
