@@ -3,7 +3,7 @@
   <!-- コンポーネントの書き方を変えられる  -->
   <!-- どちらも必要 -->
   <headerSpace />
-  <router-view />
+  <div class="container"><router-view /></div>
   <router-link to="/"></router-link>
 </template>
 
@@ -14,4 +14,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  margin-top: 100px;
+}
+</style>

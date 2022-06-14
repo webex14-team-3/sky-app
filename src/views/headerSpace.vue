@@ -1,54 +1,47 @@
 <template>
-  <body>
-    <header>
-      <div class="header-all">
-        <!-- ナビゲーションパート 始まり -->
-        <section class="nav">
-          <nav class="gMenu">
-            <input class="menu-btn" type="checkbox" id="menu-btn" />
-            <label class="menu-icon" for="menu-btn">
-              <span class="navicon"></span>
-            </label>
-            <ul class="menu">
-              <li id="menu" @click="googleLogin">
-                <a>
-                  <span class="menu-text" id="menu-text-one">ログイン</span></a
-                >
-              </li>
-              <li>
-                <a href="#"
-                  ><span class="menu-text" id="menu-text-two">menu2</span></a
-                >
-              </li>
-              <li>
-                <a href="#"
-                  ><span class="menu-text" id="menu-text-three">menu3</span></a
-                >
-              </li>
-            </ul>
-          </nav>
-        </section>
-        <!-- ナビゲーションパート 終わり -->
+  <header class="header-all">
+    <!-- ナビゲーションパート 始まり -->
+    <section class="nav">
+      <nav class="gMenu">
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn">
+          <span class="navicon"></span>
+        </label>
+        <ul class="menu">
+          <li id="menu" @click="googleLogin">
+            <a> <span class="menu-text" id="menu-text-one">ログイン</span></a>
+          </li>
+          <li>
+            <a href="#"
+              ><span class="menu-text" id="menu-text-two">menu2</span></a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><span class="menu-text" id="menu-text-three">menu3</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </section>
+    <!-- ナビゲーションパート 終わり -->
 
-        <!-- テキストパート 始まり -->
-        <section calass="textStyle">
-          <div class="GeekSalon">GeekSalon</div>
-        </section>
-        <!-- テキストパート終わり -->
+    <!-- テキストパート 始まり -->
+    <section calass="textStyle">
+      <div class="GeekSalon">GeekSalon</div>
+    </section>
+    <!-- テキストパート終わり -->
 
-        <!-- ログインパート 始まり -->
-        <section class="login">
-          <button class="login-button" @click="googleLogin">
-            <a>
-              <span class="login-text">ログイン</span>
-            </a>
-          </button>
-        </section>
-        <!-- ログインパート 終わり -->
-      </div>
-    </header>
-    <div class="screen"></div>
-  </body>
+    <!-- ログインパート 始まり -->
+    <section class="login">
+      <button class="login-button" @click="googleLogin">
+        <a>
+          <span class="login-text">ログイン</span>
+        </a>
+      </button>
+    </section>
+    <!-- ログインパート 終わり -->
+  </header>
 </template>
 
 <script>
@@ -76,21 +69,10 @@ export default {
 </script>
 
 <style scoped>
-* {
-  z-index: 10;
-}
-body {
-  /* border: 4px solid black; */
-  font-family: "Roboto Slab", serif;
-  padding: 0px;
-  margin: 0px;
-  /* user-select: none; */
-}
 .header-all {
   background-color: #c7887fdd;
   padding: 10px auto 0;
   width: 100%;
-  height: 100px;
   position: fixed;
   display: flex;
   justify-content: center;
@@ -103,7 +85,7 @@ body {
   right: 0;
   top: 0;
   width: 100%;
-  z-index: 99;
+  /* z-index: 99; */
 }
 /* メニューアイコンを画面右上に固定しています */
 .gMenu .menu-icon {
@@ -213,11 +195,11 @@ body {
 
 /* ログインパート 始まり */
 .login-button {
-  position: absolute;
+  /* position: absolute;
   right: 10px;
-  top: 0;
+  top: 0; */
   width: 100px;
-  height: 100px;
+  /* height: 100px; */
   border: 2px solid #c7887fdd;
   background-color: rgba(255, 235, 205, 0.747);
 }
