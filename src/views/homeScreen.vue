@@ -133,7 +133,8 @@
   <router-link to="memoFormat">
     <div class="memoFormat">memoFormat</div>
   </router-link>
-  <router-link to="myAcount">myAcount</router-link>
+  <router-link to="myAccount">myAccount</router-link>
+  <router-link to="aboutView">aboutView</router-link>
 </template>
 
 <script></script>
