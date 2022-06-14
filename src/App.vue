@@ -3,6 +3,7 @@
   <!-- コンポーネントの書き方を変えられる  -->
   <!-- どちらも必要 -->
   <headerSpace />
+  <!-- test -->
   <router-view />
   <router-link to="/"></router-link>
 </template>
