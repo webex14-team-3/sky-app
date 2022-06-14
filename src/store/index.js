@@ -2,6 +2,7 @@ import { createStore } from "vuex"
 
 export default createStore({
   state: {
+    // 使いたいデータを書く
     user: null,
   },
   getters: {},
