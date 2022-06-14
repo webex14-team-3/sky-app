@@ -151,6 +151,9 @@ template {
   margin: 0px;
   padding: 0px;
 }
+* {
+  z-index: 0;
+}
 body {
   /* border: 2px solid black; */
   width: 100%;

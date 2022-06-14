@@ -76,10 +76,14 @@ export default {
 </script>
 
 <style scoped>
+* {
+  z-index: 10;
+}
 body {
   /* border: 4px solid black; */
   font-family: "Roboto Slab", serif;
-
+  padding: 0px;
+  margin: 0px;
   /* user-select: none; */
 }
 .header-all {
