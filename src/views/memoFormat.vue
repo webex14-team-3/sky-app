@@ -4,7 +4,7 @@
       <span class="title">タイトル</span>
       <!-- タイトル 始まり -->
       <section class="container-title">
-        <input type="text" class="contaner-title-input" />
+        <input type="text" class="contaner-title-input" v-model="inputTitle" />
       </section>
       <!-- タイトル 終わり -->
 
@@ -15,6 +15,8 @@
           class="container-main-input"
           id="container-main-input"
           name="main"
+          v-model="inputMemo"
+          placeholder="勉強したことをメモに書いて投稿しよう！"
         ></textarea>
       </section>
       <!-- 本文 終わり -->
@@ -58,7 +60,7 @@
 
       <!-- 投稿 始まり -->
       <section class="container-upload">
-        <button class="container-upload-button">
+        <button class="container-upload-button" v-on:click="postMemo">
           <span>投稿</span>
         </button>
       </section>
@@ -67,7 +69,37 @@
   </body>
 </template>
 
-<script></script>
+<script>
+import { collection, addDoc } from "firebase/firestore"
+import { db } from "../firebase"
+
+export default {
+  data() {
+    return {
+      inputTitle: "",
+      inputMemo: "",
+    }
+  },
+  methods: {
+    postMemo() {
+      const memo = {
+        title: this.inputTitle,
+        text: this.inputMemo,
+      }
+      if ((memo.title == "") | (memo.text == "")) {
+        alert("タイトルと本文を入力してください")
+      } else {
+        addDoc(collection(db, "memos"), memo).then((ref) => {
+          this.memos.push({
+            id: ref.id,
+            ...memo,
+          })
+        })
+      }
+    },
+  },
+}
+</script>
 
 <style scoped>
 body {

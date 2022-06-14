@@ -129,6 +129,11 @@
       <!-- ユーザーのアカウントを一覧させる場所 終わり -->
     </div>
   </body>
+  <div>
+    <p v-for="memo in memos" :key="memo.id">
+      {{ memo.title }}
+    </p>
+  </div>
   <router-vue />
   <router-link to="memoFormat">
     <div class="memoFormat">memoFormat</div>
@@ -138,8 +143,25 @@
 
 <script>
 import headerSpace from "./headerSpace.vue"
+import { collection, getDocs } from "firebase/firestore"
+import { db } from "../firebase"
 
 export default {
+  data() {
+    return {
+      memos: [],
+    }
+  },
+  created() {
+    getDocs(collection(db, "memos")).then((snapshot) => {
+      snapshot.forEach((doc) => {
+        this.memos.push({
+          id: doc.id,
+          ...doc.data(),
+        })
+      })
+    })
+  },
   views: {
     headerSpace,
   },
