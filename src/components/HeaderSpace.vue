@@ -1,29 +1,31 @@
 <template>
   <header class="container">
-    <!-- ナビゲーションパート start -->
-    <nav class="hamburger-menu">
-      <input class="menu-btn" type="checkbox" id="menu-btn" />
-      <label class="menu-icon" for="menu-btn">
-        <span class="nav-icon"></span>
-      </label>
-      <!-- 見出し -->
-      <ul class="header-menu">
-        <li class="hamburger-menu-login" @click="googleLogin">
-          <span class="menu-text" id="menu-text-one">ログイン</span>
-        </li>
-        <li>
-          <span class="menu-text" id="menu-text-two">menu2</span>
-        </li>
-        <li>
-          <span class="menu-text" id="menu-text-three">menu3</span>
-        </li>
-      </ul>
-    </nav>
-    <!-- ナビゲーションパート end -->
+    <div class="headerleft">
+      <!-- ナビゲーションパート start -->
+      <nav class="hamburger-menu">
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn">
+          <span class="nav-icon"></span>
+        </label>
+        <!-- 見出し -->
+        <ul class="header-menu">
+          <li class="hamburger-menu-login" @click="googleLogin">
+            <span class="menu-text" id="menu-text-one">ログイン</span>
+          </li>
+          <li>
+            <span class="menu-text" id="menu-text-two">menu2</span>
+          </li>
+          <li>
+            <span class="menu-text" id="menu-text-three">menu3</span>
+          </li>
+        </ul>
+      </nav>
+      <!-- ナビゲーションパート end -->
 
-    <!-- テキストパート start -->
-    <div class="header-title">GeekSalon</div>
-    <!-- テキストパート end -->
+      <!-- テキストパート start -->
+      <div class="header-title">GeekSalon</div>
+      <!-- テキストパート end -->
+    </div>
 
     <!-- ログインパート start -->
     <button class="login-button" @click="googleLogin">ログイン</button>
@@ -54,6 +56,9 @@ export default {
   background-color: #c7887fdd;
   display: flex;
   justify-content: space-between;
+}
+.headerleft {
+  display: flex;
 }
 
 /* ナビゲーションパート start */

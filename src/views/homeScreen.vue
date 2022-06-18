@@ -159,7 +159,7 @@
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 /* タイムラインを入れこむ場所 始まり */
