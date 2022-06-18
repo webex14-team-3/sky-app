@@ -81,7 +81,20 @@
   </body>
 </template>
 
-<script></script>
+<script>
+export default {
+  created() {
+    if (!this.$store.state.user) {
+      alert("ログインしてください!")
+      // ↓ path:を定義すると画面遷移ができる
+      // (ログインしないとプロフィールに行けないようになるコード)
+      this.$router.push({ path: "/" })
+      // ↓ {}内で処理をとどめるコード
+      return
+    }
+  },
+}
+</script>
 
 <style scoped>
 body {
@@ -326,10 +339,9 @@ nav li {
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 0px;
+  bottom: 30px;
   left: 0px;
-  bottom: 100px;
-  z-index: 100;
+  z-index: 1;
   padding: 0px;
   margin: 2px;
 }
@@ -341,7 +353,7 @@ nav li {
   height: 100%;
   background-color: #dd988edd;
   color: white;
-  z-index: 100;
+  z-index: 0;
 }
 .uploadSpace-button:hover {
   cursor: pointer;
@@ -398,12 +410,13 @@ nav li {
   .uploadSpace {
     height: 120px;
     left: 0px;
-    top: 350px;
+    bottom: 50px;
   }
   .uploadSpace-button-text {
     font-size: 20px;
   }
 }
 /* 投稿する場所 終わり */
+
 /* スマートフォン用 終わり */
 </style>

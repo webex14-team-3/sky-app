@@ -1,29 +1,43 @@
 <template>
   <header class="container">
-    <!-- ナビゲーションパート start -->
-    <nav class="hamburger-menu">
-      <input class="menu-btn" type="checkbox" id="menu-btn" />
-      <label class="menu-icon" for="menu-btn">
-        <span class="nav-icon"></span>
-      </label>
-      <!-- 見出し -->
-      <ul class="header-menu">
-        <li class="hamburger-menu-login" @click="googleLogin">
-          <span class="menu-text" id="menu-text-one">ログイン</span>
-        </li>
-        <li>
-          <span class="menu-text" id="menu-text-two">menu2</span>
-        </li>
-        <li>
-          <span class="menu-text" id="menu-text-three">menu3</span>
-        </li>
-      </ul>
-    </nav>
-    <!-- ナビゲーションパート end -->
+    <div class="headerleft">
+      <!-- ナビゲーションパート start -->
+      <nav class="hamburger-menu">
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn">
+          <span class="nav-icon"></span>
+        </label>
+        <!-- 見出し -->
+        <ul class="header-menu">
+          <li>
+            <router-link to="/">
+              <span class="menu-text" id="menu-text-one"
+                >トップページ</span
+              ></router-link
+            >
+          </li>
+          <li>
+            <router-link to="myAccount">
+              <span class="menu-text" id="menu-text-two"
+                >マイページ</span
+              ></router-link
+            >
+          </li>
+          <li>
+            <router-link to="aboutView">
+              <span class="menu-text" id="menu-text-three"
+                >プロフィール設定</span
+              ></router-link
+            >
+          </li>
+        </ul>
+      </nav>
+      <!-- ナビゲーションパート end -->
 
-    <!-- テキストパート start -->
-    <div class="header-title">GeekSalon</div>
-    <!-- テキストパート end -->
+      <!-- テキストパート start -->
+      <div class="header-title">GeekSalon</div>
+      <!-- テキストパート end -->
+    </div>
 
     <!-- ログインパート start -->
     <button class="login-button" @click="googleLogin">ログイン</button>
@@ -33,6 +47,8 @@
 
 <script>
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth"
+import { doc, setDoc } from "firebase/firestore"
+import { db } from "@/firebase"
 
 export default {
   methods: {
@@ -40,10 +56,17 @@ export default {
       // new"ネームプレート" provider "インスタンス"
       const provider = new GoogleAuthProvider()
       const auth = getAuth()
-      signInWithPopup(auth, provider).then((result) => {
-        this.$store.commit("updateUserInfo", { uid: result.user.uid })
-        console.log(this.$store.state.user.uid)
-      })
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          this.$store.commit("updateUserInfo", { uid: result.user.uid })
+          console.log(this.$store.state.user.uid)
+          return result.user.uid
+        })
+        .then(async (uid) => {
+          // {}入れないとデータベースに入る形での登録はできない
+          // ※今まではauthの認証で入ってただけ
+          await setDoc(doc(db, "users", `${uid}`), {})
+        })
     },
   },
 }
@@ -55,18 +78,25 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+.headerleft {
+  display: flex;
+}
 
 /* ナビゲーションパート start */
 
+.hamburger-menu {
+  width: 80px;
+  margin-right: 8px;
+}
 /* メニューアイコン（三本線）の真ん中の線です */
 .hamburger-menu .menu-icon .nav-icon {
   background: #ffc107; /* 色は自由に変更可能です */
   display: block;
   height: 8px; /* 太さ */
-  width: 65px; /* 長さ */
   position: relative;
   transition: background 0.4s ease-out; /* 形が変わる時のアニメーション */
   margin: 12px 0 0 12px;
+  z-index: 20;
 }
 /* メニューアイコン（三本線）の上と下の線を疑似要素で追加 */
 .hamburger-menu .menu-icon .nav-icon::before,
@@ -78,6 +108,7 @@ export default {
   position: absolute;
   transition: all 0.4s ease-out; /* 形が変わる時のアニメーション */
   width: 100%;
+  z-index: 20;
 }
 .hamburger-menu .menu-icon .nav-icon::before {
   top: 20px;
@@ -87,23 +118,29 @@ export default {
 } /* 位置を下にずらしています */
 /* 表示されるメニューです */
 .header-menu {
+  z-index: 10;
+  padding: 0;
+  margin: 0;
   background-color: rgba(255, 255, 255, 0.9);
   overflow: hidden;
   max-height: 0; /* ★最初は高さを0にして非表示状態に */
   transition: max-height 0.6s; /* 表示されるときのアニメーション */
   text-align: center;
   list-style: none;
-  padding: 0;
-  margin-left: 80px;
   width: 100%;
+  height: 100vh;
+  position: absolute;
+}
+li:active {
 }
 /* メニュー部分のデザインです */
 
 .hamburger-menu .header-menu li a {
   display: block;
-  padding: 24px 20px;
   text-decoration: none;
   text-transform: uppercase;
+  margin: 60px 0 0 0;
+  padding: 25px;
 }
 .hamburger-menu .header-menu li a:hover {
   background-color: #f1f1f1b1;
@@ -114,7 +151,7 @@ export default {
 }
 /* ▼▼▼以下はチェックボックスがONの時の状態です▼▼▼ */
 .hamburger-menu .menu-btn:checked ~ .header-menu {
-  max-height: 338px; /* ★チェックボックスがオンの時高さを338pxにして表示させます */
+  max-height: 100vh; /* ★チェックボックスがオンの時高さを338pxにして表示させます */
   transition: max-height 0.6s;
 }
 /* メニューボタンの中央の線を非表示に */
@@ -139,6 +176,7 @@ export default {
   color: transparent;
   font-size: 30px;
   font-weight: bold;
+  border-bottom: 2px solid #d57eeb;
 }
 
 .hamburger-menu-login:hover {
@@ -149,6 +187,8 @@ export default {
 /* テキストパート start */
 .header-title {
   font-size: 50px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  padding: 15px 8px 0;
 }
 /* テキストパート end */
 

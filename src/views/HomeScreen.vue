@@ -4,11 +4,9 @@
       <!-- タイムラインを入れこむ場所 始まり -->
       <section class="timelineSpace">
         <div class="timelineSpace-title-all">
-          <div class="timelineSpace-headerTitle-one">
-            <span>みんなのメモ一覧</span>
-          </div>
+          <p class="timelineSpace-headerTitle-one">みんなのメモ一覧</p>
           <div class="timelineSpace-headerTitle-two">
-            <span>コースごとにメモを選んでね！</span>
+            <p>コースごとにメモを選んでね！</p>
             <div class="timelineSpace-button">
               <select class="Couse-Selecter">
                 <option value="AllCouse">すべて表示</option>
@@ -80,8 +78,9 @@
       </section>
       <!-- タイムラインに入れこむ場所 終わり -->
 
+      <!-- 一端みんめもは他の機能が完成してから実装する -->
       <!-- ユーザーのアカウントを一覧させる場所 始まり -->
-      <section class="acountSpace">
+      <!-- <section class="acountSpace">
         <div class="acountSpace-header">
           <div class="acountSpace-header-title">
             <span>みんアカ</span>
@@ -127,17 +126,18 @@
             </div> -->
           </div>
         </div>
+      </section> -->
 
-        <!-- 投稿する場所 始まり -->
-        <router-link to="memoFormat">
-          <section class="uploadSpace">
-            <button class="uploadSpace-button">
-              <span class="uploadSpace-button-text">投稿する</span>
-            </button>
-          </section>
-        </router-link>
-        <!-- 投稿する場所 終わり -->
-      </section>
+      <!-- 投稿する場所 始まり -->
+      <router-link to="memoFormat">
+        <section class="uploadSpace">
+          <button class="uploadSpace-button">
+            <span class="uploadSpace-button-text">投稿する</span>
+          </button>
+        </section>
+      </router-link>
+      <!-- 投稿する場所 終わり -->
+
       <!-- ユーザーのアカウントを一覧させる場所 終わり -->
     </div>
   </div>
@@ -173,53 +173,45 @@ export default {
 </script>
 
 <style scoped>
-.all {
-  /* border: 2px solid black; */
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
-}
-.homeAll {
-  /* border: 2px solid red; */
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  /* justify-content: start; */
-}
-
 /* タイムラインを入れこむ場所 始まり */
 .timelineSpace {
   /* border: 2px solid blue; */
-  width: 75%;
-  height: auto;
   text-align: center;
 }
 .timelineSpace-title-all {
+  /* border: 2px solid blue; */
   background-color: #c7887fdd;
-  height: 110px;
-}
-.timelineSpace-title-all span {
+  padding: 0 0 8px;
   color: white;
 }
 .timelineSpace-headerTitle-one {
-  /* border: 4px solid green; */
-  width: 100%;
+  /* border: 2px solid green; */
   font-size: 30px;
   font-weight: bold;
+  margin: 0px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 .timelineSpace-headerTitle-two {
-  /* border: 4px solid green; */
-  margin: 5px auto;
+  /* border: 2px solid green; */
+  margin: 0px 0px 5px;
+  font-size: 20px;
+  font-weight: 900;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.timelineSpace-headerTitle-two p {
+  margin: 0px;
+  padding: 8px;
 }
 .Couse-Selecter {
   width: 200px;
+  height: 25px;
 }
 .timelineSpace-button-serch {
   border-radius: 2px;
   border: 1px solid black;
   font-weight: bold;
   color: black;
+  margin-left: 8px;
 }
 .timelineSpace-button-serch:hover {
   cursor: pointer;
@@ -230,15 +222,13 @@ export default {
 }
 .timelineSpace-upload {
   /* border: 2px solid red; */
-  width: 100%;
-  height: 100%;
-  display: block;
-  overflow: hidden scroll;
   background-color: rgba(255, 239, 216, 0.747);
+  padding: 16px;
 }
+/* 更新日の位置をへんこうすること */
 .timelineSpace-upload-headerTitle {
   /* border: 2px solid red; */
-  width: 90%;
+  width: 100%;
   height: 5%;
   margin: 5px auto;
   display: flex;
@@ -250,7 +240,7 @@ export default {
 }
 .timelineSpace-upload-user {
   /* border: 2px solid royalblue; */
-  filter: drop-shadow(1px 2px 3px #dddddd);
+  box-shadow: 5px 5px 5px #dddddd;
   width: 90%;
   height: 25%;
   margin: 15px auto;
@@ -474,7 +464,6 @@ nav li {
   bottom: 0px;
   right: 0px;
   bottom: 100px;
-  z-index: 100;
   padding: 0px;
   margin: 2px;
 }
@@ -510,23 +499,18 @@ nav li {
 
 /* スマートフォン用 始まり */
 @media screen and (max-width: 640px) {
-  body {
+  .all {
     /* border: 2px solid black; */
-    width: 100vw;
-    height: 100vh;
-    padding: 0px;
-    margin: 0px;
+    width: 100%;
   }
   .homeAll {
     /* border: 2px solid gray; */
-    width: 100vw;
-    height: 100vw;
+    width: 100%;
   }
   /* タイムラインを入れこむ場所 始まり */
   .timelineSpace {
     /* border: 2px solid blue; */
-    width: 75vw;
-    height: 100vh;
+    width: 100%;
   }
   .timelineSpace-title-all {
   }
