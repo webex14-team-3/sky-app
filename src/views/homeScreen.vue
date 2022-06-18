@@ -185,7 +185,7 @@ export default {
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  /* justify-content: start; */
 }
 
 /* タイムラインを入れこむ場所 始まり */

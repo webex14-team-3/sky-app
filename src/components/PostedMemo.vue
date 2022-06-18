@@ -1,6 +1,6 @@
 <template>
   <div class="posted-memo" v-bind:class="memoClass">
-    <!-- <div class="timelineSpace-upload-headerTitle">
+    <div class="timelineSpace-upload-headerTitle">
       <span> 更新日:2022/06/10 </span>
     </div>
     <div class="timelineSpace-upload-user">
@@ -35,7 +35,7 @@
           </a>
         </li>
       </nav>
-    </div> -->
+    </div>
     <p>{{ memo.title }}</p>
     <p>{{ memo.text }}</p>
   </div>
