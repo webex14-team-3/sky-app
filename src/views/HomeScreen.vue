@@ -116,7 +116,7 @@
                 id="acountSpace-user-individual-icon"
             /></router-link>
 
-            <!-- <div class="acountSpace-user-individual-course">
+            <div class="acountSpace-user-individual-course">
               <span class="acountSpace-user-individual-course-userName"
                 >あいうえおかきくけこ</span
               >
@@ -124,9 +124,9 @@
                 >Gameアプリ開発コース</span
               >
             </div> -->
-          </div>
-        </div>
-      </section> -->
+      <!-- </div> -->
+      <!-- </div> -->
+      <!-- </section>  -->
 
       <!-- 投稿する場所 始まり -->
       <router-link to="memoFormat">
