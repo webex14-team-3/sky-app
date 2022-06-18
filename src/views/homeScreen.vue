@@ -31,7 +31,12 @@
           </div> -->
         </div>
         <div class="timelineSpace-upload">
-          <div class="timelineSpace-upload-headerTitle">
+          <posted-memo
+            v-for="memo in memos"
+            v-bind:key="memo.id"
+            v-bind:memo="memo"
+          />
+          <!-- <div class="timelineSpace-upload-headerTitle">
             <span> 更新日:2022/06/10 </span>
           </div>
           <div class="timelineSpace-upload-user">
@@ -68,9 +73,9 @@
                 </a>
               </li>
             </nav>
-            <!-- タイトルの表示 -->
-            <p v-for="memo in memos" :key="memo.id">{{ memo.title }}a</p>
-          </div>
+            タイトルの表示
+            <p v-for="memo in memos" :key="memo.id">{{ memo.title }}</p>
+          </div> -->
         </div>
       </section>
       <!-- タイムラインに入れこむ場所 終わり -->
@@ -112,14 +117,14 @@
                 id="acountSpace-user-individual-icon"
             /></router-link>
 
-            <div class="acountSpace-user-individual-course">
+            <!-- <div class="acountSpace-user-individual-course">
               <span class="acountSpace-user-individual-course-userName"
                 >あいうえおかきくけこ</span
               >
               <span class="acountSpace-user-individual-course-courseName"
                 >Gameアプリ開発コース</span
               >
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -137,14 +142,35 @@
     </div>
   </div>
   <router-vue />
-  <router-link to="memoFormat">
-    <div class="memoFormat">memoFormat</div>
-  </router-link>
-  <router-link to="myAccount">myAccount</router-link>
-  <router-link to="aboutView">aboutView</router-link>
 </template>
 
-<script></script>
+<script>
+// import headerSpace from "./headerSpace.vue"
+import PostedMemo from "@/components/PostedMemo.vue"
+import { collection, getDocs } from "firebase/firestore"
+import { db } from "../firebase"
+
+export default {
+  components: {
+    PostedMemo,
+  },
+  data() {
+    return {
+      memos: [],
+    }
+  },
+  created() {
+    getDocs(collection(db, "testMemos")).then((snapshot) => {
+      snapshot.forEach((doc) => {
+        this.memos.push({
+          id: doc.id,
+          ...doc.data(),
+        })
+      })
+    })
+  },
+}
+</script>
 
 <style scoped>
 .all {
@@ -368,7 +394,7 @@ nav li {
 }
 .acountSpace-user-individual {
   /* border: 2px solid rgb(87, 87, 87); */
-  position: relative;
+  /* position: relative; */
   width: 100%;
   height: 180px;
   margin: 10px auto;
@@ -379,9 +405,13 @@ nav li {
   height: 150px;
   background-color: aqua;
   border-radius: 50% 50%;
-  position: absolute;
-  top: 15px;
-  left: 10px;
+  /* 画像を中央に配置するために下記3行を追加しました */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /* position: absolute; */
+  /* top: 15px;
+  left: 10px; */
 }
 .acountSpace-user-individual-icon:hover {
   cursor: pointer;
