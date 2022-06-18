@@ -81,7 +81,20 @@
   </body>
 </template>
 
-<script></script>
+<script>
+export default {
+  created() {
+    if (!this.$store.state.user) {
+      alert("ログインしてください")
+      // ↓ path:を定義すると画面遷移ができる
+      // (ログインしないとプロフィールに行けないようになるコード)
+      this.$router.push({ path: "/" })
+      // ↓ {}内で処理をとどめるコード
+      return
+    }
+  },
+}
+</script>
 
 <style scoped>
 body {
