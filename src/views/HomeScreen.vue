@@ -73,6 +73,7 @@
       </section>
       <!-- タイムラインに入れこむ場所 終わり -->
 
+      <!-- 一端みんめもは他の機能が完成してから実装する -->
       <!-- ユーザーのアカウントを一覧させる場所 始まり -->
       <!-- <section class="acountSpace">
         <div class="acountSpace-header">
