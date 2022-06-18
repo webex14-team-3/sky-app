@@ -153,18 +153,28 @@
   text-align: center;
 }
 .timelineSpace-title-all {
+  /* border: 2px solid blue; */
   background-color: #c7887fdd;
-  padding: 8px 0px;
+  padding: 0 0 8px;
   color: white;
 }
 .timelineSpace-headerTitle-one {
-  /* border: 4px solid green; */
+  /* border: 2px solid green; */
   font-size: 30px;
   font-weight: bold;
+  margin: 0px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 .timelineSpace-headerTitle-two {
-  /* border: 4px solid green; */
-  margin: 5px;
+  /* border: 2px solid green; */
+  margin: 0px 0px 5px;
+  font-size: 20px;
+  font-weight: 900;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.timelineSpace-headerTitle-two p {
+  margin: 0px;
+  padding: 8px;
 }
 .Couse-Selecter {
   width: 200px;

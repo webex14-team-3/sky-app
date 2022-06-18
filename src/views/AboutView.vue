@@ -14,8 +14,8 @@
       <h1 class="userName-title">ユーザーネーム(10文字まで)</h1>
       <div class="userName-Container">
         <input type="text" maxlength="10" v-model="name" />
-        <div>{{ name }}</div>
       </div>
+      <div class="transparentCode">{{ name }}</div>
     </section>
     <!-- ユーザーネーム 終わり -->
 
@@ -35,7 +35,7 @@
           <option value="AI">AIコース</option>
           <option value="Python">Pythonコース</option>
         </select>
-        <div>{{ course }}</div>
+        <div class="transparentCode">{{ course }}</div>
       </div>
     </section>
     <!-- コース 終わり -->
@@ -45,8 +45,8 @@
       <button class="Savebutton-button" v-on:click="allSave">
         <span>決定</span>
       </button>
-      <div>{{ name }}</div>
-      <div>{{ course }}</div>
+      <div class="transparentCode">{{ name }}</div>
+      <div class="transparentCode">{{ course }}</div>
     </section>
     <!-- ボタン 終わり -->
   </div>
@@ -215,4 +215,9 @@ export default {
   transform: scale(0.98);
 }
 /* 決定ボタン 終わり */
+.transparentCode {
+  color: transparent;
+  user-select: none;
+  position: absolute;
+}
 </style>

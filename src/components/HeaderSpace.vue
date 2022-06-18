@@ -131,6 +131,8 @@ export default {
   height: 100vh;
   position: absolute;
 }
+li:active {
+}
 /* メニュー部分のデザインです */
 
 .hamburger-menu .header-menu li a {
@@ -174,6 +176,7 @@ export default {
   color: transparent;
   font-size: 30px;
   font-weight: bold;
+  border-bottom: 2px solid #d57eeb;
 }
 
 .hamburger-menu-login:hover {
@@ -184,6 +187,8 @@ export default {
 /* テキストパート start */
 .header-title {
   font-size: 50px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  padding: 15px 8px 0;
 }
 /* テキストパート end */
 
