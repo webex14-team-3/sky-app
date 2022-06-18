@@ -6,14 +6,42 @@
     <HeaderSpace />
     <div class="contents">
       <router-view />
+      <!-- <posted-memo
+        v-for="memo in memos"
+        v-bind:key="memo.id"
+        v-bind:memo="memo"
+      /> -->
     </div>
   </div>
 </template>
 
 <script>
 import HeaderSpace from "@/components/HeaderSpace.vue"
+// import PostedMemo from "@/components/PostedMemo.vue"
+
+// import { collection, getDocs } from "firebase/firestore"
+// import { db } from "./firebase"
+
 export default {
-  components: { HeaderSpace },
+  components: {
+    HeaderSpace,
+    // PostedMemo,
+  },
+  // data() {
+  //   return {
+  //     memos: [],
+  //   }
+  // },
+  // created() {
+  //   getDocs(collection(db, "testMemos")).then((snapshot) => {
+  //     snapshot.forEach((doc) => {
+  //       this.memos.push({
+  //         id: doc.id,
+  //         ...doc.data(),
+  //       })
+  //     })
+  //   })
+  // },
 }
 </script>
 

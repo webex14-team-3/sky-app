@@ -3,8 +3,8 @@ import { createRouter, createWebHistory } from "vue-router"
 // ※defaultの有無の違いは、export default ○○の○○のままインポートできる(名前を変える必要がない)。
 //                         export ○○の○○を変更することができる {}の中で好きなような名前に出来る。
 // ex ファイルをexportする際に{}が必要になる場合がある。
-import HomeScreen from "@/views/HomeScreen.vue"
-import MemoFormat from "@/views/MemoFormat.vue"
+import HomeScreen from "@/views/homeScreen.vue"
+import MemoFormat from "@/views/memoFormat.vue"
 import MyAccount from "@/views/MyAccount.vue"
 import AboutView from "@/views/AboutView.vue"
 

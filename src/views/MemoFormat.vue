@@ -90,16 +90,16 @@ export default {
       if ((memo.title == "") | (memo.text == "")) {
         alert("タイトルと本文を入力してください")
       } else {
-        addDoc(collection(db, "memos"), memo).then((ref) => {
+        addDoc(collection(db, "testMemos"), memo).then((ref) => {
           this.memos.push({
             id: ref.id,
             ...memo,
           })
         })
       }
-      //テキストエリアを空にしたい
-      memo.title.value = ""
-      memo.memo.value = ""
+      //投稿されたらテキストエリアを空にする
+      this.inputTitle = ""
+      this.inputMemo = ""
     },
   },
   created() {
