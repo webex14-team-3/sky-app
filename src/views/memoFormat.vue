@@ -253,7 +253,7 @@ body {
   position: absolute;
   top: 2px;
   display: flex;
-  /* justify-content: end; */
+  justify-content: flex-end;
 }
 .container-upload-button {
   /* ボーダーを追加し、homeScreenの投稿ボタンの色に合わせました */
