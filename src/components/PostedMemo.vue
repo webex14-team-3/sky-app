@@ -53,7 +53,7 @@ export default {
 <style scoped>
 .posted-memo {
   width: 90%;
-  margin: 4px auto;
+  margin: 10px auto;
   padding: 0.5rem;
   border-radius: 4px;
   background-color: yellow;
