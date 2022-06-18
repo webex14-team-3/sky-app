@@ -14,8 +14,7 @@
       <h1 class="userName-title">ユーザーネーム(10文字まで)</h1>
       <div class="userName-Container">
         <input type="text" maxlength="10" v-model="name" />
-        <!-- <button v-on:click="userNameSaveButton">保存</button> -->
-        <!-- <div>{{ user.name }}</div> -->
+        <div>{{ name }}</div>
       </div>
     </section>
     <!-- ユーザーネーム 終わり -->
@@ -27,32 +26,27 @@
         <div class="courseName-Container-icon"></div>
         <!-- <input type="text" v-model="name" /> -->
         <select class="courseName-Container-select" v-model="course">
-          <option value="iPhoneAppDevCouse">iPhoneアプリ開発コース</option>
-          <option value="GameAppDevCouse">Gameアプリ開発コース</option>
-          <option value="webServeDevCouse">webサービス開発コース</option>
-          <option value="WebExpertCouse">WebExpertコース</option>
-          <option value="VideoEditorCouse">VideoEditorコース</option>
-          <option value="UI-UTCouse">UI/UXコース</option>
-          <option value="AICouse">AIコース</option>
-          <option value="PythonCouse">Pythonコース</option>
+          <option value="IPhone">iPhoneアプリ開発コース</option>
+          <option value="Game">Gameアプリ開発コース</option>
+          <option value="Web">webサービス開発コース</option>
+          <option value="WebExpert">WebExpertコース</option>
+          <option value="VideoEditor">VideoEditorコース</option>
+          <option value="UIUX">UI/UXコース</option>
+          <option value="AI">AIコース</option>
+          <option value="Python">Pythonコース</option>
         </select>
-        <!-- <button v-on:click="courseNameSaveButton">保存</button> -->
-        <!-- <div>{{ user.course }}</div> -->
+        <div>{{ course }}</div>
       </div>
     </section>
     <!-- コース 終わり -->
 
     <!-- ボタン 始まり -->
     <section class="Savebutton">
-      <button
-        class="Savebutton-button"
-        v-on:click="allSave"
-        href="@/views/HomeScreen.vue"
-      >
+      <button class="Savebutton-button" v-on:click="allSave">
         <span>決定</span>
       </button>
-      <div>{{ user.name }}</div>
-      <div>{{ user.course }}</div>
+      <div>{{ name }}</div>
+      <div>{{ course }}</div>
     </section>
     <!-- ボタン 終わり -->
   </div>
@@ -65,18 +59,20 @@ import { db } from "@/firebase"
 export default {
   data() {
     return {
-      user: null,
       name: "",
       course: "",
     }
   },
   methods: {
     async allSave() {
+      console.log(this.name)
+      console.log(this.course)
       if (this.name !== "" && this.course !== "") {
-        await setDoc(doc(db, "users", "userName"), {
-          name: this.name,
+        await setDoc(doc(db, "users", `${this.$store.state.user.uid}`), {
+          userName: this.name,
+          course: this.course,
         })
-        location.reload()
+        // location.reload()
       } else {
         alert("どっちも入力してね!")
       }
@@ -84,7 +80,7 @@ export default {
   },
   //ページが読み込まれたときに実行される関数
   async created() {
-    const docRef = doc(db, "users", "userName")
+    const docRef = doc(db, "users", `${this.$store.state.user.uid}`)
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
       this.user = { ...docSnap.data() }
