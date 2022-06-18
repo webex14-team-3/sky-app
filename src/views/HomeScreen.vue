@@ -424,7 +424,6 @@ nav li {
   bottom: 0px;
   right: 0px;
   bottom: 100px;
-  z-index: 100;
   padding: 0px;
   margin: 2px;
 }
