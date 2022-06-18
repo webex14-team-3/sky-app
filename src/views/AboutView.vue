@@ -80,6 +80,14 @@ export default {
   },
   //ページが読み込まれたときに実行される関数
   async created() {
+    if (!this.$store.state.user) {
+      alert("ログインしてください")
+      // ↓ path:を定義すると画面遷移ができる
+      // (ログインしないとプロフィールに行けないようになるコード)
+      this.$router.push({ path: "/" })
+      // ↓ {}内で処理をとどめるコード
+      return
+    }
     const docRef = doc(db, "users", `${this.$store.state.user.uid}`)
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {

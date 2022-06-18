@@ -35,6 +35,8 @@
 
 <script>
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth"
+import { doc, setDoc } from "firebase/firestore"
+import { db } from "@/firebase"
 
 export default {
   methods: {
@@ -42,10 +44,17 @@ export default {
       // new"ネームプレート" provider "インスタンス"
       const provider = new GoogleAuthProvider()
       const auth = getAuth()
-      signInWithPopup(auth, provider).then((result) => {
-        this.$store.commit("updateUserInfo", { uid: result.user.uid })
-        console.log(this.$store.state.user.uid)
-      })
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          this.$store.commit("updateUserInfo", { uid: result.user.uid })
+          console.log(this.$store.state.user.uid)
+          return result.user.uid
+        })
+        .then(async (uid) => {
+          // {}入れないとデータベースに入る形での登録はできない
+          // ※今まではauthの認証で入ってただけ
+          await setDoc(doc(db, "users", `${uid}`), {})
+        })
     },
   },
 }
