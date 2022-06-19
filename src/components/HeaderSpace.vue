@@ -79,6 +79,7 @@ export default {
   background-color: #c7887fdd;
   display: flex;
   justify-content: space-between;
+  margin: -9px;
 }
 .headerleft {
   display: flex;

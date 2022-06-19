@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <div class="all">
     <div class="allScreen">
       <!-- アカウント 始まり -->
       <section class="acount" id="acount">
@@ -78,7 +78,7 @@
       </section>
       <!-- メモ 終わり -->
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -97,9 +97,9 @@ export default {
 </script>
 
 <style scoped>
-body {
+.all {
   padding: 0px;
-  margin: 0px;
+  margin: -10px;
 }
 .allScreen {
   /* border: 2px solid black; */

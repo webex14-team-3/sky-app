@@ -173,6 +173,9 @@ export default {
 </script>
 
 <style scoped>
+.all {
+  margin: -10px;
+}
 /* タイムラインを入れこむ場所 始まり */
 .timelineSpace {
   /* border: 2px solid blue; */
@@ -186,14 +189,16 @@ export default {
 }
 .timelineSpace-headerTitle-one {
   /* border: 2px solid green; */
+  padding: 0px;
   font-size: 30px;
   font-weight: bold;
   margin: 0px;
+  margin-bottom: -10px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 .timelineSpace-headerTitle-two {
   /* border: 2px solid green; */
-  margin: 0px 0px 5px;
+  margin-top: -5px;
   font-size: 20px;
   font-weight: 900;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
@@ -501,7 +506,6 @@ nav li {
 @media screen and (max-width: 640px) {
   .all {
     /* border: 2px solid black; */
-    width: 100%;
   }
   .homeAll {
     /* border: 2px solid gray; */

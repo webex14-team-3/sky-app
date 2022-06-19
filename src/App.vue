@@ -3,7 +3,9 @@
     <!-- router-linkでいれたものを、<router-view>で呼び出せる。 -->
     <!-- コンポーネントの書き方を変えられる  -->
     <!-- どちらも必要 -->
-    <HeaderSpace />
+    <div class="header">
+      <HeaderSpace />
+    </div>
     <div class="contents">
       <router-view />
       <!-- <posted-memo
@@ -48,5 +50,9 @@ export default {
 <style scoped>
 .contents {
   margin-top: 16px;
+}
+.header {
+  margin: 0px;
+  padding: 0px;
 }
 </style>
