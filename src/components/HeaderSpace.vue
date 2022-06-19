@@ -67,7 +67,7 @@ export default {
         .then(async (uid) => {
           // {}入れないとデータベースに入る形での登録はできない
           // ※今まではauthの認証で入ってただけ
-          await setDoc(doc(db, "users", `${uid}`), {})
+          await setDoc(doc(db, "users", `${uid}`), {}, { merge: true })
         })
     },
   },
