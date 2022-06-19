@@ -9,13 +9,17 @@
             <a class="acount-text-title" id="acount-text-userName-title">
               ユーザー名
             </a>
-            <a class="acount-text-userName-name"> あいうえおかきくけこ </a>
+            <a class="acount-text-userName-name">
+              {{ user ? user.userName : "" }}
+            </a>
           </div>
           <div class="acount-text-userCourse">
             <a class="acount-text-title" id="acount-text-userCourse-title">
               コース名
             </a>
-            <a class="acount-text-userCourse-name"> Gameアプリ開発コース </a>
+            <a class="acount-text-userCourse-name">
+              {{ user ? user.course : "" }}
+            </a>
           </div>
         </div>
 
@@ -82,8 +86,16 @@
 </template>
 
 <script>
+import { doc, getDoc } from "firebase/firestore"
+import { db } from "@/firebase"
+
 export default {
-  created() {
+  data() {
+    return {
+      user: null,
+    }
+  },
+  async created() {
     if (!this.$store.state.user) {
       alert("ログインしてください!")
       // ↓ path:を定義すると画面遷移ができる
@@ -91,6 +103,16 @@ export default {
       this.$router.push({ path: "/" })
       // ↓ {}内で処理をとどめるコード
       return
+    }
+    const docRef = doc(db, "users", `${this.$store.state.user.uid}`) // ここは、バッククオートを使うこと
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data())
+      this.user = docSnap.data()
+      console.log(this.user)
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!")
     }
   },
 }
