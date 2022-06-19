@@ -5,7 +5,9 @@
       <nav class="hamburger-menu">
         <input class="menu-btn" type="checkbox" id="menu-btn" />
         <label class="menu-icon" for="menu-btn">
-          <span class="nav-icon"></span>
+          <div class="menu-icon-wide">
+            <span class="nav-icon"></span>
+          </div>
         </label>
         <!-- 見出し -->
         <ul class="header-menu">
@@ -40,7 +42,7 @@
     </div>
 
     <!-- ログインパート start -->
-    <button class="login-button" @click="googleLogin">ログイン</button>
+    <button class="login-button" @click="googleLogin"><a>ログイン</a></button>
     <!-- ログインパート end -->
   </header>
 </template>
@@ -85,7 +87,8 @@ export default {
 /* ナビゲーションパート start */
 
 .hamburger-menu {
-  width: 80px;
+  /* border: 2px solid red; */
+
   margin-right: 8px;
 }
 /* メニューアイコン（三本線）の真ん中の線です */
@@ -94,9 +97,21 @@ export default {
   display: block;
   height: 8px; /* 太さ */
   position: relative;
-  transition: background 0.4s ease-out; /* 形が変わる時のアニメーション */
+  top: 20px;
+  -webkit-transition: background 0.4s ease-out;
+  -o-transition: background 0.4s ease-out;
+  /* 形が変わる時のアニメーション */
+  transition: background 0.4 ease-out;
   margin: 12px 0 0 12px;
   z-index: 20;
+}
+.menu-icon-wide {
+  /* border: 2px solid red; */
+  height: 70px;
+  width: 80px;
+  padding-right: 10px;
+  position: fixed;
+  z-index: 11;
 }
 /* メニューアイコン（三本線）の上と下の線を疑似要素で追加 */
 .hamburger-menu .menu-icon .nav-icon::before,
@@ -106,32 +121,38 @@ export default {
   display: block;
   height: 100%;
   position: absolute;
-  transition: all 0.4s ease-out; /* 形が変わる時のアニメーション */
+  -webkit-\aboutviewtransition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  /* 形が変わる時のアニメーション */
+  transition: all 0.4s ease-out;
   width: 100%;
   z-index: 20;
 }
 .hamburger-menu .menu-icon .nav-icon::before {
-  top: 20px;
+  top: -20px;
 } /* 位置を上にずらしています */
 .hamburger-menu .menu-icon .nav-icon::after {
-  top: 40px;
+  top: 20px;
 } /* 位置を下にずらしています */
 /* 表示されるメニューです */
 .header-menu {
   z-index: 10;
   padding: 0;
-  margin: 0;
+  margin-left: 3px;
   background-color: rgba(255, 255, 255, 0.9);
   overflow: hidden;
   max-height: 0; /* ★最初は高さを0にして非表示状態に */
-  transition: max-height 0.6s; /* 表示されるときのアニメーション */
+  -webkit-transition: max-height 0.6s;
+  -o-transition: max-height 0.6s;
+  transition: max-height 0.6s;
   text-align: center;
   list-style: none;
-  width: 100%;
+  width: 98%;
   height: 100vh;
-  position: absolute;
+  position: fixed;
 }
-li:active {
+.header-menu span {
+  user-select: none;
 }
 /* メニュー部分のデザインです */
 
@@ -144,6 +165,7 @@ li:active {
 }
 .hamburger-menu .header-menu li a:hover {
   background-color: #f1f1f1b1;
+  filter: brightness(90%);
 }
 /* チェックボックスは常に非表示です */
 .hamburger-menu .menu-btn {
@@ -151,12 +173,13 @@ li:active {
 }
 /* ▼▼▼以下はチェックボックスがONの時の状態です▼▼▼ */
 .hamburger-menu .menu-btn:checked ~ .header-menu {
-  max-height: 100vh; /* ★チェックボックスがオンの時高さを338pxにして表示させます */
+  max-height: 100vh;
   transition: max-height 0.6s;
 }
 /* メニューボタンの中央の線を非表示に */
 .hamburger-menu .menu-btn:checked ~ .menu-icon .nav-icon {
   background: transparent;
+  transition: all 300ms linear 0ms;
 }
 
 /* メニューボタンの上下の線を45度傾けて✕印を作ります */
@@ -178,9 +201,10 @@ li:active {
   font-weight: bold;
   border-bottom: 2px solid #d57eeb;
 }
-
 .hamburger-menu-login:hover {
   cursor: pointer;
+}
+.header-menu li:active {
 }
 /* ナビゲーションパート end */
 
@@ -188,7 +212,8 @@ li:active {
 .header-title {
   font-size: 50px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  padding: 15px 8px 0;
+  padding: 15px 90px 0;
+  user-select: none;
 }
 /* テキストパート end */
 
@@ -199,6 +224,9 @@ li:active {
   color: black;
   font-weight: bold;
   font-size: 20px;
+}
+.login-button a {
+  user-select: none;
 }
 .login-button:hover {
   cursor: pointer;

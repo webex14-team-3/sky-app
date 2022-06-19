@@ -216,8 +216,8 @@ export default {
 }
 /* 決定ボタン 終わり */
 .transparentCode {
-  color: transparent;
+  /* color: transparent;
   user-select: none;
-  position: absolute;
+  position: absolute; */
 }
 </style>

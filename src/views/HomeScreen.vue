@@ -78,7 +78,7 @@
       </section>
       <!-- タイムラインに入れこむ場所 終わり -->
 
-      <!-- 一端みんめもは他の機能が完成してから実装する -->
+      <!-- 一端みんアカは他の機能が完成してから実装する -->
       <!-- ユーザーのアカウントを一覧させる場所 始まり -->
       <!-- <section class="acountSpace">
         <div class="acountSpace-header">
@@ -475,12 +475,12 @@ nav li {
   height: 100%;
   background-color: #dd988edd;
   color: white;
-  z-index: 100;
+  z-index: 10;
 }
 .uploadSpace-button:hover {
   cursor: pointer;
-  background-color: #be7a70dd;
-  color: rgb(232, 227, 227);
+  filter: brightness(90%);
+  transition: all 300ms ease-in 100ms;
 }
 .uploadSpace-button:active {
   transform: scale(0.99);
