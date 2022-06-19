@@ -73,7 +73,7 @@ export default {
           course: this.course,
         })
         // location.reload()
-        alert("更新しました！")
+        alert("変更しました！")
       } else {
         alert("どっちも入力してね!")
       }

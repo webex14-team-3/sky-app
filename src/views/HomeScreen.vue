@@ -488,7 +488,7 @@ nav li {
 .uploadSpace-button:hover {
   cursor: pointer;
   filter: brightness(110%);
-  transition: all 300ms ease-in;
+  transition: all 200ms ease-in;
 }
 .uploadSpace-button:active {
   transform: scale(0.99);

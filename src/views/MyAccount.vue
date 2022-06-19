@@ -24,11 +24,13 @@
         </div>
 
         <!-- 投稿する場所 始まり -->
-        <section class="uploadSpace">
-          <button class="uploadSpace-button">
-            <span class="uploadSpace-button-text">投稿する</span>
-          </button>
-        </section>
+        <router-link to="memoFormat">
+          <section class="uploadSpace">
+            <button class="uploadSpace-button">
+              <span class="uploadSpace-button-text">投稿する</span>
+            </button>
+          </section>
+        </router-link>
         <!-- 投稿する場所 終わり -->
       </section>
       <!-- アカウント 終わり -->
