@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="memo-space">
-          <div class="memo-space-user">
+          <!-- <div class="memo-space-user">
             <div class="memo-space-user-information">
               <input
                 type="submit"
@@ -79,7 +79,12 @@
                 </a>
               </li>
             </nav>
-          </div>
+          </div> -->
+          <posted-memo
+            v-for="memo in memos"
+            v-bind:key="memo.id"
+            v-bind:memo="memo"
+          />
         </div>
       </section>
       <!-- メモ 終わり -->
@@ -88,13 +93,18 @@
 </template>
 
 <script>
-import { doc, getDoc } from "firebase/firestore"
+import PostedMemo from "@/components/PostedMemo.vue"
+import { doc, getDoc, getDocs, collection } from "firebase/firestore"
 import { db } from "@/firebase"
 
 export default {
+  components: {
+    PostedMemo,
+  },
   data() {
     return {
       user: null,
+      memos: [],
     }
   },
   async created() {
@@ -116,6 +126,19 @@ export default {
       // doc.data() will be undefined in this case
       console.log("No such document!")
     }
+    getDocs(collection(db, "testUsersMemos")).then((snapshot) => {
+      snapshot.forEach(async (article) => {
+        const docRef = doc(db, "users", `${article.data().user}`)
+        const user = await getDoc(docRef)
+        console.log(user.data())
+        this.memos.push({
+          id: article.id,
+          userName: user.data().userName,
+          course: user.data().course,
+          ...article.data(),
+        })
+      })
+    })
   },
 }
 </script>
