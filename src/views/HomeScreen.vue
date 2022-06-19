@@ -78,7 +78,7 @@
       </section>
       <!-- タイムラインに入れこむ場所 終わり -->
 
-      <!-- 一端みんめもは他の機能が完成してから実装する -->
+      <!-- 一端みんアカは他の機能が完成してから実装する -->
       <!-- ユーザーのアカウントを一覧させる場所 始まり -->
       <!-- <section class="acountSpace">
         <div class="acountSpace-header">
@@ -173,6 +173,9 @@ export default {
 </script>
 
 <style scoped>
+.all {
+  margin: -10px;
+}
 /* タイムラインを入れこむ場所 始まり */
 .timelineSpace {
   /* border: 2px solid blue; */
@@ -186,17 +189,21 @@ export default {
 }
 .timelineSpace-headerTitle-one {
   /* border: 2px solid green; */
+  user-select: none;
+  padding: 0px;
   font-size: 30px;
   font-weight: bold;
   margin: 0px;
+  margin-bottom: -10px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 .timelineSpace-headerTitle-two {
   /* border: 2px solid green; */
-  margin: 0px 0px 5px;
+  margin-top: -5px;
   font-size: 20px;
   font-weight: 900;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  user-select: none;
 }
 .timelineSpace-headerTitle-two p {
   margin: 0px;
@@ -212,6 +219,7 @@ export default {
   font-weight: bold;
   color: black;
   margin-left: 8px;
+  user-select: none;
 }
 .timelineSpace-button-serch:hover {
   cursor: pointer;
@@ -475,12 +483,12 @@ nav li {
   height: 100%;
   background-color: #dd988edd;
   color: white;
-  z-index: 100;
+  z-index: 10;
 }
 .uploadSpace-button:hover {
   cursor: pointer;
-  background-color: #be7a70dd;
-  color: rgb(232, 227, 227);
+  filter: brightness(110%);
+  transition: all 300ms ease-in;
 }
 .uploadSpace-button:active {
   transform: scale(0.99);
@@ -494,6 +502,7 @@ nav li {
   font-display: swap;
   padding: 0px;
   margin: 0px;
+  user-select: none;
 }
 /* 投稿する場所 終わり */
 
@@ -501,7 +510,6 @@ nav li {
 @media screen and (max-width: 640px) {
   .all {
     /* border: 2px solid black; */
-    width: 100%;
   }
   .homeAll {
     /* border: 2px solid gray; */

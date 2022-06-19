@@ -73,6 +73,7 @@ export default {
           course: this.course,
         })
         // location.reload()
+        alert("更新しました！")
       } else {
         alert("どっちも入力してね!")
       }
@@ -102,15 +103,15 @@ export default {
 
 <style scoped>
 .allScreen {
-  /* border: 2px solid red; */
+  border: 2px solid rgba(253, 244, 232, 0.747);
   padding: 0px;
-  margin: 0px;
+  margin: -10px;
   color: #ac4949;
   background-color: rgba(253, 244, 232, 0.747);
 }
 .allScreen section {
   /* border: 2px solid red; */
-  margin: 40px auto;
+  margin: 13px auto;
 }
 /* アイコン 始まり */
 .icon {
@@ -120,7 +121,9 @@ export default {
 .icon-title {
   /* border: 2px solid green; */
   text-align: center;
+  margin: 0 auto;
   border-bottom: 2px solid #000;
+  user-select: none;
 }
 .icon-Container {
   /* border: 2px solid greenyellow; */
@@ -153,6 +156,7 @@ export default {
   text-align: center;
   width: 100%;
   border-bottom: 2px solid #000;
+  user-select: none;
 }
 
 .userName-Container {
@@ -162,6 +166,7 @@ export default {
   justify-content: center;
 }
 .userName-Container input {
+  text-align: center;
   width: 50%;
   font-size: 20px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
@@ -177,6 +182,7 @@ export default {
   text-align: center;
   width: 100%;
   border-bottom: 2px solid #000;
+  user-select: none;
 }
 .courseName-Container {
   /* border: 2px solid red; */
@@ -186,6 +192,7 @@ export default {
 }
 .courseName-Container select {
   width: 50%;
+  height: 30px;
   font-size: 20px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
@@ -195,17 +202,18 @@ export default {
 .Savebutton {
   /* border: 2px solid red; */
   text-align: center;
-  margin: 70px auto;
 }
 
 .Savebutton-button {
   background-color: #c7887fdd;
   border: 2px solid #645856dd;
   border-radius: 10px;
-  font-size: 30px;
+  font-size: 35px;
   font-weight: 900;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  padding: 5px 10px;
+  padding: 5px 15px;
+  margin-top: 20px;
+  user-select: none;
 }
 .Savebutton-button:hover {
   cursor: pointer;

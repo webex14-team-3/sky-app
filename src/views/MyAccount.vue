@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <div class="all">
     <div class="allScreen">
       <!-- アカウント 始まり -->
       <section class="acount" id="acount">
@@ -78,7 +78,7 @@
       </section>
       <!-- メモ 終わり -->
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -97,9 +97,9 @@ export default {
 </script>
 
 <style scoped>
-body {
+.all {
   padding: 0px;
-  margin: 0px;
+  margin: -10px;
 }
 .allScreen {
   /* border: 2px solid black; */
@@ -147,6 +147,7 @@ body {
   /* border: 2px solid green; */
   width: 100%;
   text-align: center;
+  user-select: none;
 }
 .acount-text-userName-name {
   font-size: 20px;
@@ -191,6 +192,7 @@ body {
   font-style: italic;
   font-weight: 1000;
   font-display: swap;
+  user-select: none;
 }
 .memo-header-inputButton {
   /* border: 2px solid black; */
@@ -215,6 +217,7 @@ body {
   margin: 0 5px;
   position: relative;
   top: 0px;
+  user-select: none;
 }
 .memo-header-selectorButton:hover {
   cursor: pointer;
@@ -343,7 +346,7 @@ nav li {
   left: 0px;
   z-index: 1;
   padding: 0px;
-  margin: 2px;
+  margin: 0px;
 }
 .uploadSpace-button {
   border: 2px solid #ce8d83dd;
@@ -357,8 +360,7 @@ nav li {
 }
 .uploadSpace-button:hover {
   cursor: pointer;
-  background-color: #be7a70dd;
-  color: rgb(232, 227, 227);
+  filter: brightness(105%);
 }
 .uploadSpace-button:active {
   transform: scale(0.99);
@@ -372,6 +374,7 @@ nav li {
   font-display: swap;
   padding: 0px;
   margin: 0px;
+  user-select: none;
 }
 /* 投稿する場所 終わり */
 
