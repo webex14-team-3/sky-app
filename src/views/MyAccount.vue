@@ -276,9 +276,7 @@ export default {
 .memo-space {
   /* border: 2px solid black; */
   width: 100%;
-  height: 85%;
   display: block;
-  overflow: hidden scroll;
   background-color: rgba(255, 239, 216, 0.747);
 }
 .memo-space-user {

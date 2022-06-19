@@ -175,8 +175,8 @@ export default {
   background-color: #f1f1f1b1;
   filter: brightness(90%);
 }
-.hamburger-menu .header-menu li:active {
-}
+/* .hamburger-menu .header-menu li:active {
+} */
 /* チェックボックスは常に非表示です */
 .hamburger-menu .menu-btn {
   display: none;
