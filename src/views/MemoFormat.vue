@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { collection, addDoc } from "firebase/firestore"
+import { collection, addDoc, doc, getDoc } from "firebase/firestore"
 import { db } from "../firebase"
 
 export default {
@@ -83,6 +83,7 @@ export default {
   methods: {
     postMemo() {
       let memo = {
+        user: this.$store.state.user.uid,
         title: this.inputTitle,
         text: this.inputMemo,
       }
@@ -90,19 +91,20 @@ export default {
       if ((memo.title == "") | (memo.text == "")) {
         alert("タイトルと本文を入力してください")
       } else {
-        addDoc(collection(db, "testMemos"), memo).then((ref) => {
-          this.memos.push({
+        addDoc(collection(db, "testUsersMemos"), memo).then((ref) => {
+          this.testUsersMemos.push({
             id: ref.id,
             ...memo,
           })
         })
+        alert("投稿が完了しました！")
       }
       //投稿されたらテキストエリアを空にする
       this.inputTitle = ""
       this.inputMemo = ""
     },
   },
-  created() {
+  async created() {
     if (!this.$store.state.user) {
       alert("ログインしてください")
       // ↓ path:を定義すると画面遷移ができる
@@ -110,6 +112,14 @@ export default {
       this.$router.push({ path: "/" })
       // ↓ {}内で処理をとどめるコード
       return
+    }
+    const docRef = doc(db, "testUsersMemos", `${this.$store.state.user.uid}`)
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) {
+      this.user = { ...docSnap.data() }
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!")
     }
   },
 }

@@ -147,7 +147,7 @@
 <script>
 // import headerSpace from "./headerSpace.vue"
 import PostedMemo from "@/components/PostedMemo.vue"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, doc, getDoc, getDocs } from "firebase/firestore"
 import { db } from "../firebase"
 
 export default {
@@ -159,12 +159,17 @@ export default {
       memos: [],
     }
   },
-  created() {
-    getDocs(collection(db, "testMemos")).then((snapshot) => {
-      snapshot.forEach((doc) => {
+  async created() {
+    getDocs(collection(db, "testUsersMemos")).then((snapshot) => {
+      snapshot.forEach(async (article) => {
+        const docRef = doc(db, "users", `${article.data().user}`)
+        const user = await getDoc(docRef)
+        console.log(user.data())
         this.memos.push({
-          id: doc.id,
-          ...doc.data(),
+          id: article.id,
+          userName: user.data().userName,
+          course: user.data().course,
+          ...article.data(),
         })
       })
     })
