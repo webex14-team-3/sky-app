@@ -3,7 +3,7 @@
     <div class="allScreen">
       <!-- アカウント 始まり -->
       <section class="acount" id="acount">
-        <div class="acount-icon"></div>
+        <img class="acount-icon" v-bind:src="this.$store.state.image.image" />
         <div class="acount-text">
           <div class="acount-text-userName">
             <a class="acount-text-title" id="acount-text-userName-title">
