@@ -81,8 +81,9 @@ export default {
     }
   },
   methods: {
-    postMemo() {
+    async postMemo() {
       let memo = {
+        user: this.$store.state.user.uid,
         title: this.inputTitle,
         text: this.inputMemo,
       }
@@ -90,12 +91,8 @@ export default {
       if ((memo.title == "") | (memo.text == "")) {
         alert("タイトルと本文を入力してください")
       } else {
-        addDoc(collection(db, "testMemos"), memo).then((ref) => {
-          this.memos.push({
-            id: ref.id,
-            ...memo,
-          })
-        })
+        await addDoc(collection(db, "testUsersMemos"), memo)
+        alert("投稿が完了しました！")
       }
       //投稿されたらテキストエリアを空にする
       this.inputTitle = ""
