@@ -360,8 +360,7 @@ nav li {
 }
 .uploadSpace-button:hover {
   cursor: pointer;
-  background-color: #be7a70dd;
-  color: rgb(232, 227, 227);
+  filter: brightness(105%);
 }
 .uploadSpace-button:active {
   transform: scale(0.99);

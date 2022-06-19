@@ -10,8 +10,8 @@
           </div>
         </label>
         <!-- 見出し -->
-        <ul class="header-menu">
-          <li>
+        <ul class="header-menu" v-on:click="liButton">
+          <li class="header-munu-one">
             <router-link to="/">
               <span class="menu-text" id="menu-text-one"
                 >トップページ</span
@@ -139,7 +139,6 @@ export default {
 .header-menu {
   z-index: 10;
   padding: 0;
-  margin-left: 3px;
   background-color: rgba(255, 255, 255, 0.9);
   overflow: hidden;
   max-height: 0; /* ★最初は高さを0にして非表示状態に */
@@ -148,7 +147,7 @@ export default {
   transition: max-height 0.6s;
   text-align: center;
   list-style: none;
-  width: 98%;
+  width: 100%;
   height: 100vh;
   position: fixed;
 }
@@ -161,12 +160,15 @@ export default {
   display: block;
   text-decoration: none;
   text-transform: uppercase;
-  margin: 60px 0 0 0;
-  padding: 25px;
+  margin: 50px 0 0 0;
+  padding: 40px;
+  /* border: 2px solid red; */
 }
 .hamburger-menu .header-menu li a:hover {
   background-color: #f1f1f1b1;
   filter: brightness(90%);
+}
+.hamburger-menu .header-menu li:active {
 }
 /* チェックボックスは常に非表示です */
 .hamburger-menu .menu-btn {
@@ -201,12 +203,16 @@ export default {
   font-size: 30px;
   font-weight: bold;
   border-bottom: 2px solid #d57eeb;
+  /* border: 2px solid red; */
+}
+.header-munu-one {
+  /* border: 2px solid red; */
+  margin-top: 90px;
 }
 .hamburger-menu-login:hover {
   cursor: pointer;
 }
-.header-menu li:active {
-}
+
 /* ナビゲーションパート end */
 
 /* テキストパート start */

@@ -166,6 +166,7 @@ export default {
   justify-content: center;
 }
 .userName-Container input {
+  text-align: center;
   width: 50%;
   font-size: 20px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
@@ -191,6 +192,7 @@ export default {
 }
 .courseName-Container select {
   width: 50%;
+  height: 30px;
   font-size: 20px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
