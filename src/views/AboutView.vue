@@ -4,7 +4,10 @@
     <section class="icon">
       <h1 class="icon-title">アイコン</h1>
       <div class="icon-Container">
-        <button class="icon-Container-user"></button>
+        <img
+          class="icon-Container-user"
+          v-bind:src="this.$store.state.image.image"
+        />
       </div>
     </section>
     <!-- アイコン 終わり -->
@@ -93,6 +96,10 @@ export default {
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
       this.user = { ...docSnap.data() }
+      this.name = this.user.userName
+        ? docSnap.data().userName
+        : this.$store.state.name.name
+      this.course = this.user.course ? docSnap.data().course : ""
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!")

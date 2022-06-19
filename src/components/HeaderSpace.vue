@@ -60,8 +60,15 @@ export default {
       const auth = getAuth()
       signInWithPopup(auth, provider)
         .then((result) => {
+          console.log(result.user)
           this.$store.commit("updateUserInfo", { uid: result.user.uid })
+          this.$store.commit("updateUserName", {
+            name: result.user.displayName,
+          })
+          this.$store.commit("updateUserImage", { image: result.user.photoURL })
           console.log(this.$store.state.user.uid)
+          console.log(this.$store.state.name.name)
+          console.log(this.$store.state.image.image)
           return result.user.uid
         })
         .then(async (uid) => {
