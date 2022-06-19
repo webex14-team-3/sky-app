@@ -147,6 +147,7 @@ export default {
   /* border: 2px solid green; */
   width: 100%;
   text-align: center;
+  user-select: none;
 }
 .acount-text-userName-name {
   font-size: 20px;
@@ -191,6 +192,7 @@ export default {
   font-style: italic;
   font-weight: 1000;
   font-display: swap;
+  user-select: none;
 }
 .memo-header-inputButton {
   /* border: 2px solid black; */
@@ -215,6 +217,7 @@ export default {
   margin: 0 5px;
   position: relative;
   top: 0px;
+  user-select: none;
 }
 .memo-header-selectorButton:hover {
   cursor: pointer;
@@ -343,7 +346,7 @@ nav li {
   left: 0px;
   z-index: 1;
   padding: 0px;
-  margin: 2px;
+  margin: 0px;
 }
 .uploadSpace-button {
   border: 2px solid #ce8d83dd;
@@ -372,6 +375,7 @@ nav li {
   font-display: swap;
   padding: 0px;
   margin: 0px;
+  user-select: none;
 }
 /* 投稿する場所 終わり */
 

@@ -123,6 +123,7 @@ export default {
   text-align: center;
   margin: 0 auto;
   border-bottom: 2px solid #000;
+  user-select: none;
 }
 .icon-Container {
   /* border: 2px solid greenyellow; */
@@ -155,6 +156,7 @@ export default {
   text-align: center;
   width: 100%;
   border-bottom: 2px solid #000;
+  user-select: none;
 }
 
 .userName-Container {
@@ -179,6 +181,7 @@ export default {
   text-align: center;
   width: 100%;
   border-bottom: 2px solid #000;
+  user-select: none;
 }
 .courseName-Container {
   /* border: 2px solid red; */
@@ -208,6 +211,7 @@ export default {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   padding: 5px 15px;
   margin-top: 20px;
+  user-select: none;
 }
 .Savebutton-button:hover {
   cursor: pointer;

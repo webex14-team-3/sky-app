@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <div class="memoAll">
     <div class="container">
       <span class="title">タイトル</span>
       <!-- タイトル 始まり -->
@@ -66,7 +66,7 @@
       </section>
       <!-- 投稿 終わり -->
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -116,15 +116,16 @@ export default {
 </script>
 
 <style scoped>
-body {
+.memoAll {
   display: flex;
   justify-content: center;
   position: relative;
   padding: 0px;
-  margin: 5px 0 0;
 }
 .container {
   border: 2px solid black;
+  margin-top: 10px;
+  border-radius: 5px;
   width: 90%;
   height: 600px;
   display: flex;
@@ -155,6 +156,9 @@ body {
 }
 
 /* タイトル 始まり */
+.title {
+  user-select: none;
+}
 .container-title {
   /* border: 2px solid red; */
   width: 90%;
@@ -179,6 +183,9 @@ body {
 /* タイトル 終わり */
 
 /* 本文 始まり */
+.main {
+  user-select: none;
+}
 .container-main {
   /* border: 2px solid green; */
   width: 90%;
@@ -203,7 +210,7 @@ body {
   min-height: 100%;
   width: 100%;
   height: 100%;
-  line-height: 1.1em;
+  line-height: 1.3em;
 }
 /* 本文 終わり */
 
@@ -276,8 +283,7 @@ body {
 }
 .container-upload-button:hover {
   cursor: pointer;
-  background-color: #be7a70dd;
-  color: rgb(232, 227, 227);
+  filter: brightness(90%);
 }
 .container-upload-button:active {
   transform: scale(0.98);
@@ -286,6 +292,7 @@ body {
   font-size: 25px;
   font-weight: 900;
   color: white;
+  user-select: none;
 }
 /* 投稿 終わり */
 @media screen and (max-width: 640px) {

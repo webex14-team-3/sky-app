@@ -189,6 +189,7 @@ export default {
 }
 .timelineSpace-headerTitle-one {
   /* border: 2px solid green; */
+  user-select: none;
   padding: 0px;
   font-size: 30px;
   font-weight: bold;
@@ -202,6 +203,7 @@ export default {
   font-size: 20px;
   font-weight: 900;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  user-select: none;
 }
 .timelineSpace-headerTitle-two p {
   margin: 0px;
@@ -217,6 +219,7 @@ export default {
   font-weight: bold;
   color: black;
   margin-left: 8px;
+  user-select: none;
 }
 .timelineSpace-button-serch:hover {
   cursor: pointer;
@@ -499,6 +502,7 @@ nav li {
   font-display: swap;
   padding: 0px;
   margin: 0px;
+  user-select: none;
 }
 /* 投稿する場所 終わり */
 
