@@ -189,9 +189,9 @@ export default {
   flex-wrap: wrap;
 }
 .acount-text-title {
+  /* border: 2px solid green; */
   font-size: 30px;
   font-weight: 900;
-  /* border: 2px solid green; */
   width: 100%;
   text-align: center;
   user-select: none;
@@ -206,8 +206,9 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 10px auto;
+  margin-top: 20px;
 }
+
 .acount-text-userCourse-name {
   font-size: 25px;
   font-weight: 900;

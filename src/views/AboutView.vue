@@ -67,10 +67,16 @@ export default {
     }
   },
   methods: {
+    // async:常にPromise(処理順が終わるまで次の処理を行わない)を
+    // どんな処理であっても必ず返す
     async allSave() {
       console.log(this.name)
       console.log(this.course)
       if (this.name !== "" && this.course !== "") {
+        // await:asyncで完了した値を必ず返す asyncと一緒に使われる
+        // setDoc(第1引数,第２引数):データを保存するメソッド
+        // 第1引数:保存する場所 第２引数:保存する内容
+        // doc:firebaseのCloud Firestoreのデータ保管場所
         await setDoc(doc(db, "users", `${this.$store.state.user.uid}`), {
           userName: this.name,
           course: this.course,
