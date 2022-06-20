@@ -162,17 +162,19 @@ export default {
     }
   },
   // ↓セレクタごとにメモの表示を変える
-  // methods: {
-  //   async allSave() {
-  //     const docRef = doc(db, "users", `${this.$store.state.user.uid.course}`)
-  //     const docSnap = await getDoc(docRef)
-  //     // const course = document.getElementById("course")
-  //     console.log(this.course)
-  //     if (docSnap.exists()) {
-  //       this.memos = this.memos.user.course
-  //     }
-  //   },
-  // },
+  methods: {
+    // async
+    allSave() {
+      const memosCourse = this.course
+      // const docRef = doc(db, "users", `${this.$store.state.user.uid.course}`)
+      // const docSnap = await getDoc(docRef)
+      // const course = document.getElementById("course")
+      console.log(memosCourse)
+      // if (this.course) {
+      //   this.memos.course = this.memos.user.course
+      // }
+    },
+  },
   async created() {
     // snapshot:実際のデータのこと
     getDocs(collection(db, "testUsersMemos")).then((snapshot) => {
