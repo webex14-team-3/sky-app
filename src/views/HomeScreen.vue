@@ -8,20 +8,21 @@
           <div class="timelineSpace-headerTitle-two">
             <p>コースごとにメモを選んでね！</p>
             <div class="timelineSpace-button">
-              <select class="Couse-Selecter">
-                <option value="AllCouse">すべて表示</option>
-                <option value="iPhoneAppDevCouse">
-                  iPhoneアプリ開発コース
-                </option>
-                <option value="GameAppDevCouse">Gameアプリ開発コース</option>
-                <option value="webServeDevCouse">webサービス開発コース</option>
-                <option value="WebExpertCouse">WebExpertコース</option>
-                <option value="VideoEditorCouse">VideoEditorコース</option>
-                <option value="UI-UTCouse">UI/UXコース</option>
-                <option value="AICouse">AIコース</option>
-                <option value="PythonCouse">Pythonコース</option>
+              <select class="Couse-Selecter" id="course" v-model="course">
+                <option value="all">すべて表示</option>
+                <option value="IPhone">iPhoneアプリ開発コース</option>
+                <option value="Game">Gameアプリ開発コース</option>
+                <option value="Web">webサービス開発コース</option>
+                <option value="WebExpert">WebExpertコース</option>
+                <option value="VideoEditor">VideoEditorコース</option>
+                <option value="UIUX">UI/UXコース</option>
+                <option value="AI">AIコース</option>
+                <option value="Python">Pythonコース</option>
               </select>
-              <button class="timelineSpace-button-serch">検索</button>
+              <button class="serch-button" v-on:click="allSave">
+                <span>決定</span>
+              </button>
+              <div class="transparentCode">{{ course }}</div>
             </div>
           </div>
           <!-- <div class="timelineSpace-headerTitle-three">
@@ -157,7 +158,20 @@ export default {
   data() {
     return {
       memos: [],
+      course: "",
     }
+  },
+  // ↓セレクタごとにメモの表示を変える
+  methods: {
+    async allSave() {
+      const docRef = doc(db, "users", `${this.$store.state.user.uid.course}`)
+      const docSnap = await getDoc(docRef)
+      // const course = document.getElementById("course")
+      console.log(this.course)
+      if (docSnap.exists()) {
+        this.memos = this.memos.user.course
+      }
+    },
   },
   async created() {
     getDocs(collection(db, "testUsersMemos")).then((snapshot) => {
@@ -218,7 +232,7 @@ export default {
   width: 200px;
   height: 25px;
 }
-.timelineSpace-button-serch {
+.serch-button {
   border-radius: 2px;
   border: 1px solid black;
   font-weight: bold;
@@ -226,11 +240,11 @@ export default {
   margin-left: 8px;
   user-select: none;
 }
-.timelineSpace-button-serch:hover {
+.serch-button:hover {
   cursor: pointer;
   background-color: rgb(229, 230, 231);
 }
-.timelineSpace-button-serch:active {
+.serch-button:active {
   transform: scale(0.98);
 }
 .timelineSpace-upload {
@@ -540,11 +554,11 @@ nav li {
   }
   .Couse-Selecter {
   }
-  .timelineSpace-button-serch {
+  .serch-button {
   }
-  .timelineSpace-button-serch:hover {
+  .serch-button:hover {
   }
-  .timelineSpace-button-serch:active {
+  .serch-button:active {
   }
 
   .timelineSpace-upload {

@@ -2,7 +2,7 @@
   <header class="container">
     <div class="headerleft">
       <!-- ナビゲーションパート start -->
-      <nav class="hamburger-menu">
+      <nav class="hamburger-menu" id="hamburger-menu">
         <input class="menu-btn" type="checkbox" id="menu-btn" />
         <label class="menu-icon" for="menu-btn">
           <div class="menu-icon-wide">
@@ -10,22 +10,22 @@
           </div>
         </label>
         <!-- 見出し -->
-        <ul class="header-menu" v-on:click="liButton">
-          <li class="header-munu-one">
+        <ul class="header-menu" id="link-one">
+          <li class="header-munu-one" v-on:click="liclick">
             <router-link to="/">
               <span class="menu-text" id="menu-text-one"
                 >トップページ</span
               ></router-link
             >
           </li>
-          <li>
+          <li v-on:click="liclick">
             <router-link to="myAccount">
               <span class="menu-text" id="menu-text-two"
                 >マイページ</span
               ></router-link
             >
           </li>
-          <li>
+          <li v-on:click="liclick">
             <router-link to="aboutView">
               <span class="menu-text" id="menu-text-three"
                 >プロフィール設定</span
@@ -51,6 +51,7 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
 import { db } from "@/firebase"
+// import bodyParser from "body-parser"
 
 export default {
   methods: {
@@ -77,6 +78,10 @@ export default {
           await setDoc(doc(db, "users", `${uid}`), {}, { merge: true })
         })
     },
+    // liclick() {
+    //   console.log("ok")
+    //   document.getElementById("link-one").classList.remove("header-menu")
+    // },
   },
 }
 </script>
