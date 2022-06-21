@@ -1,20 +1,21 @@
 <template>
-  <div class="timelineSpace-upload-user" v-bind:class="memoClass">
-    <div class="timelineSpace-upload-user-information">
-      <!-- <router-link to="myAcount"> -->
-      <img class="account-icon" v-bind:src="memo.img" />
-      <!-- </router-link> -->
-      <div class="timelineSpace-upload-user-information-name">
-        <span>{{ memo.userName }}</span>
+  <div class="posted-memo">
+    <div class="timelineSpace-upload-user" v-bind:class="memoClass">
+      <div class="timelineSpace-upload-user-information">
+        <!-- <router-link to="myAcount"> -->
+        <img class="account-icon" v-bind:src="memo.img" />
+        <!-- </router-link> -->
+        <div class="timelineSpace-upload-user-information-name">
+          <span>{{ memo.userName }}</span>
+        </div>
+        <div class="timelineSpace-upload-user-information-course">
+          <span>{{ memo.course }}</span>
+        </div>
+        <div class="timelineSpace-upload-user-information-title">
+          <span>{{ memo.title }}</span>
+        </div>
       </div>
-      <div class="timelineSpace-upload-user-information-course">
-        <span>{{ memo.course }}</span>
-      </div>
-      <div class="timelineSpace-upload-user-information-title">
-        <span>{{ memo.title }}</span>
-      </div>
-    </div>
-    <!-- <div class="timelineSpace-upload-user-favorite">
+      <!-- <div class="timelineSpace-upload-user-favorite">
       <label>
         <input
           type="checkbox"
@@ -23,15 +24,16 @@
         <span>お気に入り</span>
       </label>
     </div> -->
-    <nav>
-      <li>
-        <a class="timelineSpace-upload-user-link">
-          <div class="timelineSpace-upload-user-text">
-            {{ memo.text }}
-          </div>
-        </a>
-      </li>
-    </nav>
+      <nav>
+        <li>
+          <a class="timelineSpace-upload-user-link">
+            <div class="timelineSpace-upload-user-text">
+              {{ memo.text }}
+            </div>
+          </a>
+        </li>
+      </nav>
+    </div>
   </div>
 </template>
 <script>
@@ -46,7 +48,7 @@ export default {
 </script>
 <style scoped>
 .posted-memo {
-  width: 50%;
+  width: 100%;
 }
 
 .account-icon {
@@ -54,6 +56,7 @@ export default {
   width: 50px;
   height: 50px;
   border-radius: 50% 50%;
+  background-color: aquamarine;
 }
 
 .timelineSpace-upload-user {
@@ -90,14 +93,14 @@ export default {
   position: relative;
   border-bottom: 1px solid black;
 }
-.timelineSpace-upload-user-information-iconButton {
-  /* border: 2px solid peru; */
+/* .timelineSpace-upload-user-information-iconButton {
+  border: 2px solid peru;
   width: 50px;
   height: 50px;
   border-radius: 50% 50%;
-  background-color: aqua;
-  margin: 3px;
-}
+  background-color: black;
+  margin: 5px;
+} */
 .timelineSpace-upload-user-information-iconButton:hover {
   cursor: pointer;
 }

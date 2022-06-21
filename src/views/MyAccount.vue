@@ -135,6 +135,7 @@ export default {
           id: article.id,
           userName: user.data().userName,
           course: user.data().course,
+          img: user.data().img,
           ...article.data(),
         })
       })
