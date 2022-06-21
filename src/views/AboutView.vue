@@ -64,6 +64,7 @@ export default {
     return {
       name: "",
       course: "",
+      img: "",
     }
   },
   methods: {
@@ -74,6 +75,7 @@ export default {
         await setDoc(doc(db, "users", `${this.$store.state.user.uid}`), {
           userName: this.name,
           course: this.course,
+          img: this.$store.state.image.image,
         })
         // location.reload()
         alert("変更しました！")

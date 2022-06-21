@@ -1,10 +1,9 @@
 <template>
   <div class="timelineSpace-upload-user" v-bind:class="memoClass">
     <div class="timelineSpace-upload-user-information">
-      <router-link to="myAcount">
-        <img class="account-icon" />
-      </router-link>
-      <!-- v-bind:src="this.$store.state.image.image" -->
+      <!-- <router-link to="myAcount"> -->
+      <img class="account-icon" v-bind:src="memo.img" />
+      <!-- </router-link> -->
       <div class="timelineSpace-upload-user-information-name">
         <span>{{ memo.userName }}</span>
       </div>
@@ -51,10 +50,9 @@ export default {
 }
 
 .account-icon {
-  margin-top: 5px;
-  margin-left: 5px;
+  margin: 5px;
   width: 50px;
-  height: 60px;
+  height: 50px;
   border-radius: 50% 50%;
 }
 
