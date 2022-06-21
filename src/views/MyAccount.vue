@@ -135,6 +135,7 @@ export default {
           id: article.id,
           userName: user.data().userName,
           course: user.data().course,
+          img: user.data().img,
           ...article.data(),
         })
       })
@@ -189,7 +190,7 @@ export default {
   flex-wrap: wrap;
 }
 .acount-text-title {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 900;
   /* border: 2px solid green; */
   width: 100%;
@@ -197,7 +198,7 @@ export default {
   user-select: none;
 }
 .acount-text-userName-name {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 900;
   text-align: center;
 }
@@ -209,7 +210,7 @@ export default {
   margin: 10px auto;
 }
 .acount-text-userCourse-name {
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 900;
   text-align: center;
 }
@@ -274,7 +275,7 @@ export default {
   transform: scale(0.98);
 }
 .memo-space {
-  /* border: 2px solid black; */
+  border: 2px solid rgba(255, 239, 216, 0.747);
   width: 100%;
   display: block;
   background-color: rgba(255, 239, 216, 0.747);
@@ -397,7 +398,7 @@ nav li {
   border: 2px solid #ce8d83dd;
   border-radius: 5px;
   padding: 0px;
-  width: 100%;
+  width: 80%;
   height: 100%;
   background-color: #dd988edd;
   color: white;

@@ -49,7 +49,7 @@ export default {
 
 <style scoped>
 .contents {
-  margin-top: 16px;
+  margin-top: 10px;
 }
 .header {
   margin: 0px;
