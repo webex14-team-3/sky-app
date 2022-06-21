@@ -67,8 +67,7 @@ export default {
     }
   },
   methods: {
-    // async:常にPromise(処理順が終わるまで次の処理を行わない)を
-    // どんな処理であっても必ず返す
+    // async:常にPromise(処理順が終わるまで次の処理を行わない)をどんな処理であっても必ず返す
     async allSave() {
       console.log(this.name)
       console.log(this.course)
@@ -89,27 +88,46 @@ export default {
     },
   },
   //ページが読み込まれたときに実行される関数
+  // async/await:非同期処理を同期処理にするための方法,
+  // ※get()メソッドは非同期処理になるため同期処理をしなければならない(他の方法として,コールバック関数,Promiseがある)
   async created() {
+    // ↓もしログインしてなかったら「ログインして」と言われ、「/」に行くようにする.
     if (!this.$store.state.user) {
       alert("ログインしてください")
       // ↓ path:を定義すると画面遷移ができる
       // (ログインしないとプロフィールに行けないようになるコード)
       this.$router.push({ path: "/" })
       // ↓ {}内で処理をとどめるコード
+      // オブジェクト内で行われた処理は,returnによって一度関数にもどされる.
+      // そしてその関数を使って次のオブジェクトの処理が行われる
       return
     }
+    // URL:https://firebase.google.com/docs/firestore/query-data/get-data?hl=ja
+    // 「ドキュメントを取得する」get()を使って単一のドキュメントの内容を取得する方法
+    // URL:https://qiita.com/maiyama18/items/86a4573fdce800221b72
+    // データ参照と取り出しの仕組み
+    // ↓ データへの「参照」を取得するコード,まだデータの内容を取得はしていない
     const docRef = doc(db, "users", `${this.$store.state.user.uid}`)
+    // ↓ 参照したデータ(docRef)の内容を取得するコード,スナップショット(ある時点で保存されたデータのこと)を得る必要がある
+    // ※get()メソッドはスナップショットを得るメソッド
     const docSnap = await getDoc(docRef)
+    // ↓ exists():指定したパスに対象のファイルが存在するのかを判定するメソッド
     if (docSnap.exists()) {
+      // ...(スプレッド記法):配列を複製したり分割したりする記法,下記の場合は複製
       this.user = { ...docSnap.data() }
+      // ↓ if文の代替として使われる構文.
+      // ○○(値の条件) ? ○○(tureの式) : ○○(falseの式)
+      // ↓ 「もしユーザーネームを見た時」,「書いてあるならその文章がuid.userNameに登録される」,「書いてないならその前の名前のまま登録される」
       this.name = this.user.userName
         ? docSnap.data().userName
         : this.$store.state.name.name
+      // ↓ 「もしコース名を見た時」,「書いてあるならデータベースにそのコースを更新する」,「書いてないなら""で登録される」
       this.course = this.user.course ? docSnap.data().course : ""
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!")
     }
+    // 単一のドキュメントの内容を取得する方法 終わり
   },
 }
 </script>

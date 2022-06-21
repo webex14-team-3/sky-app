@@ -148,7 +148,16 @@
 <script>
 // import headerSpace from "./headerSpace.vue"
 import PostedMemo from "@/components/PostedMemo.vue"
-import { collection, doc, getDoc, getDocs } from "firebase/firestore"
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  // getFirestore,
+  query,
+  where,
+} from "firebase/firestore"
+
 import { db } from "../firebase"
 
 export default {
@@ -161,23 +170,15 @@ export default {
       course: "",
     }
   },
-  // ↓セレクタごとにメモの表示を変える
-  methods: {
-    // async
-    allSave() {
-      const memosCourse = this.course
-      // const docRef = doc(db, "users", `${this.$store.state.user.uid.course}`)
-      // const docSnap = await getDoc(docRef)
-      // const course = document.getElementById("course")
-      console.log(memosCourse)
-      // if (this.course) {
-      //   this.memos.course = this.memos.user.course
-      // }
-    },
-  },
+
   async created() {
     // snapshot:実際のデータのこと
+    // get()メソッド：snapshotを得るためのメソッド
+    // collection:CollectionReferenceのこと. 複数のドキュメントを参照するためのコード
+    // thenメソッド:直前までの処理が成功した場合に実行したい処理を記述するためのメソッド
     getDocs(collection(db, "testUsersMemos")).then((snapshot) => {
+      // forEach:for文の簡略化のようなメソッド(繰り返し処理を簡単に処理するコード)
+      // forEachの式は, 配列.forEach(コールバック関数による処理)でできる
       snapshot.forEach(async (article) => {
         const docRef = doc(db, "users", `${article.data().user}`)
         const user = await getDoc(docRef)
@@ -190,7 +191,32 @@ export default {
         })
       })
     })
+    // ↓ セレクタボタンでコースごとに表示させる機能の搭載
+    // const docRef = doc(db, "users", `${this.$store.state.user.uid}`)
+    // const QWebexpert = getDoc(docRef).includes("WebExpert")
+    const usersRef = query(
+      (db, "users", "this.$store.state.user.uid"),
+      where("course", "in", "WebExpert")
+    )
+    console.log(usersRef)
+    console.log("hellow")
+    // getDocs(query(usersRef, where("course", "in", "WebExpert"))).then(
+    //   (snapshot) => {
+    //     snapshot.forEach((doc) => {
+    //       console.log(`${doc.id}: ${doc.data().course}`)
+    //     })
+    //   }
+    // )
   },
+  // methods: {
+  //   allSave() {
+  //     console.log(this.course)
+  //     if (this.course.includes("WebExpert")) {
+  //       console.log("hellow")
+  //       this.memos =
+  //     }
+  //   },
+  // },
 }
 </script>
 
