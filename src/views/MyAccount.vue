@@ -131,6 +131,10 @@ export default {
         const docRef = doc(db, "users", `${article.data().user}`)
         const user = await getDoc(docRef)
         console.log(user.data())
+        const validMemoData =
+          article.data().user === this.$store.state.user.uid ? true : false
+        if (!validMemoData) return
+        console.log("passed")
         this.memos.push({
           id: article.id,
           userName: user.data().userName,
