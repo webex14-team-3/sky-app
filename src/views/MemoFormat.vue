@@ -4,7 +4,12 @@
       <span class="title">タイトル</span>
       <!-- タイトル 始まり -->
       <section class="container-title">
-        <input type="text" class="contaner-title-input" v-model="inputTitle" />
+        <input
+          type="text"
+          maxlength="15"
+          class="contaner-title-input"
+          v-model="inputTitle"
+        />
       </section>
       <!-- タイトル 終わり -->
 

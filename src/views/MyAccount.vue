@@ -41,14 +41,14 @@
           <div class="memo-header-memoTitle">
             <span class="memo-header-memoTitle-title">マイメモ一覧</span>
           </div>
-          <div class="memo-header-inputButton">
+          <!-- <div class="memo-header-inputButton">
             <select class="memo-header-selector">
               <option value="mostRecent">新しい順</option>
               <option value="aiueo">古い順</option>
               <option value="favorite">お気に入り順</option>
             </select>
             <button class="memo-header-selectorButton">決定</button>
-          </div>
+          </div> -->
         </div>
         <div class="memo-space">
           <!-- <div class="memo-space-user">
@@ -202,6 +202,8 @@ export default {
   user-select: none;
 }
 .acount-text-userName-name {
+  /* border: 2px solid blue; */
+  border-bottom: 2px solid black;
   font-size: 30px;
   font-weight: 900;
   text-align: center;
@@ -214,6 +216,8 @@ export default {
   margin: 10px auto;
 }
 .acount-text-userCourse-name {
+  /* border: 2px solid blue; */
+  border-bottom: 2px solid black;
   font-size: 30px;
   font-weight: 900;
   text-align: center;
@@ -229,7 +233,7 @@ export default {
 .memo-header {
   /* border: 1px solid red; */
   width: 100%;
-  height: 15%;
+  /* height: 15%; */
   background-color: #c7887fdd;
 }
 .memo-header-memoTitle {
