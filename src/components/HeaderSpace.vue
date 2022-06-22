@@ -76,6 +76,9 @@ export default {
           // ※今まではauthの認証で入ってただけ
           await setDoc(doc(db, "users", `${uid}`), {}, { merge: true })
         })
+      // this.$router.push({
+      //   path: "/aboutView",
+      // })
     },
   },
 }

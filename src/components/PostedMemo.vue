@@ -21,7 +21,7 @@
           <!-- <li> -->
           <a class="timelineSpace-upload-user-link">
             <div class="timelineSpace-upload-user-text">
-              <span class="memo-text">{{ memo.text }}</span>
+              <span>{{ memo.text }}</span>
             </div>
           </a>
           <!-- </li> -->
@@ -126,11 +126,13 @@ export default {
   margin: auto 10px;
   position: relative;
   top: 15px;
+  font-weight: 900;
 }
 .timelineSpace-upload-user-information-course {
   /* border: 2px solid blue; */
   margin: auto 10px;
   position: relative;
+  font-weight: bold;
   top: 15px;
 }
 .timelineSpace-upload-user-information-title {
@@ -169,5 +171,26 @@ nav li {
 
 /* スマートフォン用 始まり */
 @media screen and (max-width: 640px) {
+  .timelineSpace-upload-user-information-name {
+    /* border: 2px solid green; */
+    position: relative;
+    top: -10px;
+    left: -7px;
+    /* margin: 0px; */
+    /* padding: 0px; */
+  }
+  .timelineSpace-upload-user-information-course {
+    /* border: 2px solid green; */
+    position: relative;
+    top: -10px;
+    left: 0px;
+  }
+  .timelineSpace-upload-user-information-title {
+    /* border: 2px solid green; */
+    font-size: 15px;
+    position: absolute;
+    top: 33px;
+    left: 50px;
+  }
 }
 </style>

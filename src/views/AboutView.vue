@@ -102,6 +102,9 @@ export default {
         ? docSnap.data().userName
         : this.$store.state.name.name
       this.course = this.user.course ? docSnap.data().course : ""
+      // this.$router.push({
+      //   path: "/myAccount",
+      // })
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!")

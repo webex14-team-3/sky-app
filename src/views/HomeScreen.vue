@@ -7,7 +7,7 @@
           <p class="timelineSpace-headerTitle-one">みんなのメモ一覧</p>
           <div class="timelineSpace-headerTitle-two">
             <p>コースごとにメモを選んでね！</p>
-            <div class="timelineSpace-button">
+            <!-- <div class="timelineSpace-button">
               <select class="Couse-Selecter">
                 <option value="AllCouse">すべて表示</option>
                 <option value="iPhoneAppDevCouse">
@@ -22,7 +22,7 @@
                 <option value="PythonCouse">Pythonコース</option>
               </select>
               <button class="timelineSpace-button-serch">検索</button>
-            </div>
+            </div> -->
           </div>
           <!-- <div class="timelineSpace-headerTitle-three">
             <span>他のユーザーが作ったメモを参考にしてみよう！</span>
@@ -165,7 +165,19 @@ export default {
         const docRef = doc(db, "users", `${article.data().user}`)
         const user = await getDoc(docRef)
         console.log(user.data())
-        this.memos.push({
+        // 並び変える sort mdn
+        // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#sorting_with_map
+
+        // this.memos.sort(function (a, b) {
+        //   if (a[this.memo.Date.now()] > b[this.memo.Date.now()]) {
+        //     return 1
+        //   }
+        //   if (a[this.memo.Date.now()] < b[this.memo.Date.now()]) {
+        //     return -1
+        //   }
+        //   return 0
+        // })
+        this.memos.unshift({
           id: article.id,
           userName: user.data().userName,
           course: user.data().course,
