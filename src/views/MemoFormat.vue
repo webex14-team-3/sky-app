@@ -202,6 +202,8 @@ export default {
   /* border: 2px solid red; */
   padding: 7px 5px 10px 5px;
   overflow: scroll;
+  word-break: break-word;
+  overflow-wrap: break-word;
   /* margin: auto auto 150px; */
   font-size: 15px;
   font-weight: 900;

@@ -64,13 +64,13 @@ export default {
   background-color: aquamarine;
 }
 .header {
-  /* border: 2px solid blue; */
+  border: 2px solid blue;
   border-bottom: 2px solid black;
   display: flex;
   height: 60px;
 }
 .bottom {
-  /* border: 2px solid green; */
+  border: 2px solid green;
 }
 
 .timelineSpace-upload-user {
@@ -156,6 +156,7 @@ nav li {
 }
 .timelineSpace-upload-user-text {
   /* border: 2px solid red; */
+  word-break: break-word;
 }
 .memo-text {
   /* border: 2px solid red; */
