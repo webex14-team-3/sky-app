@@ -2,19 +2,33 @@
   <div class="posted-memo">
     <div class="timelineSpace-upload-user" v-bind:class="memoClass">
       <div class="timelineSpace-upload-user-information">
-        <!-- <router-link to="myAcount"> -->
-        <img class="account-icon" v-bind:src="memo.img" />
-        <!-- </router-link> -->
-        <div class="timelineSpace-upload-user-information-name">
-          <span>{{ memo.userName }}</span>
+        <div class="header">
+          <!-- <router-link to="myAcount"> -->
+          <img class="account-icon" v-bind:src="memo.img" />
+          <!-- </router-link> -->
+          <div class="timelineSpace-upload-user-information-name">
+            <span>{{ memo.userName }}</span>
+          </div>
+          <div class="timelineSpace-upload-user-information-course">
+            <span>{{ memo.course }}</span>
+          </div>
+          <div class="timelineSpace-upload-user-information-title">
+            <span>{{ memo.title }}</span>
+          </div>
         </div>
-        <div class="timelineSpace-upload-user-information-course">
-          <span>{{ memo.course }}</span>
-        </div>
-        <div class="timelineSpace-upload-user-information-title">
-          <span>{{ memo.title }}</span>
+        <div class="bottom">
+          <!-- <nav> -->
+          <!-- <li> -->
+          <a class="timelineSpace-upload-user-link">
+            <div class="timelineSpace-upload-user-text">
+              <span class="memo-text">{{ memo.text }}</span>
+            </div>
+          </a>
+          <!-- </li> -->
+          <!-- </nav> -->
         </div>
       </div>
+
       <!-- <div class="timelineSpace-upload-user-favorite">
       <label>
         <input
@@ -24,15 +38,6 @@
         <span>お気に入り</span>
       </label>
     </div> -->
-      <nav>
-        <li>
-          <a class="timelineSpace-upload-user-link">
-            <div class="timelineSpace-upload-user-text">
-              {{ memo.text }}
-            </div>
-          </a>
-        </li>
-      </nav>
     </div>
   </div>
 </template>
@@ -58,12 +63,21 @@ export default {
   border-radius: 50% 50%;
   background-color: aquamarine;
 }
+.header {
+  /* border: 2px solid blue; */
+  border-bottom: 2px solid black;
+  display: flex;
+  height: 60px;
+}
+.bottom {
+  /* border: 2px solid green; */
+}
 
 .timelineSpace-upload-user {
   /* border: 2px solid royalblue; */
   box-shadow: 5px 5px 5px #dddddd;
   width: 70%;
-  height: 25%;
+  height: auto;
   margin: 15px auto;
   border-radius: 10px;
   background-color: white;
@@ -89,7 +103,7 @@ export default {
 }
 .timelineSpace-upload-user-information {
   /* border: 2px solid red; */
-  display: flex;
+  /* display: flex; */
   position: relative;
   border-bottom: 1px solid black;
 }
@@ -121,10 +135,10 @@ export default {
 }
 .timelineSpace-upload-user-information-title {
   /* border: 2px solid blue; */
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
   margin: auto 10px;
-  /* position: relative; */
+  position: relative;
   top: 15px;
 }
 nav {
@@ -139,10 +153,21 @@ nav li {
   position: relative;
 }
 .timelineSpace-upload-user-text {
+  /* border: 2px solid red; */
+}
+.memo-text {
+  /* border: 2px solid red; */
+  max-width: 100%;
+  max-height: 300px;
+  height: 100%;
   margin-top: 10px;
   margin-left: 10px;
   /* font-size: 20px; */
-  position: absolute;
-  left: 0px;
+  position: relative;
+  top: 0px;
+}
+
+/* スマートフォン用 始まり */
+@media screen and (max-width: 640px) {
 }
 </style>
