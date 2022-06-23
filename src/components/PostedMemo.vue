@@ -64,19 +64,25 @@ export default {
   background-color: aquamarine;
 }
 .header {
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
   border-bottom: 2px solid black;
   display: flex;
   height: 60px;
 }
 .bottom {
-  border: 2px solid green;
+  /* border: 2px solid green; */
+  resize: none;
+  overflow: auto;
+  max-width: 100%;
+  max-height: 150px;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .timelineSpace-upload-user {
   /* border: 2px solid royalblue; */
   box-shadow: 5px 5px 5px #dddddd;
-  width: 70%;
+  width: 90%;
   height: auto;
   margin: 15px auto;
   border-radius: 10px;
@@ -157,6 +163,8 @@ nav li {
 .timelineSpace-upload-user-text {
   /* border: 2px solid red; */
   word-break: break-word;
+  white-space: pre-wrap;
+  text-align: left;
 }
 .memo-text {
   /* border: 2px solid red; */

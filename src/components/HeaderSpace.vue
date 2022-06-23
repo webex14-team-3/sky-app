@@ -37,7 +37,7 @@
       <!-- ナビゲーションパート end -->
 
       <!-- テキストパート start -->
-      <div class="header-title">GeekSalon</div>
+      <div class="header-title">GSコネクト</div>
       <!-- テキストパート end -->
     </div>
 
@@ -228,9 +228,10 @@ export default {
 /* テキストパート start */
 .header-title {
   font-size: 50px;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  padding: 15px 90px 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 7px 90px 0;
   user-select: none;
+  font-weight: 900;
 }
 /* テキストパート end */
 

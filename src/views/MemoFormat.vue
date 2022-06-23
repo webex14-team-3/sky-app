@@ -208,6 +208,7 @@ export default {
   font-size: 15px;
   font-weight: 900;
   resize: none;
+  overflow: scroll;
   max-width: 100%;
   max-height: 100%;
   min-width: 100%;
