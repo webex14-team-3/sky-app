@@ -6,7 +6,7 @@
         <div class="timelineSpace-title-all">
           <p class="timelineSpace-headerTitle-one">みんなのメモ一覧</p>
           <div class="timelineSpace-headerTitle-two">
-            <p>コースごとにメモを選んでね！</p>
+            <!-- <p>コースごとにメモを選んでね！</p> -->
             <!-- <div class="timelineSpace-button">
               <select class="Couse-Selecter">
                 <option value="AllCouse">すべて表示</option>
@@ -247,8 +247,8 @@ export default {
   transform: scale(0.98);
 }
 .timelineSpace-upload {
-  border: 2px solid red;
-  min-height: 400px;
+  /* border: 2px solid red; */
+  min-height: 470px;
 
   background-color: rgba(255, 239, 216, 0.747);
   padding: 16px;

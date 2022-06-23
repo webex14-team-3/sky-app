@@ -82,7 +82,7 @@ export default {
 .timelineSpace-upload-user {
   /* border: 2px solid royalblue; */
   box-shadow: 5px 5px 5px #dddddd;
-  width: 70%;
+  width: 90%;
   height: auto;
   margin: 15px auto;
   border-radius: 10px;
@@ -163,6 +163,8 @@ nav li {
 .timelineSpace-upload-user-text {
   /* border: 2px solid red; */
   word-break: break-word;
+  white-space: pre-wrap;
+  text-align: left;
 }
 .memo-text {
   /* border: 2px solid red; */
