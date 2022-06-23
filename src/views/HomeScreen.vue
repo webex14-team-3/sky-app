@@ -247,7 +247,9 @@ export default {
   transform: scale(0.98);
 }
 .timelineSpace-upload {
-  /* border: 2px solid red; */
+  border: 2px solid red;
+  min-height: 400px;
+
   background-color: rgba(255, 239, 216, 0.747);
   padding: 16px;
 }

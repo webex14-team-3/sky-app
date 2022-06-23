@@ -286,6 +286,7 @@ export default {
   border: 2px solid rgba(255, 239, 216, 0.747);
   width: 100%;
   display: block;
+  min-height: 500px;
   background-color: rgba(255, 239, 216, 0.747);
 }
 .memo-space-user {
