@@ -19,7 +19,7 @@
         >
       </div>
       <button class="loginButton" @click="googleLogin">
-        <a class="container" v-if="loginName">ログイン</a>
+        <a class="container" v-if="loginName">aaa</a>
         <a class="container" v-else>Logout</a>
       </button>
     </div>
