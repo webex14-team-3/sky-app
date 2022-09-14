@@ -115,6 +115,7 @@ export default {
   margin: -10px;
   color: #ac4949;
   background-color: rgba(253, 244, 232, 0.747);
+  height: 100vh;
 }
 
 .allScreen section {
