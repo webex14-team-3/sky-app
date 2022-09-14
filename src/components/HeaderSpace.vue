@@ -2,24 +2,24 @@
   <div class="allContainer">
     <div class="baseContainer">
       <router-link to="/" class="navLogo navLink" style="text-decoration: none"
-        ><a class="container">トップページ</a></router-link
+        ><a class="container">TopPage</a></router-link
       >
       <div class="navItems">
         <router-link
           to="/myAccount"
           class="navItem navLink"
           style="text-decoration: none"
-          ><a class="container"> マイページ</a></router-link
+          ><a class="container">MyPage</a></router-link
         >
         <router-link
           to="/aboutView"
           class="navItem navLink"
           style="text-decoration: none"
-          ><a class="container">プロフィール<br />設定</a></router-link
+          ><a class="container">Profile<br />設定</a></router-link
         >
       </div>
       <button class="loginButton" @click="googleLogin">
-        <a class="container" v-if="loginName">aaa</a>
+        <a class="container" v-if="loginName">Login</a>
         <a class="container" v-else>Logout</a>
       </button>
     </div>
