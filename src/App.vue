@@ -54,5 +54,6 @@ export default {
 .header {
   margin: 0px;
   padding: 0px;
+  position: sticky;
 }
 </style>

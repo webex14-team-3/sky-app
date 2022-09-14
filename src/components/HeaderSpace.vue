@@ -15,7 +15,7 @@
           to="/aboutView"
           class="navItem navLink"
           style="text-decoration: none"
-          ><a class="container">Profile<br />設定</a></router-link
+          ><a class="container">Profile</a></router-link
         >
       </div>
       <button class="loginButton" @click="googleLogin">
