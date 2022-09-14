@@ -1,9 +1,5 @@
 <template>
   <div class="allContainer">
-    <section class="routerLinkArea">
-      <router-link to="/MyAcount">myAccount</router-link>｜
-      <router-link to="/ProfilePage">Profile</router-link>｜
-    </section>
     <section class="AppArea">
       <div class="app">
         <!-- router-linkでいれたものを、<router-view>で呼び出せる。 -->

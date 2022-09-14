@@ -250,6 +250,7 @@ export default {
   font-weight: 1000;
   font-display: swap;
   user-select: none;
+  color: white;
 }
 .memo-header-inputButton {
   /* border: 2px solid black; */
