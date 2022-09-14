@@ -15,17 +15,17 @@ const routes = [
     component: HomeScreen,
   },
   {
-    path: "/memoFormat",
+    path: "/MemoFormat",
     name: "MemoFormat",
     component: MemoFormat,
   },
   {
-    path: "/myAccount",
+    path: "/MyAccount",
     name: "MyAccount",
     component: MyAccount,
   },
   {
-    path: "/aboutView",
+    path: "/AboutView",
     name: "AboutView",
     component: AboutView,
   },

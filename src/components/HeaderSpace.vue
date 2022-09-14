@@ -6,13 +6,13 @@
       >
       <div class="navItems">
         <router-link
-          to="/myAccount"
+          to="/MyAccount"
           class="navItem navLink"
           style="text-decoration: none"
           ><a class="container">MyPage</a></router-link
         >
         <router-link
-          to="/aboutView"
+          to="/AboutView"
           class="navItem navLink"
           style="text-decoration: none"
           ><a class="container">Profile</a></router-link
