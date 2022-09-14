@@ -12,21 +12,21 @@
           ><a class="container">MyPage</a></router-link
         >
         <router-link
-          to="/AboutView"
+          to="/ProfilePage"
           class="navItem navLink"
           style="text-decoration: none"
           ><a class="container">Profile</a></router-link
         >
       </div>
-      <button class="loginButton" @click="googleLogin">
-        <a class="container" v-if="loginName">Login</a>
+      <button class="loginButton" @click="googleLogin === !googleLogin">
+        <a class="container" v-if="googleLogin === true">Login</a>
         <a class="container" v-else>Logout</a>
       </button>
     </div>
   </div>
 </template>
 
-<script>
+<!-- <script>
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
 import { db } from "@/firebase"
@@ -73,7 +73,7 @@ export default {
     },
   },
 }
-</script>
+</script> -->
 
 <style scoped>
 .allContainer {
@@ -145,7 +145,7 @@ export default {
   background-color: #fccb90;
 }
 .loginButton {
-  border: 2px solid #c7887fdd;
+  border: none;
   background-color: rgba(255, 235, 205, 0.747);
   width: 20%;
 }

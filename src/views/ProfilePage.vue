@@ -4,7 +4,11 @@
     <section class="icon">
       <h1 class="icon-title">アイコン</h1>
       <div class="icon-Container">
-        <img class="icon-Container-user" v-bind:src="this.$store.state.image" />
+        <!-- <img
+          class="icon-Container-user"
+          v-bind:src="this.$store.state.image.image"
+        /> -->
+        <img class="icon-Container-user" />
       </div>
     </section>
     <!-- アイコン 終わり -->
@@ -52,7 +56,7 @@
   </div>
 </template>
 
-<script>
+<!-- <script>
 import { getDoc, doc, setDoc } from "firebase/firestore"
 import { db } from "@/firebase"
 
@@ -66,6 +70,8 @@ export default {
   },
   methods: {
     async allSave() {
+      console.log(this.name)
+      console.log(this.course)
       if (this.name !== "" && this.course !== "") {
         await setDoc(doc(db, "users", `${this.$store.state.user.uid}`), {
           userName: this.name,
@@ -81,14 +87,14 @@ export default {
   },
   //ページが読み込まれたときに実行される関数
   async created() {
-    // if (!this.$store.state.user) {
-    //   // alert("ログインしてください")
-    //   // ↓ path:を定義すると画面遷移ができる
-    //   // (ログインしないとプロフィールに行けないようになるコード)
-    //   this.$router.push({ path: "/" })
-    //   // ↓ {}内で処理をとどめるコード
-    //   return
-    // }
+    if (!this.$store.state.user) {
+      // alert("ログインしてください")
+      // ↓ path:を定義すると画面遷移ができる
+      // (ログインしないとプロフィールに行けないようになるコード)
+      this.$router.push({ path: "/" })
+      // ↓ {}内で処理をとどめるコード
+      return
+    }
     const docRef = doc(db, "users", `${this.$store.state.user.uid}`)
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
@@ -98,7 +104,7 @@ export default {
         : this.$store.state.name.name
       this.course = this.user.course ? docSnap.data().course : ""
       // this.$router.push({
-      //   path: "/MyAccount",
+      //   path: "/myAccount",
       // })
     } else {
       // doc.data() will be undefined in this case
@@ -106,21 +112,21 @@ export default {
     }
   },
 }
-</script>
+</script> -->
 
 <style scoped>
 .allScreen {
   border: 2px solid rgba(253, 244, 232, 0.747);
+  height: 100vh;
   padding: 0px;
   margin: -10px;
   color: #ac4949;
   background-color: rgba(253, 244, 232, 0.747);
-  overflow-y: scroll;
 }
 
 .allScreen section {
   /* border: 2px solid red; */
-  margin: 13px auto;
+  margin: 15px auto;
 }
 
 /* アイコン 始まり */

@@ -144,7 +144,7 @@
   <router-vue />
 </template>
 
-<script>
+<!-- <script>
 // import headerSpace from "./headerSpace.vue"
 import PostedMemo from "@/components/PostedMemo.vue"
 import { collection, doc, getDoc, getDocs } from "firebase/firestore"
@@ -188,11 +188,12 @@ export default {
     })
   },
 }
-</script>
+</script> -->
 
 <style scoped>
 .all {
   margin: -10px;
+  height: 100vh;
 }
 /* タイムラインを入れこむ場所 始まり */
 .timelineSpace {
@@ -248,8 +249,7 @@ export default {
 }
 .timelineSpace-upload {
   /* border: 2px solid red; */
-  min-height: 470px;
-
+  min-height: 80vh;
   background-color: rgba(255, 239, 216, 0.747);
   padding: 16px;
 }

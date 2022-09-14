@@ -1,19 +1,27 @@
 <template>
-  <div class="app">
-    <!-- router-linkでいれたものを、<router-view>で呼び出せる。 -->
-    <!-- コンポーネントの書き方を変えられる  -->
-    <!-- どちらも必要 -->
-    <div class="header">
-      <HeaderSpace />
-    </div>
-    <div class="contents">
-      <router-view />
-      <!-- <posted-memo
+  <div class="allContainer">
+    <section class="routerLinkArea">
+      <router-link to="/MyAcount">myAccount</router-link>｜
+      <router-link to="/ProfilePage">Profile</router-link>｜
+    </section>
+    <section class="AppArea">
+      <div class="app">
+        <!-- router-linkでいれたものを、<router-view>で呼び出せる。 -->
+        <!-- コンポーネントの書き方を変えられる  -->
+        <!-- どちらも必要 -->
+        <div class="header">
+          <HeaderSpace />
+        </div>
+        <div class="contents">
+          <router-view />
+          <!-- <posted-memo
         v-for="memo in memos"
         v-bind:key="memo.id"
         v-bind:memo="memo"
       /> -->
-    </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -48,12 +56,15 @@ export default {
 </script>
 
 <style scoped>
+/* .allContainer {
+  overflow-y: scroll;
+  overflow-x: hidden;
+} */
 .contents {
   margin-top: 10px;
 }
 .header {
   margin: 0px;
   padding: 0px;
-  position: sticky;
 }
 </style>
