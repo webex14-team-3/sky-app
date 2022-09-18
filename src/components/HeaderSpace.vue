@@ -1,28 +1,31 @@
 <template>
   <div class="allContainer">
-    <div class="baseContainer">
-      <router-link to="/" class="navLogo navLink" style="text-decoration: none"
-        ><a class="container">TopPage</a>
-      </router-link>
-      <div class="navItems">
-        <router-link
-          to="/MyAccount"
-          class="navItem navLink"
-          style="text-decoration: none"
-          ><a class="container">MyPage</a></router-link
-        >
-        <router-link
-          to="/ProfilePage"
-          class="navItem navLink"
-          style="text-decoration: none"
-          ><a class="container">Profile</a></router-link
-        >
-      </div>
-      <button class="loginButton" @click="googleLogin">
-        <a class="container" v-if="isAuth">Login</a>
-        <a class="container" v-else>Logout</a>
-      </button>
-    </div>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <header class="baseContainer">
+      <nav>
+        <ul>
+          <li>
+            <router-link to="/" class="navLogo navLink">TopPage </router-link>
+          </li>
+          <li class="navItems">
+            <router-link to="/MyAccount" class="navItem navLink">
+              MyPage</router-link
+            >
+          </li>
+          <li>
+            <router-link to="/ProfilePage" class="navItem navLink"
+              >Profile</router-link
+            >
+          </li>
+          <li>
+            <div class="loginButton" @click="googleLogin">
+              <a class="container" v-if="isAuth">Login</a>
+              <a class="container" v-else>Logout</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
   </div>
 </template>
 
