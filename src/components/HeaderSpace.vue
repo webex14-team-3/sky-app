@@ -1,10 +1,9 @@
 <template>
   <div class="allContainer">
-<<<<<<< HEAD
     <div class="baseContainer">
       <router-link to="/" class="navLogo navLink" style="text-decoration: none"
-        ><a class="container">TopPage</a></router-link
-      >
+        ><a class="container">TopPage</a>
+      </router-link>
       <div class="navItems">
         <router-link
           to="/MyAccount"
@@ -24,46 +23,6 @@
         <a class="container" v-else>Logout</a>
       </button>
     </div>
-=======
-    <header class="header">
-      <nav>
-        <ul>
-          <li>
-            <router-link
-              to="/"
-              class="navLogo navLink"
-              style="text-decoration: none"
-              >TopPage</router-link
-            >
-          </li>
-          <!-- <li>
-            <router-link
-              to="/MyAccount"
-              class="navItem navLink"
-              style="text-decoration: none"
-              >>MyPage</router-link
-            >
-          </li> -->
-          <li>
-            <router-link
-              to="/ProfilePage"
-              class="navItem navLink"
-              style="text-decoration: none"
-              >>Profile</router-link
-            >
-          </li>
-          <li>
-            <div v-if="isAuth">
-              <a @click="signOut">LogOut</a>
-            </div>
-            <div v-else>
-              <a @click="signUp" class="container">LogIn</a>
-            </div>
-          </li>
-        </ul>
-      </nav>
-    </header>
->>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
   </div>
 </template>
 
@@ -74,46 +33,30 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signOut,
-<<<<<<< HEAD
   // deleteUser,
-=======
->>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
 } from "firebase/auth"
 import {
   setDoc,
   doc,
-<<<<<<< HEAD
   // collection,
-=======
-  collection,
->>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
   // addDoc,
   // updateDoc,
   // deleteField,
   // getDoc,
-<<<<<<< HEAD
   // getDocs,
   // query,
   // where,
 } from "firebase/firestore"
 import { db } from "@/firebase.js"
-=======
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore"
-import { db } from "@/firebase"
->>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
 
 export default {
   name: "headerNav",
   data() {
     return {
-<<<<<<< HEAD
       isAuth: true,
     }
   },
-  mounted() {
+  created() {
     const auth = getAuth()
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -127,66 +70,7 @@ export default {
   methods: {
     googleLogin() {
       if (this.isAuth === true) {
-=======
-      isAuth: false,
-      userName: "名無しさん",
-    }
-  },
-  created() {
-    const auth = getAuth()
-    onAuthStateChanged(auth, (user) => (this.isAuth = !!user))
-    // const auth = getAuth()
-    // onAuthStateChanged(auth, async (user) => {
-    //   if (user) {
-    //     const user = auth.currentUser
-    //     const displayName = user.displayName
-    //     const email = user.email
-    //     const photoURL = user.photoURL
-    //     await setDoc(doc(db, "users", user.uid), {
-    //       userName: displayName,
-    //       userEmail: email,
-    //       userImage: photoURL,
-    //     })
-    //     // this.userImg = photoURL
-    //     // this.userEmail = email
-    //     // this.userName = displayName
-    //     // this.loginName = false
-
-    //     const q = query(
-    //       collection(db, "userComments"),
-    //       where("userEmail", "==", email)
-    //     )
-    //     const querySnapshot = await getDocs(q)
-    //     console.log(querySnapshot)
-    //     querySnapshot.forEach((doc) => {
-    //       // this.comments.push({ text: doc.data().text })
-    //       console.log({ text: doc.data().text })
-    //     })
-    //   } else {
-    //     console.log("ユーザーなし")
-    //   }
-    // })
-  },
-  methods: {
-    signOut() {
-      const auth = getAuth()
-      signOut(auth)
-        .then(() => {
-          // Sign-out successful.
-          console.log("ログアウトしました")
-          this.$router("/")
-        })
-        .catch((error) => {
-          // An error happened.
-          console.log(error)
-        })
-    },
-    signUp() {
-      if (this.isAuth === false) {
-        console.log("test")
->>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
         const provider = new GoogleAuthProvider()
-        provider.addScope("")
         const auth = getAuth()
         signInWithPopup(auth, provider)
           .then((result) => {
@@ -199,7 +83,6 @@ export default {
                 const displayName = user.displayName
                 const email = user.email
                 const photoURL = user.photoURL
-<<<<<<< HEAD
                 await setDoc(doc(db, "users", user.uid), {
                   userName: displayName,
                   userEmail: email,
@@ -216,31 +99,10 @@ export default {
                 // querySnapshot.forEach((doc) => {
                 //   this.comments.push({ text: doc.data().text })
                 // })
-=======
-                const course = user.course
-                await setDoc(doc(db, "users", user.uid), {
-                  userName: displayName,
-                  userEmail: email,
-                  userImage: photoURL,
-                  userCourse: course,
-                })
-                this.loginName = false
-
-                const q = query(
-                  collection(db, "userComments"),
-                  where("userEmail", "==", email)
-                )
-                const querySnapshot = await getDocs(q)
-                console.log(querySnapshot)
-                querySnapshot.forEach((doc) => {
-                  this.comments.push({ text: doc.data().text })
-                })
->>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
               } else {
                 console.log("ユーザーなし")
               }
             })
-<<<<<<< HEAD
             this.isAuth = false
           })
           .catch((error) => {
@@ -259,14 +121,6 @@ export default {
             console.log(error)
           })
         this.isAuth = true
-=======
-            this.loginName = false
-          })
-          .catch((error) => {
-            GoogleAuthProvider.credentialFromError(error)
-            console.log(error)
-          })
->>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
       }
     },
   },
@@ -287,12 +141,14 @@ export default {
   justify-content: flex-end;
   margin: -9px;
 }
+
 .header {
   /* border: 2px solid blue; */
   width: 100%;
   display: flex;
   justify-content: flex-end;
 }
+
 .navLogo {
   /* border: 2px solid yellow; */
   background-color: rgba(255, 235, 205, 0.747);
@@ -301,18 +157,21 @@ export default {
   align-content: center;
   justify-content: center;
 }
+
 .topPage {
   color: black;
   font-weight: bold;
   font-size: 20px;
   user-select: none;
 }
+
 .navItems {
   /* border: 2px solid black; */
   display: flex;
   align-items: center;
   min-width: 40%;
 }
+
 .navItem {
   /* border: 2px solid black; */
   width: 100%;
@@ -321,6 +180,7 @@ export default {
   align-content: center;
   justify-content: center;
 }
+
 .container {
   /* border: 2px solid red; */
   display: flex;
@@ -333,20 +193,24 @@ export default {
   padding: 0px 5px;
   text-decoration-line: none;
 }
+
 .navLink {
   /* border: 2px solid green; */
   height: 100%;
   border-right: 5px solid #df5f5f;
 }
+
 .navLink:hover {
   cursor: pointer;
   background-color: #fccb90;
 }
+
 .loginButton {
   border: none;
   background-color: rgba(255, 235, 205, 0.747);
   width: 20%;
 }
+
 .loginButton:hover {
   cursor: pointer;
   background-color: #fccb90;
