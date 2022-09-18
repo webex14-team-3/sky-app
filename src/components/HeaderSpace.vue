@@ -55,6 +55,17 @@ export default {
       isAuth: true,
     }
   },
+  mounted() {
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.isAuth = false
+        console.log(user.emailVerified ? "済" : "未")
+      } else {
+        this.authState = true
+      }
+    })
+  },
   methods: {
     googleLogin() {
       if (this.isAuth === true) {
