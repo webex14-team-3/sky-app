@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<!-- <script>
+<script>
 import {
   getAuth,
   signInWithPopup,
@@ -78,18 +78,23 @@ export default {
             credential.accessToken
             result.user
             onAuthStateChanged(auth, async (user) => {
-              if (!user) {
+              // ユーザー情報を保存する
+              if (user) {
                 const user = auth.currentUser
                 const displayName = user.displayName
                 const email = user.email
                 const photoURL = user.photoURL
+                const firstTime = user.metadata.creationTime
+                const lastTime = user.metadata.lastSignInTime
                 await setDoc(doc(db, "users", user.uid), {
                   userName: displayName,
                   userEmail: email,
                   userImg: photoURL,
+                  createTime: firstTime,
+                  lastCreateTime: lastTime,
                 })
                 this.isAuth = false
-
+                console.log(user)
                 // const q = query(
                 //   collection(db, "userComment"),
                 //   where("userEmail", "==", email)
@@ -104,6 +109,7 @@ export default {
               }
             })
             this.isAuth = false
+            console.log("ログインしました")
           })
           .catch((error) => {
             GoogleAuthProvider.credentialFromError(error)
@@ -125,7 +131,7 @@ export default {
     },
   },
 }
-</script> -->
+</script>
 
 <style scoped>
 .allContainer {

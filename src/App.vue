@@ -1,40 +1,20 @@
 <template>
   <div class="header">
-    <div class="allContainer">
-      <div class="baseContainer">
-        <router-link
-          to="/"
-          class="navLogo navLink"
-          style="text-decoration: none"
-          ><a class="container">TopPage</a>
-        </router-link>
-        <div class="navItems">
-          <router-link
-            to="/MyAccount"
-            class="navItem navLink"
-            style="text-decoration: none"
-            ><a class="container">MyPage</a>
-          </router-link>
-          <router-link
-            to="/ProfilePage"
-            class="navItem navLink"
-            style="text-decoration: none"
-            ><a class="container">Profile</a></router-link
-          >
-        </div>
-        <button class="loginButton" @click="googleLogin">
-          <a class="container" v-if="loginName">Login</a>
-          <a class="container" v-else>Logout</a>
-        </button>
-      </div>
-    </div>
+    <HeaderSpace />
   </div>
   <div class="contents">
     <router-view />
   </div>
 </template>
 
-<script></script>
+<script>
+import HeaderSpace from "@/components/HeaderSpace.vue"
+export default {
+  components: {
+    HeaderSpace,
+  },
+}
+</script>
 
 <style scoped>
 .contents {
