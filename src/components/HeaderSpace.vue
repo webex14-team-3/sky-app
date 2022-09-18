@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script>
+<!-- <script>
 import {
   getAuth,
   signInWithPopup,
@@ -63,7 +63,7 @@ export default {
         this.isAuth = false
         console.log(user.emailVerified ? "済" : "未")
       } else {
-        this.authState = true
+        this.isAuth = true
       }
     })
   },
@@ -78,7 +78,7 @@ export default {
             credential.accessToken
             result.user
             onAuthStateChanged(auth, async (user) => {
-              if (user) {
+              if (!user) {
                 const user = auth.currentUser
                 const displayName = user.displayName
                 const email = user.email
@@ -125,7 +125,7 @@ export default {
     },
   },
 }
-</script>
+</script> -->
 
 <style scoped>
 .allContainer {
