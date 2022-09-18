@@ -4,11 +4,7 @@
     <section class="icon">
       <h1 class="icon-title">アイコン</h1>
       <div class="icon-Container">
-        <!-- <img
-          class="icon-Container-user"
-          v-bind:src="this.$store.state.image.image"
-        /> -->
-        <img class="icon-Container-user" />
+        <img class="icon-Container-user" v-bind:src="userImage" />
       </div>
     </section>
     <!-- アイコン 終わり -->
@@ -17,7 +13,7 @@
     <section class="userName">
       <h1 class="userName-title">ユーザーネーム(10文字まで)</h1>
       <div class="userName-Container">
-        <input type="text" maxlength="10" v-model="name" />
+        <input type="text" maxlength="10" v-model="inputUserName" />
       </div>
       <div class="transparentCode">{{ name }}</div>
     </section>
@@ -29,7 +25,7 @@
       <div class="courseName-Container">
         <div class="courseName-Container-icon"></div>
         <!-- <input type="text" v-model="name" /> -->
-        <select class="courseName-Container-select" v-model="course">
+        <select class="courseName-Container-select" v-model="inputUserCourse">
           <option value="IPhone">iPhoneアプリ開発コース</option>
           <option value="Game">Gameアプリ開発コース</option>
           <option value="Web">webサービス開発コース</option>
@@ -39,7 +35,6 @@
           <option value="AI">AIコース</option>
           <option value="Python">Pythonコース</option>
         </select>
-        <div class="transparentCode">{{ course }}</div>
       </div>
     </section>
     <!-- コース 終わり -->
@@ -56,27 +51,64 @@
   </div>
 </template>
 
-<!-- <script>
-import { getDoc, doc, setDoc } from "firebase/firestore"
+<script>
+import {
+  getAuth,
+  // signInWithPopup,
+  // GoogleAuthProvider,
+  // onAuthStateChanged,
+  // signOut,
+} from "firebase/auth"
+import {
+  setDoc,
+  doc,
+  // collection,
+  // addDoc,
+  // updateDoc,
+  // deleteField,
+  getDoc,
+  // getDocs,
+  // query,
+  // where,
+} from "firebase/firestore"
 import { db } from "@/firebase"
 
 export default {
   data() {
     return {
+      inputUserName: "",
+      inputUserCourse: "",
+      userImage: "",
       name: "",
       course: "",
-      img: "",
+    }
+  },
+  async created() {
+    const auth = getAuth()
+    const user = auth.currentUser
+    const name = user.displayName
+    let userData = { userCourse: "", userName: name }
+    const docRef = doc(db, "users", userData)
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data())
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!")
     }
   },
   methods: {
     async allSave() {
-      console.log(this.name)
-      console.log(this.course)
-      if (this.name !== "" && this.course !== "") {
-        await setDoc(doc(db, "users", `${this.$store.state.user.uid}`), {
-          userName: this.name,
-          course: this.course,
-          img: this.$store.state.image.image,
+      console.log(this.inputUserName)
+      console.log(this.inputUserCourse)
+      if (this.inputUserName !== "" && this.inputUserCourse !== "") {
+        const auth = getAuth()
+        const user = auth.currentUser
+        await setDoc(doc(db, "users", user.uid), {
+          userName: this.inputUserName,
+          userEmail: user.email,
+          userImage: this.userImage,
+          userCourse: this.inputUserCourse,
         })
         // location.reload()
         alert("変更しました！")
@@ -85,34 +117,8 @@ export default {
       }
     },
   },
-  //ページが読み込まれたときに実行される関数
-  async created() {
-    if (!this.$store.state.user) {
-      // alert("ログインしてください")
-      // ↓ path:を定義すると画面遷移ができる
-      // (ログインしないとプロフィールに行けないようになるコード)
-      this.$router.push({ path: "/" })
-      // ↓ {}内で処理をとどめるコード
-      return
-    }
-    const docRef = doc(db, "users", `${this.$store.state.user.uid}`)
-    const docSnap = await getDoc(docRef)
-    if (docSnap.exists()) {
-      this.user = { ...docSnap.data() }
-      this.name = this.user.userName
-        ? docSnap.data().userName
-        : this.$store.state.name.name
-      this.course = this.user.course ? docSnap.data().course : ""
-      // this.$router.push({
-      //   path: "/myAccount",
-      // })
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!")
-    }
-  },
 }
-</script> -->
+</script>
 
 <style scoped>
 .allScreen {
