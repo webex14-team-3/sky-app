@@ -18,62 +18,102 @@
           ><a class="container">Profile</a></router-link
         >
       </div>
-      <button class="loginButton" @click="googleLogin === !googleLogin">
-        <a class="container" v-if="googleLogin === true">Login</a>
+      <button class="loginButton" @click="googleLogin">
+        <a class="container" v-if="isAuth">Login</a>
         <a class="container" v-else>Logout</a>
       </button>
     </div>
   </div>
 </template>
 
-<!-- <script>
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth"
-import { doc, setDoc } from "firebase/firestore"
-import { db } from "@/firebase"
+<script>
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signOut,
+  // deleteUser,
+} from "firebase/auth"
+import {
+  setDoc,
+  doc,
+  // collection,
+  // addDoc,
+  // updateDoc,
+  // deleteField,
+  // getDoc,
+  // getDocs,
+  // query,
+  // where,
+} from "firebase/firestore"
+import { db } from "@/firebase.js"
 
 export default {
   data() {
     return {
-      loginName: true,
+      isAuth: true,
     }
   },
   methods: {
     googleLogin() {
-      if (this.loginName === true) {
-        // new"ネームプレート" provider "インスタンス"
+      if (this.isAuth === true) {
         const provider = new GoogleAuthProvider()
         const auth = getAuth()
         signInWithPopup(auth, provider)
           .then((result) => {
-            console.log(result.user)
-            this.$store.commit("updateUserInfo", { uid: result.user.uid })
-            this.$store.commit("updateUserName", {
-              name: result.user.displayName,
+            const credential = GoogleAuthProvider.credentialFromResult(result)
+            credential.accessToken
+            result.user
+            onAuthStateChanged(auth, async (user) => {
+              if (user) {
+                const user = auth.currentUser
+                const displayName = user.displayName
+                const email = user.email
+                const photoURL = user.photoURL
+                await setDoc(doc(db, "users", user.uid), {
+                  userName: displayName,
+                  userEmail: email,
+                  userImg: photoURL,
+                })
+                this.isAuth = false
+
+                // const q = query(
+                //   collection(db, "userComment"),
+                //   where("userEmail", "==", email)
+                // )
+                // const querySnapshot = await getDocs(q)
+                // console.log(querySnapshot)
+                // querySnapshot.forEach((doc) => {
+                //   this.comments.push({ text: doc.data().text })
+                // })
+              } else {
+                console.log("ユーザーなし")
+              }
             })
-            this.$store.commit("updateUserImage", {
-              image: result.user.photoURL,
-            })
-            console.log(this.$store.state.user.uid)
-            console.log(this.$store.state.name.name)
-            console.log(this.$store.state.image.image)
-            return result.user.uid
+            this.isAuth = false
           })
-          .then(async (uid) => {
-            // {}入れないとデータベースに入る形での登録はできない
-            // ※今まではauthの認証で入ってただけ
-            await setDoc(doc(db, "users", `${uid}`), {}, { merge: true })
-            this.loginName = false
+          .catch((error) => {
+            GoogleAuthProvider.credentialFromError(error)
+            console.log(error)
           })
-        // this.$router.push({
-        //   path: "/aboutView",
-        // })
       } else {
-        this.loginName = true
+        const auth = getAuth()
+        signOut(auth)
+          .then(() => {
+            // Sign-out successful.
+            console.log("ログアウトしました")
+          })
+          .catch((error) => {
+            // An error happened.
+            console.log(error)
+          })
+        this.isAuth = true
       }
     },
   },
 }
-</script> -->
+</script>
 
 <style scoped>
 .allContainer {
