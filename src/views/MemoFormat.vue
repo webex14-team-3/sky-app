@@ -74,7 +74,7 @@
   </div>
 </template>
 
-<script>
+<!-- <script>
 import { collection, addDoc } from "firebase/firestore"
 import { db } from "../firebase"
 
@@ -115,7 +115,7 @@ export default {
     }
   },
 }
-</script>
+</script> -->
 
 <style scoped>
 .memoAll {

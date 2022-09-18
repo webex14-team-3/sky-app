@@ -3,14 +3,14 @@
     <div class="allScreen">
       <!-- アカウント 始まり -->
       <section class="acount" id="acount">
-        <img class="acount-icon" v-bind:src="this.$store.state.image.image" />
+        <!-- <img class="acount-icon" v-bind:src="this.$store.state.image.image" /> -->
         <div class="acount-text">
           <div class="acount-text-userName">
             <a class="acount-text-title" id="acount-text-userName-title">
               ユーザー名
             </a>
             <a class="acount-text-userName-name">
-              {{ user ? user.userName : "" }}
+              <!-- {{ user ? user.userName : "" }} -->
             </a>
           </div>
           <div class="acount-text-userCourse">
@@ -18,7 +18,7 @@
               コース名
             </a>
             <a class="acount-text-userCourse-name">
-              {{ user ? user.course : "" }}
+              <!-- {{ user ? user.course : "" }} -->
             </a>
           </div>
         </div>
@@ -92,7 +92,7 @@
   </div>
 </template>
 
-<script>
+<!-- <script>
 import PostedMemo from "@/components/PostedMemo.vue"
 import { doc, getDoc, getDocs, collection } from "firebase/firestore"
 import { db } from "@/firebase"
@@ -109,7 +109,7 @@ export default {
   },
   async created() {
     if (!this.$store.state.user) {
-      alert("ログインしてください!")
+      // alert("ログインしてください!")
       // ↓ path:を定義すると画面遷移ができる
       // (ログインしないとプロフィールに行けないようになるコード)
       this.$router.push({ path: "/" })
@@ -146,7 +146,7 @@ export default {
     })
   },
 }
-</script>
+</script> -->
 
 <style scoped>
 .all {
@@ -156,7 +156,8 @@ export default {
 .allScreen {
   /* border: 2px solid black; */
   width: 100%;
-  height: 650px;
+  height: 100vh;
+  min-height: 650px;
   display: flex;
 }
 
@@ -249,6 +250,7 @@ export default {
   font-weight: 1000;
   font-display: swap;
   user-select: none;
+  color: white;
 }
 .memo-header-inputButton {
   /* border: 2px solid black; */
@@ -283,10 +285,10 @@ export default {
   transform: scale(0.98);
 }
 .memo-space {
-  border: 2px solid rgba(255, 239, 216, 0.747);
+  /* border: 2px solid red; */
   width: 100%;
   display: block;
-  min-height: 500px;
+  min-height: 100%;
   background-color: rgba(255, 239, 216, 0.747);
 }
 .memo-space-user {

@@ -1,74 +1,272 @@
 <template>
   <div class="allContainer">
+<<<<<<< HEAD
     <div class="baseContainer">
       <router-link to="/" class="navLogo navLink" style="text-decoration: none"
-        ><a class="container">トップページ</a></router-link
+        ><a class="container">TopPage</a></router-link
       >
       <div class="navItems">
         <router-link
-          to="/myAccount"
+          to="/MyAccount"
           class="navItem navLink"
           style="text-decoration: none"
-          ><a class="container"> マイページ</a></router-link
+          ><a class="container">MyPage</a></router-link
         >
         <router-link
-          to="/aboutView"
+          to="/ProfilePage"
           class="navItem navLink"
           style="text-decoration: none"
-          ><a class="container">プロフィール<br />設定</a></router-link
+          ><a class="container">Profile</a></router-link
         >
       </div>
       <button class="loginButton" @click="googleLogin">
-        <a class="container" v-if="loginName">aaa</a>
+        <a class="container" v-if="isAuth">Login</a>
         <a class="container" v-else>Logout</a>
       </button>
     </div>
+=======
+    <header class="header">
+      <nav>
+        <ul>
+          <li>
+            <router-link
+              to="/"
+              class="navLogo navLink"
+              style="text-decoration: none"
+              >TopPage</router-link
+            >
+          </li>
+          <!-- <li>
+            <router-link
+              to="/MyAccount"
+              class="navItem navLink"
+              style="text-decoration: none"
+              >>MyPage</router-link
+            >
+          </li> -->
+          <li>
+            <router-link
+              to="/ProfilePage"
+              class="navItem navLink"
+              style="text-decoration: none"
+              >>Profile</router-link
+            >
+          </li>
+          <li>
+            <div v-if="isAuth">
+              <a @click="signOut">LogOut</a>
+            </div>
+            <div v-else>
+              <a @click="signUp" class="container">LogIn</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+>>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
   </div>
 </template>
 
 <script>
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth"
-import { doc, setDoc } from "firebase/firestore"
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signOut,
+<<<<<<< HEAD
+  // deleteUser,
+=======
+>>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
+} from "firebase/auth"
+import {
+  setDoc,
+  doc,
+<<<<<<< HEAD
+  // collection,
+=======
+  collection,
+>>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
+  // addDoc,
+  // updateDoc,
+  // deleteField,
+  // getDoc,
+<<<<<<< HEAD
+  // getDocs,
+  // query,
+  // where,
+} from "firebase/firestore"
+import { db } from "@/firebase.js"
+=======
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore"
 import { db } from "@/firebase"
+>>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
 
 export default {
+  name: "headerNav",
   data() {
     return {
-      loginName: true,
+<<<<<<< HEAD
+      isAuth: true,
     }
+  },
+  mounted() {
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.isAuth = false
+        console.log(user.emailVerified ? "済" : "未")
+      } else {
+        this.authState = true
+      }
+    })
   },
   methods: {
     googleLogin() {
-      if (this.loginName === true) {
-        // new"ネームプレート" provider "インスタンス"
+      if (this.isAuth === true) {
+=======
+      isAuth: false,
+      userName: "名無しさん",
+    }
+  },
+  created() {
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => (this.isAuth = !!user))
+    // const auth = getAuth()
+    // onAuthStateChanged(auth, async (user) => {
+    //   if (user) {
+    //     const user = auth.currentUser
+    //     const displayName = user.displayName
+    //     const email = user.email
+    //     const photoURL = user.photoURL
+    //     await setDoc(doc(db, "users", user.uid), {
+    //       userName: displayName,
+    //       userEmail: email,
+    //       userImage: photoURL,
+    //     })
+    //     // this.userImg = photoURL
+    //     // this.userEmail = email
+    //     // this.userName = displayName
+    //     // this.loginName = false
+
+    //     const q = query(
+    //       collection(db, "userComments"),
+    //       where("userEmail", "==", email)
+    //     )
+    //     const querySnapshot = await getDocs(q)
+    //     console.log(querySnapshot)
+    //     querySnapshot.forEach((doc) => {
+    //       // this.comments.push({ text: doc.data().text })
+    //       console.log({ text: doc.data().text })
+    //     })
+    //   } else {
+    //     console.log("ユーザーなし")
+    //   }
+    // })
+  },
+  methods: {
+    signOut() {
+      const auth = getAuth()
+      signOut(auth)
+        .then(() => {
+          // Sign-out successful.
+          console.log("ログアウトしました")
+          this.$router("/")
+        })
+        .catch((error) => {
+          // An error happened.
+          console.log(error)
+        })
+    },
+    signUp() {
+      if (this.isAuth === false) {
+        console.log("test")
+>>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
         const provider = new GoogleAuthProvider()
+        provider.addScope("")
         const auth = getAuth()
         signInWithPopup(auth, provider)
           .then((result) => {
-            console.log(result.user)
-            this.$store.commit("updateUserInfo", { uid: result.user.uid })
-            this.$store.commit("updateUserName", {
-              name: result.user.displayName,
+            const credential = GoogleAuthProvider.credentialFromResult(result)
+            credential.accessToken
+            result.user
+            onAuthStateChanged(auth, async (user) => {
+              if (user) {
+                const user = auth.currentUser
+                const displayName = user.displayName
+                const email = user.email
+                const photoURL = user.photoURL
+<<<<<<< HEAD
+                await setDoc(doc(db, "users", user.uid), {
+                  userName: displayName,
+                  userEmail: email,
+                  userImg: photoURL,
+                })
+                this.isAuth = false
+
+                // const q = query(
+                //   collection(db, "userComment"),
+                //   where("userEmail", "==", email)
+                // )
+                // const querySnapshot = await getDocs(q)
+                // console.log(querySnapshot)
+                // querySnapshot.forEach((doc) => {
+                //   this.comments.push({ text: doc.data().text })
+                // })
+=======
+                const course = user.course
+                await setDoc(doc(db, "users", user.uid), {
+                  userName: displayName,
+                  userEmail: email,
+                  userImage: photoURL,
+                  userCourse: course,
+                })
+                this.loginName = false
+
+                const q = query(
+                  collection(db, "userComments"),
+                  where("userEmail", "==", email)
+                )
+                const querySnapshot = await getDocs(q)
+                console.log(querySnapshot)
+                querySnapshot.forEach((doc) => {
+                  this.comments.push({ text: doc.data().text })
+                })
+>>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
+              } else {
+                console.log("ユーザーなし")
+              }
             })
-            this.$store.commit("updateUserImage", {
-              image: result.user.photoURL,
-            })
-            console.log(this.$store.state.user.uid)
-            console.log(this.$store.state.name.name)
-            console.log(this.$store.state.image.image)
-            return result.user.uid
+<<<<<<< HEAD
+            this.isAuth = false
           })
-          .then(async (uid) => {
-            // {}入れないとデータベースに入る形での登録はできない
-            // ※今まではauthの認証で入ってただけ
-            await setDoc(doc(db, "users", `${uid}`), {}, { merge: true })
+          .catch((error) => {
+            GoogleAuthProvider.credentialFromError(error)
+            console.log(error)
+          })
+      } else {
+        const auth = getAuth()
+        signOut(auth)
+          .then(() => {
+            // Sign-out successful.
+            console.log("ログアウトしました")
+          })
+          .catch((error) => {
+            // An error happened.
+            console.log(error)
+          })
+        this.isAuth = true
+=======
             this.loginName = false
           })
-        // this.$router.push({
-        //   path: "/aboutView",
-        // })
-      } else {
-        this.loginName = true
+          .catch((error) => {
+            GoogleAuthProvider.credentialFromError(error)
+            console.log(error)
+          })
+>>>>>>> 5c2ddffd563266139422e8c2767c9cb2acd8e89e
       }
     },
   },
@@ -89,7 +287,7 @@ export default {
   justify-content: flex-end;
   margin: -9px;
 }
-.baseContainer {
+.header {
   /* border: 2px solid blue; */
   width: 100%;
   display: flex;
@@ -145,7 +343,7 @@ export default {
   background-color: #fccb90;
 }
 .loginButton {
-  border: 2px solid #c7887fdd;
+  border: none;
   background-color: rgba(255, 235, 205, 0.747);
   width: 20%;
 }
