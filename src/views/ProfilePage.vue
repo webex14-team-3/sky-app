@@ -51,7 +51,7 @@
   </div>
 </template>
 
-<script>
+<!-- <script>
 import {
   getAuth,
   // signInWithPopup,
@@ -118,7 +118,7 @@ export default {
     },
   },
 }
-</script>
+</script> -->
 
 <style scoped>
 .allScreen {

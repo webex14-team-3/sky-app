@@ -1,33 +1,6 @@
 <template>
   <div class="header">
-    <div class="allContainer">
-      <div class="baseContainer">
-        <router-link
-          to="/"
-          class="navLogo navLink"
-          style="text-decoration: none"
-          ><a class="container">TopPage</a>
-        </router-link>
-        <div class="navItems">
-          <router-link
-            to="/MyAccount"
-            class="navItem navLink"
-            style="text-decoration: none"
-            ><a class="container">MyPage</a>
-          </router-link>
-          <router-link
-            to="/ProfilePage"
-            class="navItem navLink"
-            style="text-decoration: none"
-            ><a class="container">Profile</a></router-link
-          >
-        </div>
-        <button class="loginButton" @click="googleLogin">
-          <a class="container" v-if="loginName">Login</a>
-          <a class="container" v-else>Logout</a>
-        </button>
-      </div>
-    </div>
+    <HeaderSpace />
   </div>
   <div class="contents">
     <router-view />
@@ -35,127 +8,10 @@
 </template>
 
 <script>
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth"
-import {
-  setDoc,
-  doc,
-  collection,
-  // addDoc,
-  // updateDoc,
-  // deleteField,
-  // getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore"
-import { db } from "./firebase"
-
+import HeaderSpace from "@/components/HeaderSpace.vue"
 export default {
   components: {
-    // PostedMemo,
-  },
-  data() {
-    return {
-      loginName: true,
-    }
-  },
-  created() {
-    const auth = getAuth()
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const user = auth.currentUser
-        const displayName = user.displayName
-        const email = user.email
-        const photoURL = user.photoURL
-        const course = user.course
-        await setDoc(doc(db, "users", user.uid), {
-          userName: displayName,
-          userEmail: email,
-          userImage: photoURL,
-          userCourse: course,
-        })
-
-        const q = query(
-          collection(db, "userComments"),
-          where("userEmail", "==", email)
-        )
-        const querySnapshot = await getDocs(q)
-        console.log(querySnapshot)
-        querySnapshot.forEach((doc) => {
-          // this.comments.push({ text: doc.data().text })
-          console.log({ text: doc.data().text })
-        })
-      } else {
-        console.log("ユーザーなし")
-      }
-    })
-  },
-  methods: {
-    googleLogin() {
-      if (this.loginName === true) {
-        console.log("test")
-        const provider = new GoogleAuthProvider()
-        provider.addScope("")
-        const auth = getAuth()
-        signInWithPopup(auth, provider)
-          .then((result) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result)
-            credential.accessToken
-            result.user
-            onAuthStateChanged(auth, async (user) => {
-              if (user) {
-                const user = auth.currentUser
-                const displayName = user.displayName
-                const email = user.email
-                const photoURL = user.photoURL
-                const course = user.course
-                await setDoc(doc(db, "users", user.uid), {
-                  userName: displayName,
-                  userEmail: email,
-                  userImage: photoURL,
-                  userCourse: course,
-                })
-                this.loginName = false
-
-                // const q = query(
-                //   collection(db, "userComments"),
-                //   where("userEmail", "==", email)
-                // )
-                // const querySnapshot = await getDocs(q)
-                // console.log(querySnapshot)
-                // querySnapshot.forEach((doc) => {
-                //   this.comments.push({ text: doc.data().text })
-                // })
-              } else {
-                console.log("ユーザーなし")
-              }
-            })
-            this.loginName = false
-          })
-          .catch((error) => {
-            GoogleAuthProvider.credentialFromError(error)
-            console.log(error)
-          })
-      } else {
-        const auth = getAuth()
-        signOut(auth)
-          .then(() => {
-            // Sign-out successful.
-            console.log("ログアウトしました")
-          })
-          .catch((error) => {
-            // An error happened.
-            console.log(error)
-          })
-        this.loginName = true
-      }
-    },
+    HeaderSpace,
   },
 }
 </script>

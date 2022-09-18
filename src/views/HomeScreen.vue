@@ -145,7 +145,6 @@
 </template>
 
 <!-- <script>
-// import headerSpace from "./headerSpace.vue"
 import PostedMemo from "@/components/PostedMemo.vue"
 import { collection, doc, getDoc, getDocs } from "firebase/firestore"
 import { db } from "../firebase"
