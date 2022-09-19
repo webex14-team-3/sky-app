@@ -14,7 +14,12 @@
       <h1 class="userName-title">ユーザーネーム(10文字まで)</h1>
       <div class="userName-Container">
         <br />
-        <input type="text" maxlength="10" v-model="inputUserName" />
+        <input
+          type="text"
+          maxlength="10"
+          v-model="inputUserName"
+          :placeholder="inputPlaceholder"
+        />
       </div>
       <div class="transparentCode">{{ getuserName }}</div>
     </section>
@@ -62,13 +67,14 @@ import {
 } from "firebase/auth"
 import {
   // setDoc,
-  // doc,
+  doc,
   updateDoc,
+  // updateDoc,
   // collection,
   // addDoc,
   // updateDoc,
   // deleteField,
-  // getDoc,
+  getDoc,
   // getDocs,
   // query,
   // where,
@@ -78,12 +84,11 @@ import { db } from "@/firebase"
 export default {
   data() {
     return {
-      inputUserName: "",
       inputUserCourse: "",
-      // inputUserImage:
-      // "https://images.en-courage.com/3wM0O9FT06N8UJHTDFDOvJyOst9AdBqKUZIbc1LlUqYsor6mc2XP2Ue7VgW3E5EO.jpg",
       getuserName: "",
       geetusercourse: "",
+      inputPlaceholder: "名無し",
+      inputUserName: "",
     }
   },
   computed: {
@@ -93,25 +98,30 @@ export default {
       return user
     },
   },
+  async created() {
+    const auth = getAuth()
+    const user = auth.currentUser
+    const docRef = doc(db, "users", user.uid)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      this.inputUserName = docSnap.data().userName
+      this.inputUserCourse = docSnap.data().userCourse
+    } else {
+      console.log("No such document!")
+    }
+  },
   methods: {
     async allSave() {
-      console.log(this.inputUserName)
-      console.log(this.inputUserCourse)
       if (this.inputUserName !== "" && this.inputUserCourse !== "") {
-        this.getuserName = this.inputUserName
+        console.log(this.inputUserName)
+        console.log(this.inputUserCourse)
         const auth = getAuth()
         const user = auth.currentUser
-        const washingtonRef = db.collection("users").doc(user.uid)
-        await updateDoc(washingtonRef, {
-          inputUserName: "",
+        await updateDoc(doc(db, "users", user.uid), {
+          userName: this.inputUserName,
+          userCourse: this.inputUserCourse,
         })
-        // await setDoc(doc(db, "users", user.uid), {
-        //   userName: this.inputUserName,
-        //   userEmail: user.email,
-        //   userImage: this.userImage,
-        //   userCourse: this.inputUserCourse,
-        // })
-        // location.reload()
         alert("変更しました！")
       } else {
         alert("どっちも入力してね!")
@@ -165,14 +175,14 @@ export default {
   margin: 15px auto 0px;
 }
 
-.icon-Container-user:hover {
+/* .icon-Container-user:hover {
   cursor: pointer;
   filter: brightness(90%);
 }
 
 .icon-Container-user:active {
   transform: scale(0.98);
-}
+} */
 
 /* アイコン 終わり */
 
@@ -263,7 +273,7 @@ export default {
 
 /* 決定ボタン 終わり */
 .transparentCode {
-  /* color: transparent; */
+  color: transparent;
   user-select: none;
   position: absolute;
 }
