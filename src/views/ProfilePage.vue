@@ -4,7 +4,7 @@
     <section class="icon">
       <h1 class="icon-title">アイコン</h1>
       <div class="icon-Container">
-        <img class="icon-Container-user" v-bind:src="userImage" />
+        <img class="icon-Container-user" v-bind:src="inputUserImage" />
       </div>
     </section>
     <!-- アイコン 終わり -->
@@ -13,9 +13,10 @@
     <section class="userName">
       <h1 class="userName-title">ユーザーネーム(10文字まで)</h1>
       <div class="userName-Container">
+        <br />
         <input type="text" maxlength="10" v-model="inputUserName" />
       </div>
-      <div class="transparentCode">{{ name }}</div>
+      <div class="transparentCode">{{ getuserName }}</div>
     </section>
     <!-- ユーザーネーム 終わり -->
 
@@ -41,17 +42,17 @@
 
     <!-- ボタン 始まり -->
     <section class="Savebutton">
-      <button class="Savebutton-button" v-on:click="allSave">
+      <button class="Savebutton-button" @click="allSave">
         <span>決定</span>
       </button>
-      <div class="transparentCode">{{ name }}</div>
-      <div class="transparentCode">{{ course }}</div>
+      <div class="transparentCode">{{ getuserName }}</div>
+      <div class="transparentCode">{{ geetusercourse }}</div>
     </section>
     <!-- ボタン 終わり -->
   </div>
 </template>
 
-<!-- <script>
+<script>
 import {
   getAuth,
   // signInWithPopup,
@@ -60,13 +61,14 @@ import {
   // signOut,
 } from "firebase/auth"
 import {
-  setDoc,
-  doc,
+  // setDoc,
+  // doc,
+  updateDoc,
   // collection,
   // addDoc,
   // updateDoc,
   // deleteField,
-  getDoc,
+  // getDoc,
   // getDocs,
   // query,
   // where,
@@ -78,38 +80,37 @@ export default {
     return {
       inputUserName: "",
       inputUserCourse: "",
-      userImage: "",
-      name: "",
-      course: "",
+      // inputUserImage:
+      // "https://images.en-courage.com/3wM0O9FT06N8UJHTDFDOvJyOst9AdBqKUZIbc1LlUqYsor6mc2XP2Ue7VgW3E5EO.jpg",
+      getuserName: "",
+      geetusercourse: "",
     }
   },
-  async created() {
-    const auth = getAuth()
-    const user = auth.currentUser
-    const name = user.displayName
-    let userData = { userCourse: "", userName: name }
-    const docRef = doc(db, "users", userData)
-    const docSnap = await getDoc(docRef)
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data())
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!")
-    }
+  computed: {
+    inputUserImage() {
+      const auth = getAuth()
+      const user = auth.currentUser.photoURL
+      return user
+    },
   },
   methods: {
     async allSave() {
       console.log(this.inputUserName)
       console.log(this.inputUserCourse)
       if (this.inputUserName !== "" && this.inputUserCourse !== "") {
+        this.getuserName = this.inputUserName
         const auth = getAuth()
         const user = auth.currentUser
-        await setDoc(doc(db, "users", user.uid), {
-          userName: this.inputUserName,
-          userEmail: user.email,
-          userImage: this.userImage,
-          userCourse: this.inputUserCourse,
+        const washingtonRef = db.collection("users").doc(user.uid)
+        await updateDoc(washingtonRef, {
+          inputUserName: "",
         })
+        // await setDoc(doc(db, "users", user.uid), {
+        //   userName: this.inputUserName,
+        //   userEmail: user.email,
+        //   userImage: this.userImage,
+        //   userCourse: this.inputUserCourse,
+        // })
         // location.reload()
         alert("変更しました！")
       } else {
@@ -118,7 +119,7 @@ export default {
     },
   },
 }
-</script> -->
+</script>
 
 <style scoped>
 .allScreen {
@@ -262,7 +263,7 @@ export default {
 
 /* 決定ボタン 終わり */
 .transparentCode {
-  color: transparent;
+  /* color: transparent; */
   user-select: none;
   position: absolute;
 }

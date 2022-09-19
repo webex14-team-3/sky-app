@@ -1,6 +1,5 @@
 <template>
   <div class="allContainer">
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
     <header class="baseContainer">
       <nav>
         <ul>
