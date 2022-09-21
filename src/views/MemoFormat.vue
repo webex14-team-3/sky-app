@@ -65,17 +65,23 @@
 
       <!-- 投稿 始まり -->
       <section class="container-upload">
-        <button class="container-upload-button" v-on:click="postMemo">
-          <span>投稿</span>
-        </button>
+        <div v-if="MyuserSpace">
+          <button class="container-upload-button" @click="saveMemo">
+            保存
+          </button>
+          <button class="container-upload-button" @click="postMemo">
+            投稿
+          </button>
+        </div>
       </section>
       <!-- 投稿 終わり -->
     </div>
   </div>
 </template>
 
-<!-- <script>
-import { collection, addDoc } from "firebase/firestore"
+<script>
+import { collection, addDoc, Timestamp } from "firebase/firestore"
+import { getAuth } from "firebase/auth"
 import { db } from "../firebase"
 
 export default {
@@ -83,39 +89,36 @@ export default {
     return {
       inputTitle: "",
       inputMemo: "",
+      MyuserSpace: true,
     }
   },
   methods: {
     async postMemo() {
-      let memo = {
-        user: this.$store.state.user.uid,
-        title: this.inputTitle,
-        text: this.inputMemo,
-      }
       // タイトルとテキストの両方が書かれていないと投稿できないようにする
-      if ((memo.title == "") | (memo.text == "")) {
-        alert("タイトルと本文を入力してください")
+      if (this.inputTitle !== "" && this.inputMemo !== "") {
+        if (window.confirm("これで投稿しますか？")) {
+          const auth = getAuth()
+          const user = auth.currentUser
+          const memo = {
+            title: this.inputTitle,
+            memo: this.inputMemo,
+            userID: user.uid,
+            userEmail: user.email,
+            createMemoTime: Timestamp.fromDate(new Date()),
+          }
+          await addDoc(collection(db, "userMemos"), memo)
+          alert("投稿が完了しました！")
+        }
       } else {
-        await addDoc(collection(db, "testUsersMemos"), memo)
-        alert("投稿が完了しました！")
+        alert("どっちも書いてください！")
       }
       //投稿されたらテキストエリアを空にする
       this.inputTitle = ""
       this.inputMemo = ""
     },
   },
-  created() {
-    if (!this.$store.state.user) {
-      alert("ログインしてください")
-      // ↓ path:を定義すると画面遷移ができる
-      // (ログインしないとプロフィールに行けないようになるコード)
-      this.$router.push({ path: "/" })
-      // ↓ {}内で処理をとどめるコード
-      return
-    }
-  },
 }
-</script> -->
+</script>
 
 <style scoped>
 .memoAll {
@@ -293,7 +296,7 @@ export default {
 .container-upload-button:active {
   transform: scale(0.98);
 }
-.container-upload-button span {
+.container-upload-button p {
   font-size: 25px;
   font-weight: 900;
   color: white;
