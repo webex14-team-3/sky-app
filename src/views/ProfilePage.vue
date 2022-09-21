@@ -4,7 +4,7 @@
     <section class="icon">
       <h1 class="icon-title">アイコン</h1>
       <div class="icon-Container">
-        <img class="icon-Container-user" v-bind:src="userImage" />
+        <img class="icon-Container-user" v-bind:src="inputUserImage" />
       </div>
     </section>
     <!-- アイコン 終わり -->
@@ -13,9 +13,15 @@
     <section class="userName">
       <h1 class="userName-title">ユーザーネーム(10文字まで)</h1>
       <div class="userName-Container">
-        <input type="text" maxlength="10" v-model="inputUserName" />
+        <br />
+        <input
+          type="text"
+          maxlength="10"
+          v-model="inputUserName"
+          :placeholder="inputPlaceholder"
+        />
       </div>
-      <div class="transparentCode">{{ name }}</div>
+      <div class="transparentCode">{{ getuserName }}</div>
     </section>
     <!-- ユーザーネーム 終わり -->
 
@@ -41,27 +47,29 @@
 
     <!-- ボタン 始まり -->
     <section class="Savebutton">
-      <button class="Savebutton-button" v-on:click="allSave">
+      <button class="Savebutton-button" @click="allSave">
         <span>決定</span>
       </button>
-      <div class="transparentCode">{{ name }}</div>
-      <div class="transparentCode">{{ course }}</div>
+      <div class="transparentCode">{{ getuserName }}</div>
+      <div class="transparentCode">{{ geetusercourse }}</div>
     </section>
     <!-- ボタン 終わり -->
   </div>
 </template>
 
-<!-- <script>
+<script>
 import {
   getAuth,
   // signInWithPopup,
   // GoogleAuthProvider,
-  // onAuthStateChanged,
+  onAuthStateChanged,
   // signOut,
 } from "firebase/auth"
 import {
-  setDoc,
+  // setDoc,
   doc,
+  updateDoc,
+  // updateDoc,
   // collection,
   // addDoc,
   // updateDoc,
@@ -76,41 +84,46 @@ import { db } from "@/firebase"
 export default {
   data() {
     return {
-      inputUserName: "",
       inputUserCourse: "",
-      userImage: "",
-      name: "",
-      course: "",
+      getuserName: "",
+      geetusercourse: "",
+      inputPlaceholder: "名無し",
+      inputUserName: "",
+      inputUserImage: "",
     }
   },
-  async created() {
+  created() {
     const auth = getAuth()
-    const user = auth.currentUser
-    const name = user.displayName
-    let userData = { userCourse: "", userName: name }
-    const docRef = doc(db, "users", userData)
-    const docSnap = await getDoc(docRef)
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data())
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!")
-    }
+    // ログイン後のユーザー情報を取得するには,onAuthStateChangedが最初に必要
+    onAuthStateChanged(auth, async (user) => {
+      // プロフィール設定している場合
+      if (user) {
+        const user = auth.currentUser
+        const userID = user.uid
+        const docRef = doc(db, "users", userID)
+        const docSnap = await getDoc(docRef)
+        console.log("Profile => docSnap" + ":" + docSnap.data())
+        if (docSnap.exists()) {
+          this.inputUserName = docSnap.data().userName
+          this.inputUserCourse = docSnap.data().userCourse
+          this.inputUserImage = docSnap.data().userImg
+        } else {
+          console.log("Profile => ユーザー情報がないよ！")
+        }
+      }
+    })
   },
   methods: {
     async allSave() {
-      console.log(this.inputUserName)
-      console.log(this.inputUserCourse)
       if (this.inputUserName !== "" && this.inputUserCourse !== "") {
+        console.log(this.inputUserName)
+        console.log(this.inputUserCourse)
         const auth = getAuth()
         const user = auth.currentUser
-        await setDoc(doc(db, "users", user.uid), {
+        await updateDoc(doc(db, "users", user.uid), {
           userName: this.inputUserName,
-          userEmail: user.email,
-          userImage: this.userImage,
           userCourse: this.inputUserCourse,
         })
-        // location.reload()
         alert("変更しました！")
       } else {
         alert("どっちも入力してね!")
@@ -118,7 +131,7 @@ export default {
     },
   },
 }
-</script> -->
+</script>
 
 <style scoped>
 .allScreen {
@@ -164,14 +177,14 @@ export default {
   margin: 15px auto 0px;
 }
 
-.icon-Container-user:hover {
+/* .icon-Container-user:hover {
   cursor: pointer;
   filter: brightness(90%);
 }
 
 .icon-Container-user:active {
   transform: scale(0.98);
-}
+} */
 
 /* アイコン 終わり */
 
