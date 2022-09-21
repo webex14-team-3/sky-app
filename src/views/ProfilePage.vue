@@ -62,7 +62,7 @@ import {
   getAuth,
   // signInWithPopup,
   // GoogleAuthProvider,
-  // onAuthStateChanged,
+  onAuthStateChanged,
   // signOut,
 } from "firebase/auth"
 import {
@@ -89,27 +89,29 @@ export default {
       geetusercourse: "",
       inputPlaceholder: "名無し",
       inputUserName: "",
+      inputUserImage: "",
     }
   },
-  computed: {
-    inputUserImage() {
-      const auth = getAuth()
-      const user = auth.currentUser.photoURL
-      return user
-    },
-  },
-  async created() {
+  created() {
     const auth = getAuth()
-    const user = auth.currentUser
-    const docRef = doc(db, "users", user.uid)
-    const docSnap = await getDoc(docRef)
-
-    if (docSnap.exists()) {
-      this.inputUserName = docSnap.data().userName
-      this.inputUserCourse = docSnap.data().userCourse
-    } else {
-      console.log("No such document!")
-    }
+    // ログイン後のユーザー情報を取得するには,onAuthStateChangedが最初に必要
+    onAuthStateChanged(auth, async (user) => {
+      // プロフィール設定している場合
+      if (user) {
+        const user = auth.currentUser
+        const userID = user.uid
+        const docRef = doc(db, "users", userID)
+        const docSnap = await getDoc(docRef)
+        console.log("Profile => docSnap" + ":" + docSnap.data())
+        if (docSnap.exists()) {
+          this.inputUserName = docSnap.data().userName
+          this.inputUserCourse = docSnap.data().userCourse
+          this.inputUserImage = docSnap.data().userImg
+        } else {
+          console.log("Profile => ユーザー情報がないよ！")
+        }
+      }
+    })
   },
   methods: {
     async allSave() {

@@ -36,6 +36,7 @@ import {
   onAuthStateChanged,
   signOut,
   // deleteUser,
+  // updateDoc,
 } from "firebase/auth"
 import {
   setDoc,
@@ -44,7 +45,7 @@ import {
   // addDoc,
   // updateDoc,
   // deleteField,
-  // getDoc,
+  getDoc,
   // getDocs,
   // query,
   // where,
@@ -80,38 +81,41 @@ export default {
             credential.accessToken
             result.user
             onAuthStateChanged(auth, async (user) => {
-              // ユーザー情報を保存する
-              if (user) {
+              // 初めてログインするとき
+              if (user !== null) {
                 const user = auth.currentUser
                 const displayName = user.displayName
                 const email = user.email
                 const photoURL = user.photoURL
                 const firstTime = user.metadata.creationTime
                 const lastTime = user.metadata.lastSignInTime
-                await setDoc(doc(db, "users", user.uid), {
-                  userName: displayName,
-                  userEmail: email,
-                  userImg: photoURL,
-                  createTime: firstTime,
-                  lastCreateTime: lastTime,
-                })
+                const docRef = doc(db, "users", user.uid)
+                const docSnap = await getDoc(docRef)
+                // 初めてアカウントを入れ込んだ時
+                if (!docSnap.exists()) {
+                  await setDoc(doc(db, "users", user.uid), {
+                    userName: displayName,
+                    userEmail: email,
+                    userImg: photoURL,
+                    createTime: firstTime,
+                    lastCreateTime: lastTime,
+                  })
+                  console.log("Header:firebaseに初めてユーザー情報を入れ込んだ")
+                  // 過去にログインをしていた場合
+                } else {
+                  console.log("Header:過去にログインしていた場合の処理")
+                  const docRef = doc(db, "users", user.uid)
+                  const docSnap = await getDoc(docRef)
+                  console.log(docSnap)
+                }
                 this.isAuth = false
-                console.log(user)
-                // const q = query(
-                //   collection(db, "userComment"),
-                //   where("userEmail", "==", email)
-                // )
-                // const querySnapshot = await getDocs(q)
-                // console.log(querySnapshot)
-                // querySnapshot.forEach((doc) => {
-                //   this.comments.push({ text: doc.data().text })
-                // })
               } else {
                 console.log("ユーザーなし")
               }
             })
             this.isAuth = false
             console.log("ログインしました")
+            this.$router.push("/ProfilePage")
           })
           .catch((error) => {
             GoogleAuthProvider.credentialFromError(error)
@@ -122,6 +126,7 @@ export default {
         signOut(auth)
           .then(() => {
             // Sign-out successful.
+            this.$router.push("/")
             console.log("ログアウトしました")
           })
           .catch((error) => {
