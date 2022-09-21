@@ -92,10 +92,10 @@
   </div>
 </template>
 
-<!-- <script>
+<script>
 import PostedMemo from "@/components/PostedMemo.vue"
-import { doc, getDoc, getDocs, collection } from "firebase/firestore"
-import { db } from "@/firebase"
+// import { doc, getDoc, getDocs, collection } from "firebase/firestore"
+// import { db } from "@/firebase"
 
 export default {
   components: {
@@ -107,46 +107,46 @@ export default {
       memos: [],
     }
   },
-  async created() {
-    if (!this.$store.state.user) {
-      // alert("ログインしてください!")
-      // ↓ path:を定義すると画面遷移ができる
-      // (ログインしないとプロフィールに行けないようになるコード)
-      this.$router.push({ path: "/" })
-      // ↓ {}内で処理をとどめるコード
-      return
-    }
-    const docRef = doc(db, "users", `${this.$store.state.user.uid}`) // ここは、バッククオートを使うこと
-    const docSnap = await getDoc(docRef)
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data())
-      this.user = docSnap.data()
-      console.log(this.user)
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!")
-    }
-    getDocs(collection(db, "testUsersMemos")).then((snapshot) => {
-      snapshot.forEach(async (article) => {
-        const docRef = doc(db, "users", `${article.data().user}`)
-        const user = await getDoc(docRef)
-        console.log(user.data())
-        const validMemoData =
-          article.data().user === this.$store.state.user.uid ? true : false
-        if (!validMemoData) return
-        console.log("passed")
-        this.memos.push({
-          id: article.id,
-          userName: user.data().userName,
-          course: user.data().course,
-          img: user.data().img,
-          ...article.data(),
-        })
-      })
-    })
-  },
+  // async created() {
+  //   if (!this.$store.state.user) {
+  //     // alert("ログインしてください!")
+  //     // ↓ path:を定義すると画面遷移ができる
+  //     // (ログインしないとプロフィールに行けないようになるコード)
+  //     this.$router.push({ path: "/" })
+  //     // ↓ {}内で処理をとどめるコード
+  //     return
+  //   }
+  //   const docRef = doc(db, "users", `${this.$store.state.user.uid}`) // ここは、バッククオートを使うこと
+  //   const docSnap = await getDoc(docRef)
+  //   if (docSnap.exists()) {
+  //     console.log("Document data:", docSnap.data())
+  //     this.user = docSnap.data()
+  //     console.log(this.user)
+  //   } else {
+  //     // doc.data() will be undefined in this case
+  //     console.log("No such document!")
+  //   }
+  //   getDocs(collection(db, "testUsersMemos")).then((snapshot) => {
+  //     snapshot.forEach(async (article) => {
+  //       const docRef = doc(db, "users", `${article.data().user}`)
+  //       const user = await getDoc(docRef)
+  //       console.log(user.data())
+  //       const validMemoData =
+  //         article.data().user === this.$store.state.user.uid ? true : false
+  //       if (!validMemoData) return
+  //       console.log("passed")
+  //       this.memos.push({
+  //         id: article.id,
+  //         userName: user.data().userName,
+  //         course: user.data().course,
+  //         img: user.data().img,
+  //         ...article.data(),
+  //       })
+  //     })
+  //   })
+  // },
 }
-</script> -->
+</script>
 
 <style scoped>
 .all {
