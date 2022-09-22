@@ -1,14 +1,27 @@
 <template>
   <div class="allContainer">
-    <header class="baseContainer">
-      <div class="LinkContainer">
-        <router-link to="/" class="navItem">TopPage </router-link>
-        <router-link to="/MyAccount" class="navItem"> MyPage</router-link>
-        <router-link to="/ProfilePage" class="navItem">Profile</router-link>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <header class="LinkContainer">
+      <div class="TopPageNav" @click="topPageBtn">
+        <router-link to="/" class="navItem"
+          ><p class="navItemName">TopPage</p></router-link
+        >
       </div>
-      <div class="loginButton" @click="googleLogin">
-        <a class="container" v-if="isAuth">Login</a>
-        <a class="container" v-else>Logout</a>
+      <div class="MyPageNav" @click="MyPageBtn">
+        <router-link to="/MyAccount" class="navItem"
+          ><p class="navItemName">MyPage</p></router-link
+        >
+      </div>
+      <div class="ProfileNav" @click="ProfilePageBtn">
+        <router-link to="/ProfilePage" class="navItem"
+          ><p class="navItemName">Profile</p></router-link
+        >
+      </div>
+      <div class="loginNav" @click="googleLogin">
+        <div class="navItem">
+          <a class="container" v-if="isAuth">Login</a>
+          <a class="container" v-else>Logout</a>
+        </div>
       </div>
     </header>
   </div>
@@ -122,6 +135,15 @@ export default {
         this.isAuth = true
       }
     },
+    topPageBtn() {
+      this.$router.push("/")
+    },
+    MyPageBtn() {
+      this.$router.push("/MyAccount")
+    },
+    ProfilePageBtn() {
+      this.$router.push("/ProfilePage")
+    },
   },
 }
 </script>
@@ -131,16 +153,61 @@ export default {
 /* background-color: #fccb90; */
 /* border-right: 5px solid #df5f5f; */
 .allContainer {
-  border: 2px solid red;
+  /* border: 2px solid blue; */
+  width: 100%;
   height: 60px;
-  margin: -9px;
-}
-.baseContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #c7887fdd;
+  user-select: none;
 }
 .LinkContainer {
+  /* border: 2px solid red; */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 235, 205, 0.747);
   list-style-type: none;
+}
+.TopPageNav {
+  /* border: 2px solid yellow; */
+  width: 50%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border-right: 4px solid #c7887fdd;
+  height: 100%;
+  cursor: pointer;
+}
+.MyPageNav {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border-right: 4px solid #c7887fdd;
+  height: 100%;
+  width: 20%;
+  cursor: pointer;
+}
+.ProfileNav {
+  /* border: 2px solid red; */
+  width: 20%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border-right: 4px solid #c7887fdd;
+  height: 100%;
+  cursor: pointer;
+}
+.navItem {
+  /* border: 2px solid black; */
+  display: flex;
+  align-items: center;
+}
+.loginNav {
+  /* border: 2px solid red; */
+  width: 10%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 100%;
+  cursor: pointer;
 }
 </style>
