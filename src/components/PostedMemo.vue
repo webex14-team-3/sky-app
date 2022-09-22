@@ -1,6 +1,6 @@
 <template>
   <div class="posted-memo">
-    <div class="timelineSpace-upload-user" v-bind:class="memoClass">
+    <div class="timelineSpace-upload-user">
       <div class="timelineSpace-upload-user-information">
         <div class="header">
           <!-- <router-link to="myAcount"> -->
@@ -25,6 +25,9 @@
               />
               <span>お気に入り</span>
             </label>
+            <div>
+              {{ memo.createMemoTime }}
+            </div>
           </div>
           <hr />
           <!-- <nav> -->

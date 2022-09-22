@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { collection, addDoc, Timestamp, doc, getDoc } from "firebase/firestore"
+import { collection, addDoc, doc, getDoc } from "firebase/firestore"
 import { getAuth } from "firebase/auth"
 import { db } from "../firebase"
 
@@ -102,6 +102,19 @@ export default {
           const userid = user.uid
           const docRef = doc(db, "users", userid)
           const docSnap = await getDoc(docRef)
+
+          // 投稿時の時間を作る
+          const now = new Date()
+          const year = now.getFullYear()
+          const month = now.getMonth()
+          const date = now.getDate()
+          const hour = now.getHours()
+          const min = now.getMinutes()
+          const sec = now.getSeconds()
+
+          const displayTime = `${year}/${month + 1}/${date}`
+          const inputTime = `${year}/${month + 1}/${date}/${hour}:${min}:${sec}`
+
           if (docSnap.exists()) {
             const memo = {
               userID: user.uid,
@@ -109,7 +122,8 @@ export default {
               userCourse: docSnap.data().userCourse,
               userEmail: docSnap.data().userEmail,
               userImg: docSnap.data().userImg,
-              createMemoTime: Timestamp.fromDate(new Date()),
+              createMemoTime: displayTime,
+              DetailcreateMemoTime: inputTime,
               title: this.inputTitle,
               memo: this.inputMemo,
             }

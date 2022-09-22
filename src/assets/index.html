@@ -16,5 +16,17 @@
     <div class="allContainer">
       <h1>test</h1>
     </div>
+    <script>
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth()
+      const date = now.getDate()
+      const hour = now.getHours()
+      const min = now.getMinutes()
+      const sec = now.getSeconds()
+
+      const output = `${year}/${month + 1}/${date}/${hour}:${min}:${sec}`
+      console.log(output)
+    </script>
   </body>
 </html>

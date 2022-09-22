@@ -74,7 +74,6 @@ import {
   collection,
   query,
   where,
-  orderBy,
 } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "@/firebase"
@@ -106,52 +105,44 @@ export default {
           this.userCourse = docSnap.data().userCourse
           this.inputUserImage = docSnap.data().userImg
         }
+
         const q = query(collection(db, "userMemos"), where("userID", "==", uid))
 
         const querySnapshot = await getDocs(q)
-        // console.log(querySnapshot)
-        const a = query(q, orderBy("createMemoTime"))
-        console.log(a)
+        console.log(querySnapshot)
+
         querySnapshot.forEach((doc) => {
           // console.log(doc.data())
-          this.memos.push({
+          console.log(doc.data().createMemoTime)
+          this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
             title: doc.data().title,
             memo: doc.data().memo,
             userImg: doc.data().userImg,
+            createMemoTime: doc.data().createMemoTime,
           })
         })
       }
     })
+    // 並び変える sort mdn
+    // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#sorting_with_map
 
-    // const docRef = doc(db, "users", `${this.$store.state.user.uid}`) // ここは、バッククオートを使うこと
-    // const docSnap = await getDoc(docRef)
-    // if (docSnap.exists()) {
-    //   console.log("Document data:", docSnap.data())
-    //   this.user = docSnap.data()
-    //   console.log(this.user)
-    // } else {
-    //   // doc.data() will be undefined in this case
-    //   console.log("No such document!")
-    // }
-    // getDocs(collection(db, "testUsersMemos")).then((snapshot) => {
-    //   snapshot.forEach(async (article) => {
-    //     const docRef = doc(db, "users", `${article.data().user}`)
-    //     const user = await getDoc(docRef)
-    //     console.log(user.data())
-    //     const validMemoData =
-    //       article.data().user === this.$store.state.user.uid ? true : false
-    //     if (!validMemoData) return
-    //     console.log("passed")
-    //     this.memos.push({
-    //       id: article.id,
-    //       userName: user.data().userName,
-    //       course: user.data().course,
-    //       img: user.data().img,
-    //       ...article.data(),
-    //     })
-    //   })
+    // this.memos.sort(function (a, b) {
+    //   if (a[this.memo.Date.now()] > b[this.memo.Date.now()]) {
+    //     return 1
+    //   }
+    //   if (a[this.memo.Date.now()] < b[this.memo.Date.now()]) {
+    //     return -1
+    //   }
+    //   return 0
+    // })
+    // this.memos.unshift({
+    //   id: article.id,
+    //   userName: user.data().userName,
+    //   course: user.data().course,
+    //   img: user.data().img,
+    //   ...article.data(),
     // })
   },
 }
