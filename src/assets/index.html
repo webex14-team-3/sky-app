@@ -17,16 +17,18 @@
       <h1>test</h1>
     </div>
     <script>
-      const now = new Date()
-      const year = now.getFullYear()
-      const month = now.getMonth()
-      const date = now.getDate()
-      const hour = now.getHours()
-      const min = now.getMinutes()
-      const sec = now.getSeconds()
+      let no = [5, 27, 12, 41]
+      no.sort(function (first, second) {
+        if (first > second) {
+          return 1
+        } else if (first < second) {
+          return -1
+        } else {
+          return 0
+        }
+      })
 
-      const output = `${year}/${month + 1}/${date}/${hour}:${min}:${sec}`
-      console.log(output)
+      console.log(no)
     </script>
   </body>
 </html>

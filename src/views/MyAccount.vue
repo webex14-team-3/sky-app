@@ -73,7 +73,8 @@ import {
   getDocs,
   collection,
   query,
-  where,
+  // where,
+  orderBy,
 } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "@/firebase"
@@ -99,21 +100,22 @@ export default {
         const docRef = doc(db, "users", uid) // ここは、バッククオートを使うこと
         const docSnap = await getDoc(docRef)
         if (docSnap.exists()) {
-          // console.log(docSnap.data())
           this.inputUserImage = docSnap.data()
           this.userName = docSnap.data().userName
           this.userCourse = docSnap.data().userCourse
           this.inputUserImage = docSnap.data().userImg
         }
 
-        const q = query(collection(db, "userMemos"), where("userID", "==", uid))
+        // const q = query(collection(db, "userMemos"), where("userID", "==", uid))
+        // const querySnapshot = await getDocs(q)
 
-        const querySnapshot = await getDocs(q)
-        console.log(querySnapshot)
+        const a = query(
+          collection(db, "userMemos"),
+          orderBy("createGetTime", "asc")
+        )
+        const querySnapshot = await getDocs(a)
 
         querySnapshot.forEach((doc) => {
-          // console.log(doc.data())
-          console.log(doc.data().createMemoTime)
           this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
@@ -121,29 +123,19 @@ export default {
             memo: doc.data().memo,
             userImg: doc.data().userImg,
             createMemoTime: doc.data().createMemoTime,
+            TimeRemains: doc.data().createGetTime,
           })
         })
+        // let remain = []
+        // for (let i = 0; i < this.memos.length; i++) {
+        //   remain.push(this.memos[i].TimeRemains)
+        // }
+        // console.log(remain)
+        // remain.sort(function (a, b) {
+        //   return a - b
+        // })
       }
     })
-    // 並び変える sort mdn
-    // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#sorting_with_map
-
-    // this.memos.sort(function (a, b) {
-    //   if (a[this.memo.Date.now()] > b[this.memo.Date.now()]) {
-    //     return 1
-    //   }
-    //   if (a[this.memo.Date.now()] < b[this.memo.Date.now()]) {
-    //     return -1
-    //   }
-    //   return 0
-    // })
-    // this.memos.unshift({
-    //   id: article.id,
-    //   userName: user.data().userName,
-    //   course: user.data().course,
-    //   img: user.data().img,
-    //   ...article.data(),
-    // })
   },
 }
 </script>

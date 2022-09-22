@@ -124,6 +124,7 @@ export default {
               userImg: docSnap.data().userImg,
               createMemoTime: displayTime,
               DetailcreateMemoTime: inputTime,
+              createGetTime: now.getTime(),
               title: this.inputTitle,
               memo: this.inputMemo,
             }
