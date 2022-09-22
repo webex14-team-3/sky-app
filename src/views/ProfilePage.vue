@@ -102,13 +102,13 @@ export default {
         const userID = user.uid
         const docRef = doc(db, "users", userID)
         const docSnap = await getDoc(docRef)
-        console.log("Profile => docSnap" + ":" + docSnap.data())
+        // console.log("Profile => docSnap" + ":" + docSnap.data())
         if (docSnap.exists()) {
           this.inputUserName = docSnap.data().userName
           this.inputUserCourse = docSnap.data().userCourse
           this.inputUserImage = docSnap.data().userImg
         } else {
-          console.log("Profile => ユーザー情報がないよ！")
+          // console.log("Profile => ユーザー情報がないよ！")
         }
       }
     })

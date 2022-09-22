@@ -68,14 +68,14 @@
 <script>
 import PostedMemo from "@/components/PostedMemo.vue"
 import {
-  doc,
-  getDoc,
-  // getDocs,
-  // collection,
-  // query,
-  // where,
+  // doc,
+  // getDoc,
+  getDocs,
+  collection,
+  query,
+  where,
 } from "firebase/firestore"
-import { getAuth } from "firebase/auth"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "@/firebase"
 
 export default {
@@ -87,33 +87,29 @@ export default {
       user: null,
       memos: [],
       inputUserImage: "",
-      userCourse: "",
-      userName: "",
+      userCourse: "WebExpert",
+      userName: "名無し",
     }
   },
   async created() {
     const auth = getAuth()
-    const user = auth.currentUser
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const uid = user.uid
+        const q = query(collection(db, "userMemos"), where("userID", "==", uid))
 
-    const userID = user.uid
-    const docRef = doc(db, "users", userID)
-    const docSnap = await getDoc(docRef)
-    console.log("Profile => docSnap" + ":" + docSnap.data())
-    if (docSnap.exists()) {
-      this.userName = docSnap.data().userName
-      this.userCourse = docSnap.data().userCourse
-      this.inputUserImage = docSnap.data().userImg
-    }
-
-    // const q = query(
-    //   collection(db, "userMemos"),
-    //   where("userEmail", "==", user.email)
-    // )
-
-    // const querySnapshot = await getDocs(q)
-    // querySnapshot.forEach((doc) => {
-    //   console.log(doc.id, " => ", doc.data())
-    // })
+        const querySnapshot = await getDocs(q)
+        querySnapshot.forEach((doc) => {
+          console.log(doc.data())
+          this.memos.push({
+            userName: doc.data().userName,
+            userCourse: doc.data().userCourse,
+            title: doc.data().title,
+            memo: doc.data().memo,
+          })
+        })
+      }
+    })
   },
 }
 </script>
