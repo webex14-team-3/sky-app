@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { setDoc, Timestamp, doc, getDoc } from "firebase/firestore"
+import { collection, addDoc, Timestamp, doc, getDoc } from "firebase/firestore"
 import { getAuth } from "firebase/auth"
 import { db } from "../firebase"
 
@@ -110,9 +110,10 @@ export default {
               userEmail: docSnap.data().userEmail,
               userImg: docSnap.data().userImg,
               createMemoTime: Timestamp.fromDate(new Date()),
+              title: this.inputTitle,
               memo: this.inputMemo,
             }
-            await setDoc(doc(db, "userMemos", this.inputTitle), memo)
+            await addDoc(collection(db, "userMemos"), memo)
             alert("投稿が完了しました！")
           }
         }

@@ -1,6 +1,6 @@
 <template>
   <div class="allContainer">
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <!-- <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" /> -->
     <header class="LinkContainer">
       <div class="TopPageNav" @click="topPageBtn">
         <router-link to="/" class="navItem"
