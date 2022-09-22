@@ -4,7 +4,7 @@
       <!-- アカウント 始まり -->
       <section class="acount" id="acount">
         <div class="icon-Container">
-          <img class="icon-Container-user" v-bind:src="inputUserImage" />
+          <img class="icon-Container-user" :src="inputUserImage" />
         </div>
         <div class="acount-text">
           <div class="acount-text-userName">
@@ -68,8 +68,8 @@
 <script>
 import PostedMemo from "@/components/PostedMemo.vue"
 import {
-  // doc,
-  // getDoc,
+  doc,
+  getDoc,
   getDocs,
   collection,
   query,
@@ -96,6 +96,15 @@ export default {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid
+        const docRef = doc(db, "users", uid) // ここは、バッククオートを使うこと
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+          // console.log(docSnap.data())
+          this.inputUserImage = docSnap.data()
+          this.userName = docSnap.data().userName
+          this.userCourse = docSnap.data().userCourse
+          this.inputUserImage = docSnap.data().userImg
+        }
         const q = query(collection(db, "userMemos"), where("userID", "==", uid))
 
         const querySnapshot = await getDocs(q)
@@ -106,10 +115,40 @@ export default {
             userCourse: doc.data().userCourse,
             title: doc.data().title,
             memo: doc.data().memo,
+            userImg: doc.data().userImg,
           })
         })
       }
     })
+
+    // const docRef = doc(db, "users", `${this.$store.state.user.uid}`) // ここは、バッククオートを使うこと
+    // const docSnap = await getDoc(docRef)
+    // if (docSnap.exists()) {
+    //   console.log("Document data:", docSnap.data())
+    //   this.user = docSnap.data()
+    //   console.log(this.user)
+    // } else {
+    //   // doc.data() will be undefined in this case
+    //   console.log("No such document!")
+    // }
+    // getDocs(collection(db, "testUsersMemos")).then((snapshot) => {
+    //   snapshot.forEach(async (article) => {
+    //     const docRef = doc(db, "users", `${article.data().user}`)
+    //     const user = await getDoc(docRef)
+    //     console.log(user.data())
+    //     const validMemoData =
+    //       article.data().user === this.$store.state.user.uid ? true : false
+    //     if (!validMemoData) return
+    //     console.log("passed")
+    //     this.memos.push({
+    //       id: article.id,
+    //       userName: user.data().userName,
+    //       course: user.data().course,
+    //       img: user.data().img,
+    //       ...article.data(),
+    //     })
+    //   })
+    // })
   },
 }
 </script>

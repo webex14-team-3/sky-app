@@ -108,6 +108,7 @@ export default {
               userName: docSnap.data().userName,
               userCourse: docSnap.data().userCourse,
               userEmail: docSnap.data().userEmail,
+              userImg: docSnap.data().userImg,
               createMemoTime: Timestamp.fromDate(new Date()),
               memo: this.inputMemo,
             }
