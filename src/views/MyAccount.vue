@@ -53,33 +53,6 @@
           </div>
         </div>
         <div class="memo-space">
-          <div class="memo-space-user">
-            <div class="memo-space-user-information">
-              <div class="memo-space-user-information-iconButton">
-                <img class="icon-Container-user" v-bind:src="inputUserImage" />
-              </div>
-              <div class="memo-space-user-information-name">
-                <p>{{ this.userName }}</p>
-              </div>
-              <div class="memo-space-user-information-course">
-                <p>{{ this.userCourse }}</p>
-              </div>
-              <button class="memo-space-user-information-button">削除</button>
-            </div>
-            <div class="memo-space-user-favorite">
-              <label>
-                <input type="checkbox" class="memo-space-user-favorite-input" />
-                <span>お気に入り</span>
-              </label>
-            </div>
-            <nav>
-              <li>
-                <a href="#" class="memo-space-user-link">
-                  <div class="memo-space-user-link-titleName">タイトル</div>
-                </a>
-              </li>
-            </nav>
-          </div>
           <posted-memo
             v-for="memo in memos"
             v-bind:key="memo.id"
@@ -97,10 +70,10 @@ import PostedMemo from "@/components/PostedMemo.vue"
 import {
   doc,
   getDoc,
-  getDocs,
-  collection,
-  query,
-  where,
+  // getDocs,
+  // collection,
+  // query,
+  // where,
 } from "firebase/firestore"
 import { getAuth } from "firebase/auth"
 import { db } from "@/firebase"
@@ -132,43 +105,14 @@ export default {
       this.inputUserImage = docSnap.data().userImg
     }
 
-    const q = query(
-      collection(db, "userMemos"),
-      where("userEmail", "==", user.email)
-    )
+    // const q = query(
+    //   collection(db, "userMemos"),
+    //   where("userEmail", "==", user.email)
+    // )
 
-    const querySnapshot = await getDocs(q)
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data())
-    })
-
-    // const docRef = doc(db, "users", `${this.$store.state.user.uid}`) // ここは、バッククオートを使うこと
-    // const docSnap = await getDoc(docRef)
-    // if (docSnap.exists()) {
-    //   console.log("Document data:", docSnap.data())
-    //   this.user = docSnap.data()
-    //   console.log(this.user)
-    // } else {
-    //   // doc.data() will be undefined in this case
-    //   console.log("No such document!")
-    // }
-    // getDocs(collection(db, "testUsersMemos")).then((snapshot) => {
-    //   snapshot.forEach(async (article) => {
-    //     const docRef = doc(db, "users", `${article.data().user}`)
-    //     const user = await getDoc(docRef)
-    //     console.log(user.data())
-    //     const validMemoData =
-    //       article.data().user === this.$store.state.user.uid ? true : false
-    //     if (!validMemoData) return
-    //     console.log("passed")
-    //     this.memos.push({
-    //       id: article.id,
-    //       userName: user.data().userName,
-    //       course: user.data().course,
-    //       img: user.data().img,
-    //       ...article.data(),
-    //     })
-    //   })
+    // const querySnapshot = await getDocs(q)
+    // querySnapshot.forEach((doc) => {
+    //   console.log(doc.id, " => ", doc.data())
     // })
   },
 }
