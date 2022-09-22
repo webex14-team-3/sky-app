@@ -1,29 +1,15 @@
 <template>
   <div class="allContainer">
     <header class="baseContainer">
-      <nav>
-        <ul>
-          <li>
-            <router-link to="/" class="navLogo navLink">TopPage </router-link>
-          </li>
-          <li class="navItems">
-            <router-link to="/MyAccount" class="navItem navLink">
-              MyPage</router-link
-            >
-          </li>
-          <li>
-            <router-link to="/ProfilePage" class="navItem navLink"
-              >Profile</router-link
-            >
-          </li>
-          <li>
-            <div class="loginButton" @click="googleLogin">
-              <a class="container" v-if="isAuth">Login</a>
-              <a class="container" v-else>Logout</a>
-            </div>
-          </li>
-        </ul>
-      </nav>
+      <div class="LinkContainer">
+        <router-link to="/" class="navItem">TopPage </router-link>
+        <router-link to="/MyAccount" class="navItem"> MyPage</router-link>
+        <router-link to="/ProfilePage" class="navItem">Profile</router-link>
+      </div>
+      <div class="loginButton" @click="googleLogin">
+        <a class="container" v-if="isAuth">Login</a>
+        <a class="container" v-else>Logout</a>
+      </div>
     </header>
   </div>
 </template>
@@ -141,91 +127,20 @@ export default {
 </script>
 
 <style scoped>
+/* background-color: rgba(255, 235, 205, 0.747); */
+/* background-color: #fccb90; */
+/* border-right: 5px solid #df5f5f; */
 .allContainer {
-  /* border: 2px solid red; */
+  border: 2px solid red;
   height: 60px;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  background-color: #c7887fdd;
-  display: flex;
-  justify-content: flex-end;
   margin: -9px;
 }
-
-.header {
-  /* border: 2px solid blue; */
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.navLogo {
-  /* border: 2px solid yellow; */
-  background-color: rgba(255, 235, 205, 0.747);
-  width: 100%;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-}
-
-.topPage {
-  color: black;
-  font-weight: bold;
-  font-size: 20px;
-  user-select: none;
-}
-
-.navItems {
-  /* border: 2px solid black; */
-  display: flex;
-  align-items: center;
-  min-width: 40%;
-}
-
-.navItem {
-  /* border: 2px solid black; */
-  width: 100%;
-  background-color: rgba(255, 235, 205, 0.747);
-  display: flex;
-  align-content: center;
-  justify-content: center;
-}
-
-.container {
-  /* border: 2px solid red; */
+.baseContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black;
-  font-weight: bold;
-  font-size: 20px;
-  user-select: none;
-  padding: 0px 5px;
-  text-decoration-line: none;
 }
-
-.navLink {
-  /* border: 2px solid green; */
-  height: 100%;
-  border-right: 5px solid #df5f5f;
-}
-
-.navLink:hover {
-  cursor: pointer;
-  background-color: #fccb90;
-}
-
-.loginButton {
-  border: none;
-  background-color: rgba(255, 235, 205, 0.747);
-  width: 20%;
-}
-
-.loginButton:hover {
-  cursor: pointer;
-  background-color: #fccb90;
+.LinkContainer {
+  list-style-type: none;
 }
 </style>

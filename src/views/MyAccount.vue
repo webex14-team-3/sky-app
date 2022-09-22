@@ -74,6 +74,7 @@ import {
   collection,
   query,
   where,
+  orderBy,
 } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "@/firebase"
@@ -108,8 +109,11 @@ export default {
         const q = query(collection(db, "userMemos"), where("userID", "==", uid))
 
         const querySnapshot = await getDocs(q)
+        // console.log(querySnapshot)
+        const a = query(q, orderBy("createMemoTime"))
+        console.log(a)
         querySnapshot.forEach((doc) => {
-          console.log(doc.data())
+          // console.log(doc.data())
           this.memos.push({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
