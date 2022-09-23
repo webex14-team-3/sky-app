@@ -1,34 +1,44 @@
 <template>
-  <div class="all">
-    <div class="homeAll">
+  <div class="all_Container">
+    <div class="home_Container">
       <!-- タイムラインを入れこむ場所 始まり -->
-      <section class="timelineSpace">
-        <div class="timelineSpace-title-all">
-          <p class="timelineSpace-headerTitle-one">みんなのメモ一覧</p>
-          <div class="timelineSpace-headerTitle-two">
+      <section class="timeline_Area">
+        <div class="header_Container">
+          <p class="minnanoMemoItiran">みんなのメモ一覧</p>
+          <div class="search_Container">
             <!-- <p>コースごとにメモを選んでね！</p> -->
-            <div class="timelineSpace-button">
-              <select class="Couse-Selecter">
-                <option value="AllCouse">すべて表示</option>
-                <option value="iPhoneAppDevCouse">
-                  iPhoneアプリ開発コース
-                </option>
-                <option value="GameAppDevCouse">Gameアプリ開発コース</option>
-                <option value="webServeDevCouse">webサービス開発コース</option>
-                <option value="WebExpertCouse">WebExpertコース</option>
-                <option value="VideoEditorCouse">VideoEditorコース</option>
-                <option value="UI-UTCouse">UI/UXコース</option>
-                <option value="AICouse">AIコース</option>
-                <option value="PythonCouse">Pythonコース</option>
-              </select>
-              <button class="timelineSpace-button-serch">検索</button>
+            <div class="select_Container">
+              <div class="select_Area">
+                <select>
+                  <option value="AllCouse">すべて表示</option>
+                  <option value="iPhoneAppDevCouse">
+                    iPhoneアプリ開発コース
+                  </option>
+                  <option value="GameAppDevCouse">Gameアプリ開発コース</option>
+                  <option value="webServeDevCouse">
+                    webサービス開発コース
+                  </option>
+                  <option value="WebExpertCouse">WebExpertコース</option>
+                  <option value="VideoEditorCouse">VideoEditorコース</option>
+                  <option value="UI-UTCouse">UI/UXコース</option>
+                  <option value="AICouse">AIコース</option>
+                  <option value="PythonCouse">Pythonコース</option>
+                </select>
+              </div>
+              <div class="input_Area">
+                <input
+                  v-model="inputSearch"
+                  placeholder="知りたいことを検索しよう！"
+                /><br />
+                <button class="search_Btn">検索</button>
+              </div>
             </div>
           </div>
           <!-- <div class="timelineSpace-headerTitle-three">
             <span>他のユーザーが作ったメモを参考にしてみよう！</span>
           </div> -->
         </div>
-        <div class="timelineSpace-upload">
+        <div class="timeline_Area">
           <posted-memo
             v-for="memo in memos"
             v-bind:key="memo.id"
@@ -69,13 +79,9 @@
       </section> -->
 
       <!-- 投稿する場所 始まり -->
-      <router-link to="memoFormat">
-        <section class="uploadSpace">
-          <button class="uploadSpace-button">
-            <span class="uploadSpace-button-text">投稿する</span>
-          </button>
-        </section>
-      </router-link>
+      <section class="memoBtn_Area">
+        <MemoBtn />
+      </section>
       <!-- 投稿する場所 終わり -->
 
       <!-- ユーザーのアカウントを一覧させる場所 終わり -->
@@ -85,6 +91,7 @@
 
 <script>
 import PostedMemo from "@/components/PostedMemo.vue"
+import MemoBtn from "@/components/MemoBtn.vue"
 import {
   doc,
   getDoc,
@@ -100,6 +107,7 @@ export default {
   name: "HomePage",
   components: {
     PostedMemo,
+    MemoBtn,
   },
   data() {
     return {
@@ -147,461 +155,94 @@ export default {
 }
 </script>
 
-<style scoped>
-.all {
-  margin: -10px;
-  height: 100vh;
-}
-/* タイムラインを入れこむ場所 始まり */
-.timelineSpace {
-  /* border: 2px solid blue; */
-  text-align: center;
-}
-.timelineSpace-title-all {
-  /* border: 2px solid blue; */
-  background-color: #c7887fdd;
-  padding: 0 0 8px;
-  color: white;
-}
-.timelineSpace-headerTitle-one {
-  /* border: 2px solid green; */
-  user-select: none;
-  padding: 0px;
-  font-size: 30px;
-  font-weight: bold;
-  margin: 0px;
-  margin-bottom: -10px;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-}
-.timelineSpace-headerTitle-two {
-  /* border: 2px solid green; */
-  margin-top: -5px;
-  font-size: 20px;
-  font-weight: 900;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  user-select: none;
-}
-.timelineSpace-headerTitle-two p {
-  margin: 0px;
-  padding: 8px;
-}
-.Couse-Selecter {
-  width: 200px;
-  height: 25px;
-}
-.timelineSpace-button-serch {
-  border-radius: 2px;
-  border: 1px solid black;
-  font-weight: bold;
-  color: black;
-  margin-left: 8px;
-  user-select: none;
-}
-.timelineSpace-button-serch:hover {
-  cursor: pointer;
-  background-color: rgb(229, 230, 231);
-}
-.timelineSpace-button-serch:active {
-  transform: scale(0.98);
-}
-.timelineSpace-upload {
-  /* border: 2px solid red; */
-  min-height: 80vh;
-  background-color: rgba(255, 239, 216, 0.747);
-  padding: 16px;
-}
-/* 更新日の位置をへんこうすること */
-.timelineSpace-upload-headerTitle {
-  /* border: 2px solid red; */
-  width: 100%;
-  height: 5%;
-  margin: 5px auto;
-  display: flex;
-  position: relative;
-}
-.timelineSpace-upload-headerTitle span {
-  position: absolute;
-  bottom: 0;
-}
-.timelineSpace-upload-user {
-  /* border: 2px solid royalblue; */
-  box-shadow: 5px 5px 5px #dddddd;
-  width: 90%;
-  height: 25%;
-  margin: 15px auto;
-  background-color: white;
-}
-.timelineSpace-upload-user-favorite {
-  /* border: 2px solid red; */
-  display: flex;
-  position: relative;
-}
-.timelineSpace-upload-user-favorite-input {
-  position: relative;
-  top: 0px;
-}
-.timelineSpace-upload-user-favorite-input:hover {
-  cursor: pointer;
-}
-.timelineSpace-upload-user-favorite span {
-  /* border: 2px solid blue; */
-  color: red;
-  font-weight: bold;
-  position: relative;
-  bottom: 0;
-}
-.timelineSpace-upload-user-information {
-  /* border: 2px solid red; */
-  display: flex;
-  position: relative;
-  border-bottom: 3px solid black;
-}
-.timelineSpace-upload-user-information-iconButton {
-  /* border: 2px solid peru; */
-  width: 50px;
-  height: 50px;
-  border-radius: 50% 50%;
-  background-color: aqua;
-  margin: 3px;
-}
-.timelineSpace-upload-user-information-iconButton:hover {
-  cursor: pointer;
-}
-.timelineSpace-upload-user-information-iconButton:active {
-  transform: scale(0.98);
-}
-.timelineSpace-upload-user-information-name {
-  /* border: 2px solid blue; */
-  margin: auto 10px;
-  position: relative;
-  top: 15px;
-}
-.timelineSpace-upload-user-information-course {
-  /* border: 2px solid blue; */
-  margin: auto 10px;
-  position: relative;
-  top: 15px;
-}
-nav {
-  list-style: none;
-}
-nav li {
-  /* border: 2px solid red; */
-  width: 100%;
-  height: 85px;
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-}
-.timelineSpace-upload-user-link-titleName {
-  position: absolute;
-  left: 0px;
-}
-/* タイムラインを入れこむ場所 終わり */
+<style lang="scss" scoped>
+@import "@/assets/css/_reset.scss";
 
-/* ユーザーのアカウントを一覧させる場所 始まり */
-.acountSpace {
-  /* border: 2px solid plum; */
-  width: 25%;
-  height: 100%;
-  position: relative;
-  right: 0;
-  top: 0;
-  /* background-color: rgba(255, 239, 216, 0.747); */
-}
-.acountSpace-header {
-  /* border: 2px solid black; */
-  width: 100%;
-  max-width: 100%;
-  height: 110px;
-  background-color: #eda99edd;
-}
-.acountSpace-header-title {
-  /* border: 2px solid green; */
-  width: 100%;
-  height: 65%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-.acountSpace-header-title span {
-  /* border: 2px solid red; */
-  height: 40px;
-  font-size: 30px;
-  font-weight: 900;
-  color: white;
-  padding: 0;
-}
-.acountSpace-header-button {
-  /* border: 2px solid brown; */
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  position: relative;
-  top: 5px;
-}
-.minaka-Couse-Selecter {
-  margin: auto 5px;
-  width: 50%;
-}
-.acountSpace-header-button-serch {
-  border-radius: 2px;
-  border: 1px solid black;
-  font-weight: bold;
-  color: black;
-}
-.acountSpace-header-button-serch:hover {
-  cursor: pointer;
-  background-color: rgb(229, 230, 231);
-}
-.acountSpace-header-button-serch:active {
-  transform: scale(0.98);
-}
-.acountSpace-user {
-  /* border: 2px solid red; */
-  width: 100%;
-  /* heightはautoに変える */
-  height: 100%;
-  overflow: hidden scroll;
-}
-.acountSpace-user-individual {
-  /* border: 2px solid rgb(87, 87, 87); */
-  /* position: relative; */
-  width: 100%;
-  height: 180px;
-  margin: 10px auto;
-}
-.acountSpace-user-individual-icon {
-  /* border: 2px solid blue; */
-  width: 150px;
-  height: 150px;
-  background-color: aqua;
-  border-radius: 50% 50%;
-  /* 画像を中央に配置するために下記3行を追加しました */
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  /* position: absolute; */
-  /* top: 15px;
-  left: 10px; */
-}
-.acountSpace-user-individual-icon:hover {
-  cursor: pointer;
-}
-.acountSpace-user-individual-icon:active {
-  transform: scale(0.99);
-}
-.acountSpace-user-individual-course {
-  /* border: 2px solid brown; */
-  width: 45%;
-  height: 100%;
-  margin: auto 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  position: absolute;
-  right: 0px;
-}
-.acountSpace-user-individual-course span {
-  /* border: 2px solid red; */
-  width: 100%;
-  height: auto;
-}
-.acountSpace-user-individual-course-userName {
-  /* border: 2px solid orange; */
-  width: 100%;
-  height: min-content;
-  font-size: 13px;
-  padding: 0px;
-  margin: 0px;
-  font-weight: bold;
-  text-align: center;
-  /* border-bottom: 2px solid black; */
-  background-color: rgb(236, 232, 232);
-  position: absolute;
-  top: 30px;
-}
-.acountSpace-user-individual-course-courseName {
-  width: 50px;
-  text-align: center;
-  font-size: 15px;
-  font-weight: bold;
-  background-color: gainsboro;
-  height: min-content;
-  position: absolute;
-  top: 80px;
-}
-/* ユーザーのアカウントを一覧させる場所 終わり */
-
-/* 投稿する場所 始まり */
-.uploadSpace {
-  /* border: 2px solid black; */
-  width: 25%;
-  height: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  bottom: 100px;
-  padding: 0px;
-  margin: 2px;
-}
-.uploadSpace-button {
-  border: 2px solid #ce8d83dd;
-  border-radius: 5px;
-  padding: 0px;
-  width: 80%;
-  height: 100%;
-  background-color: #dd988edd;
-  color: white;
-  z-index: 10;
-}
-.uploadSpace-button:hover {
-  cursor: pointer;
-  filter: brightness(110%);
-  transition: all 200ms ease-in;
-}
-.uploadSpace-button:active {
-  transform: scale(0.99);
-}
-.uploadSpace-button-text {
-  /* border: 2px solid red; */
-  font-size: 30px;
-  font-family: "Roboto";
-  font-style: italic;
-  font-weight: 900;
-  font-display: swap;
-  padding: 0px;
-  margin: 0px;
+.all_Container {
+  // border: 2px solid red;
   user-select: none;
+  .home_Container {
+    // border: 2px solid blue;
+    .timeline_Area {
+      // border: 2px solid green;
+      text-align: center;
+      .header_Container {
+        // border: 2px solid blue;
+        height: 15vh;
+        background-color: #c7887fdd;
+
+        .minnanoMemoItiran {
+          // border: 2px solid green;
+          color: white;
+          font-size: 2.3em;
+          font-weight: bold;
+          font-family: "Franklin Gothic Medium", "Arial Narrow", Arial,
+            sans-serif;
+        }
+        .search_Container {
+          // border: 2px solid orange;
+          font-size: 20px;
+          font-weight: bold;
+
+          .select_Container {
+            // border: 2px solid red;
+            display: flex;
+            justify-content: center;
+
+            .select_Area {
+              // border: 2px solid pink;
+              width: 45%;
+              height: 100%;
+              select {
+                min-width: 60%;
+                border: 2px solid black;
+                background-color: white;
+                -moz-appearance: menulist;
+                -webkit-appearance: menulist;
+                border-radius: 5px;
+              }
+            }
+            .input_Area {
+              // border: 2px solid red;
+              width: 45%;
+              input {
+                min-width: 60%;
+                border: 2px solid black;
+                background-color: white;
+                border-radius: 5px;
+              }
+              .search_Btn {
+                margin-top: 5px;
+                border-radius: 5px;
+                width: 70px;
+                border: 2px solid black;
+                background-color: rgb(247, 224, 170);
+                font-weight: bold;
+                color: black;
+                margin-left: 8px;
+
+                &:hover {
+                  cursor: pointer;
+                  filter: brightness(110%);
+                }
+                &:active {
+                  transform: scale(0.98);
+                }
+              }
+            }
+          }
+        }
+      }
+      .timeline_Area {
+        border: 2px solid rgba(255, 239, 216, 0.747);
+        background-color: rgba(255, 239, 216, 0.747);
+      }
+    }
+    .memoBtn_Area {
+    }
+  }
 }
-/* 投稿する場所 終わり */
 
 /* スマートフォン用 始まり */
-@media screen and (max-width: 640px) {
-  .all {
-    /* border: 2px solid black; */
-  }
-  .homeAll {
-    /* border: 2px solid gray; */
-    width: 100%;
-  }
-  /* タイムラインを入れこむ場所 始まり */
-  .timelineSpace {
-    /* border: 2px solid blue; */
-    width: 100%;
-  }
-  .timelineSpace-title-all {
-  }
-  .timelineSpace-title-all span {
-  }
-  .timelineSpace-headerTitle-one {
-    /* border: 2px solid green; */
-  }
-  .timelineSpace-headerTitle-two {
-    /* border: 2px solid green; */
-  }
-  .timelineSpace-button {
-    /* border: 2px solid green; */
-  }
-  .Couse-Selecter {
-  }
-  .timelineSpace-button-serch {
-  }
-  .timelineSpace-button-serch:hover {
-  }
-  .timelineSpace-button-serch:active {
-  }
-
-  .timelineSpace-upload {
-    /* border: 2px solid red; */
-  }
-  /* タイムラインを入れこむ場所 終わり */
-
-  /* ユーザーのアカウントを一覧させる場所 始まり */
-  .acountSpace {
-    /* border: 2px solid orange; */
-  }
-  .acountSpace-header {
-    /* border: 2px solid black; */
-  }
-  .acountSpace-header-title span {
-    font-size: 20px;
-  }
-  .acountSpace-header-button {
-    /* border: 2px solid red; */
-    height: 40px;
-    position: relative;
-    top: -10px;
-    display: block;
-  }
-  .minaka-Couse-Selecter {
-    width: 80px;
-  }
-  .acountSpace-header-button-serch {
-    font-size: 10px;
-    padding: 0;
-    position: absolute;
-    bottom: 0px;
-    right: 35px;
-  }
-  .acountSpace-user-individual {
-    height: 200px;
-  }
-  .acountSpace-user-individual-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50% 50%;
-    margin: 0px auto;
-    top: 0px;
-  }
-  .acountSpace-user-individual-course {
-    /* border: 2px solid green; */
-    width: 100%;
-    height: 40%;
-    margin: 0px;
-    position: absolute;
-    bottom: 10px;
-    text-align: center;
-  }
-  .acountSpace-user-individual-course-userName {
-    /* border: 2px solid black; */
-    width: 100%;
-    font-size: 15px;
-    position: absolute;
-    top: -25px;
-    margin: auto;
-  }
-  .acountSpace-user-individual-course-courseName {
-    /* border: 2px solid orange; */
-    position: absolute;
-    top: 25px;
-    font-size: 15px;
-  }
-
-  /* 投稿するところ 始まり */
-  .uploadSpace {
-    bottom: 20px;
-    height: 100px;
-  }
-  .uploadSpace-button {
-    /* border: 2px solid red; */
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-  }
-  .uploadSpace-button-text {
-    /* border: 2px solid black; */
-    font-size: 20px;
-  }
-  /* 投稿することろ 終わり */
-}
+// @media screen and (max-width: 640px) {}
 </style>

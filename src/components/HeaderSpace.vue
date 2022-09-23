@@ -161,7 +161,7 @@ export default {
       const auth = getAuth()
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          this.$router.push("/MyAccount")
+          this.$router.push("/MyAcount")
         }
       })
     },
@@ -201,7 +201,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/_reset.scss";
-$main-bgColor: rgba(255, 235, 205, 0.747);
+$main-bgColor: rgba(255, 206, 160, 0.89);
 $hover-color: brightness(90%);
 %hoverEffect {
   filter: $hover-color;
@@ -287,19 +287,20 @@ $hover-color: brightness(90%);
       color: rgb(255, 0, 119);
     }
   }
-}
-.LoginNav {
-  /* border: 2px solid red; */
-  width: 10%;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  height: 100%;
-  background-color: $main-bgColor;
-  cursor: pointer;
 
-  &:hover {
-    @extend %hoverEffect;
+  .LoginNav {
+    /* border: 2px solid red; */
+    width: 10%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 100%;
+    background-color: $main-bgColor;
+    cursor: pointer;
+
+    &:hover {
+      @extend %hoverEffect;
+    }
   }
 }
 </style>

@@ -70,7 +70,7 @@ import {
 } from "firebase/firestore"
 
 export default {
-  name: "MyAccountPage",
+  name: "MyAcountPage",
   components: {
     PostedMemo,
     MemoBtn,
