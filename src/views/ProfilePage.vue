@@ -1,20 +1,20 @@
 <template>
-  <div class="allScreen">
+  <div class="allContainer">
     <!-- アイコン 始まり -->
     <section class="icon">
-      <h1 class="icon-title">アイコン</h1>
-      <div class="icon-Container">
-        <img class="icon-Container-user" v-bind:src="inputUserImage" />
+      <h1 class="profileTitle">アイコン</h1>
+      <div class="icon_Container">
+        <img class="icon_Container_user" :src="inputUserImage" />
       </div>
     </section>
     <!-- アイコン 終わり -->
 
     <!-- ユーザーネーム 始まり -->
     <section class="userName">
-      <h1 class="userName-title">ユーザーネーム(10文字まで)</h1>
-      <div class="userName-Container">
-        <br />
+      <h1 class="profileTitle">ユーザーネーム(10文字まで)</h1>
+      <div class="userName_Container">
         <input
+          class="inputContainer"
           type="text"
           maxlength="10"
           v-model="inputUserName"
@@ -26,12 +26,10 @@
     <!-- ユーザーネーム 終わり -->
 
     <!-- コース 始まり -->
-    <section class="courseName">
-      <h1 class="courseName-title">コース</h1>
-      <div class="courseName-Container">
-        <div class="courseName-Container-icon"></div>
-        <!-- <input type="text" v-model="name" /> -->
-        <select class="courseName-Container-select" v-model="inputUserCourse">
+    <section class="courseArea">
+      <h1 class="profileTitle">コース</h1>
+      <div class="courseContainer">
+        <select class="courseSelect" v-model="inputUserCourse">
           <option value="IPhone">iPhoneアプリ開発コース</option>
           <option value="Game">Gameアプリ開発コース</option>
           <option value="Web">webサービス開発コース</option>
@@ -47,11 +45,9 @@
 
     <!-- ボタン 始まり -->
     <section class="Savebutton">
-      <button class="Savebutton-button" @click="allSave">
+      <button class="Savebutton_button" @click="allSave">
         <span>決定</span>
       </button>
-      <div class="transparentCode">{{ getuserName }}</div>
-      <div class="transparentCode">{{ geetusercourse }}</div>
     </section>
     <!-- ボタン 終わり -->
   </div>
@@ -134,150 +130,142 @@ export default {
 }
 </script>
 
-<style scoped>
-.allScreen {
-  border: 2px solid rgba(253, 244, 232, 0.747);
+<style lang="scss" scoped>
+@import "@/assets/css/_reset.scss";
+
+$containerMargin-top: 40px;
+
+.allContainer {
+  // border: 2px solid red;
   height: 100vh;
-  padding: 0px;
-  margin: -10px;
-  color: #ac4949;
+  padding-top: 30px;
   background-color: rgba(253, 244, 232, 0.747);
-}
-
-.allScreen section {
-  /* border: 2px solid red; */
-  margin: 15px auto;
-}
-
-/* アイコン 始まり */
-.icon {
-  /* border: 2px solid indianred; */
-  max-width: 80%;
-}
-
-.icon-title {
-  /* border: 2px solid green; */
-  text-align: center;
-  margin: 0 auto;
-  border-bottom: 2px solid #000;
   user-select: none;
-}
 
-.icon-Container {
-  /* border: 2px solid greenyellow; */
-  display: flex;
-  justify-content: center;
-}
+  section {
+    // border: 2px solid red;
+    margin: 30px auto;
+  }
 
-.icon-Container-user {
-  margin: auto;
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  color: black;
-  margin: 15px auto 0px;
-}
+  .profileTitle {
+    // border: 2px solid green;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3em;
+    border-bottom: 2px solid #000;
+  }
 
-/* .icon-Container-user:hover {
-  cursor: pointer;
-  filter: brightness(90%);
-}
+  /* アイコン 始まり */
+  .icon {
+    // border: 2px solid indianred;
+    max-width: 80%;
 
-.icon-Container-user:active {
-  transform: scale(0.98);
-} */
+    .icon_Container {
+      // border: 2px solid greenyellow;
+      display: flex;
+      justify-content: center;
+    }
 
-/* アイコン 終わり */
+    .icon_Container_user {
+      // border: 2px solid red;
+      margin: auto;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      color: black;
+      margin: 20px auto 0px;
+    }
+  }
 
-/* ユーザーネーム 始まり */
-.userName {
-  /* border: 2px solid blue; */
-  max-width: 80%;
-}
+  // -------------------------
+  /* ユーザーネーム 始まり */
+  // ---------------------------
 
-.userName-title {
-  text-align: center;
-  width: 100%;
-  border-bottom: 2px solid #000;
-  user-select: none;
-}
+  .userName {
+    /* border: 2px solid blue; */
+    max-width: 80%;
+  }
 
-.userName-Container {
-  /* border: 2px solid red; */
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
+  .userName_Container {
+    /* border: 2px solid red; */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 
-.userName-Container input {
-  text-align: center;
-  width: 50%;
-  font-size: 20px;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-}
+    input {
+      text-align: center;
+      width: 60%;
+      height: 40px;
+      border: 2px solid rgb(73, 72, 72);
+      background-color: white;
+      font-size: 30px;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      margin-top: $containerMargin-top;
+    }
+  }
 
-/* ユーザーネーム 終わり */
+  // -----------------------------
+  /* コース 始まり */
+  // -------------------------------
 
-/* コース 始まり */
-.courseName {
-  /* border: 2px solid brown; */
-  max-width: 80%;
-}
+  .courseArea {
+    // border: 2px solid brown;
+    max-width: 80%;
+  }
 
-.courseName-title {
-  text-align: center;
-  width: 100%;
-  border-bottom: 2px solid #000;
-  user-select: none;
-}
+  .courseContainer {
+    // border: 2px solid red;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
 
-.courseName-Container {
-  /* border: 2px solid red; */
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
+  .courseSelect {
+    margin-top: $containerMargin-top;
+    height: 40px;
+    width: 60%;
+    border: 2px solid rgb(73, 72, 72);
+    background-color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid black;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    letter-spacing: 2px;
+    -moz-appearance: menulist;
+    -webkit-appearance: menulist;
 
-.courseName-Container select {
-  width: 50%;
-  height: 30px;
-  font-size: 20px;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-}
+    option {
+      text-align: center;
+    }
+  }
 
-/* コース 終わり */
+  // -------------------------------
+  /* 決定ボタン 始まり */
+  // --------------------------------
 
-/* 決定ボタン 始まり */
-.Savebutton {
-  /* border: 2px solid red; */
-  text-align: center;
-}
+  .Savebutton {
+    // border: 2px solid red;
+    text-align: center;
 
-.Savebutton-button {
-  background-color: #c7887fdd;
-  border: 2px solid #645856dd;
-  border-radius: 10px;
-  font-size: 35px;
-  font-weight: 900;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  padding: 5px 15px;
-  margin-top: 20px;
-  user-select: none;
-}
+    .Savebutton_button {
+      background-color: #c7887fdd;
+      border: 2px solid #645856dd;
+      border-radius: 10px;
+      font-size: 40px;
+      font-weight: 900;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      padding: 7px 20px;
+      margin-top: 40px;
 
-.Savebutton-button:hover {
-  cursor: pointer;
-  filter: brightness(90%);
-}
+      &:hover {
+        cursor: pointer;
+        filter: brightness(115%);
+      }
 
-.Savebutton-button:active {
-  transform: scale(0.98);
-}
-
-/* 決定ボタン 終わり */
-.transparentCode {
-  color: transparent;
-  user-select: none;
-  position: absolute;
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
 }
 </style>
