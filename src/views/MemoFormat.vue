@@ -135,7 +135,6 @@ export default {
       } else {
         alert("どっちも書いてください！")
       }
-      //投稿されたらテキストエリアを空にする
       this.inputTitle = ""
       this.inputMemo = ""
     },

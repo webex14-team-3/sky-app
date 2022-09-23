@@ -73,7 +73,7 @@ import {
   getDocs,
   collection,
   query,
-  // where,
+  where,
   orderBy,
 } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
@@ -97,7 +97,7 @@ export default {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid
-        const docRef = doc(db, "users", uid) // ここは、バッククオートを使うこと
+        const docRef = doc(db, "users", uid)
         const docSnap = await getDoc(docRef)
         if (docSnap.exists()) {
           this.inputUserImage = docSnap.data()
@@ -106,12 +106,10 @@ export default {
           this.inputUserImage = docSnap.data().userImg
         }
 
-        // const q = query(collection(db, "userMemos"), where("userID", "==", uid))
-        // const querySnapshot = await getDocs(q)
-
         const a = query(
           collection(db, "userMemos"),
-          orderBy("createGetTime", "asc")
+          orderBy("createGetTime", "asc"),
+          where("userID", "==", uid)
         )
         const querySnapshot = await getDocs(a)
 
@@ -126,14 +124,6 @@ export default {
             TimeRemains: doc.data().createGetTime,
           })
         })
-        // let remain = []
-        // for (let i = 0; i < this.memos.length; i++) {
-        //   remain.push(this.memos[i].TimeRemains)
-        // }
-        // console.log(remain)
-        // remain.sort(function (a, b) {
-        //   return a - b
-        // })
       }
     })
   },
