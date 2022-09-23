@@ -3,7 +3,9 @@
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
     <header class="LinkContainer">
       <div class="TopPageNav" @click="topPageBtn">
-        <div class="navItem"><p class="navItemName">TopPage</p></div>
+        <div class="navItem">
+          <p class="navItemName">TopPage</p>
+        </div>
       </div>
       <div
         class="MyPageNav"
@@ -29,7 +31,7 @@
           <p v-else class="navItemName PleaseLog">Please Login</p>
         </div>
       </div>
-      <div class="loginNav" @click="googleLogin">
+      <div class="LoginNav" @click="googleLogin">
         <div class="navItem">
           <a class="navItemName" v-if="isAuth">Login</a>
           <a class="navItemName" v-else>Logout</a>
@@ -197,10 +199,17 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/css/_reset.scss";
 $main-bgColor: rgba(255, 235, 205, 0.747);
 $hover-color: brightness(90%);
+%hoverEffect {
+  filter: $hover-color;
+  text-decoration: underline;
+  text-decoration-color: rgb(255, 123, 0) !important;
+  text-decoration-thickness: 5px;
+  text-underline-offset: 5px;
+}
 
 .allContainer {
   // border: 2px solid blue;
@@ -226,10 +235,9 @@ $hover-color: brightness(90%);
       height: 100%;
       background-color: $main-bgColor;
       cursor: pointer;
+
       &:hover {
-        filter: $hover-color;
-        // text-decoration: underline;
-        // text-decoration-color: rgb(255, 123, 0);
+        @extend %hoverEffect;
       }
     }
 
@@ -242,10 +250,12 @@ $hover-color: brightness(90%);
       width: 20%;
       background-color: $main-bgColor;
       cursor: pointer;
+
       &:hover {
-        filter: $hover-color;
+        @extend %hoverEffect;
       }
     }
+
     .ProfileNav {
       /* border: 2px solid red; */
       width: 20%;
@@ -256,34 +266,40 @@ $hover-color: brightness(90%);
       height: 100%;
       background-color: $main-bgColor;
       cursor: pointer;
+
       &:hover {
-        filter: $hover-color;
+        @extend %hoverEffect;
       }
     }
+
     .navItem {
       /* border: 2px solid black; */
       display: flex;
       align-items: center;
     }
+
     .navItemName {
       font-weight: bold;
+      font-size: 1.3em;
     }
+
     .PleaseLog {
-      color: rgb(255, 102, 0);
+      color: rgb(255, 0, 119);
     }
-    .loginNav {
-      /* border: 2px solid red; */
-      width: 10%;
-      display: flex;
-      align-content: center;
-      justify-content: center;
-      height: 100%;
-      background-color: $main-bgColor;
-      cursor: pointer;
-      &:hover {
-        filter: brightness(90%);
-      }
-    }
+  }
+}
+.LoginNav {
+  /* border: 2px solid red; */
+  width: 10%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 100%;
+  background-color: $main-bgColor;
+  cursor: pointer;
+
+  &:hover {
+    @extend %hoverEffect;
   }
 }
 </style>
