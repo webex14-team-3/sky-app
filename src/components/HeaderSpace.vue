@@ -7,14 +7,13 @@
       </div>
       <div
         class="MyPageNav"
-        id="MyPageNav"
         @click="MyPageBtn"
         @mouseover="MypageMouseOverAction"
         @mouseleave="MypageMouseLeaveAction"
       >
         <div class="navItem">
           <p class="navItemName" v-if="hoverMypage">{{ message.mypage }}</p>
-          <p v-else>Please Login</p>
+          <p v-else class="navItemName PleaseLog">Please Login</p>
         </div>
       </div>
       <div
@@ -27,13 +26,13 @@
           <p class="navItemName" v-if="hoverProfile">
             {{ message.profile }}
           </p>
-          <p v-else>Please Login</p>
+          <p v-else class="navItemName PleaseLog">Please Login</p>
         </div>
       </div>
       <div class="loginNav" @click="googleLogin">
         <div class="navItem">
-          <a class="container" v-if="isAuth">Login</a>
-          <a class="container" v-else>Logout</a>
+          <a class="navItemName" v-if="isAuth">Login</a>
+          <a class="navItemName" v-else>Logout</a>
         </div>
       </div>
     </header>
@@ -135,18 +134,22 @@ export default {
             console.log(error)
           })
       } else {
-        const auth = getAuth()
-        signOut(auth)
-          .then(() => {
-            // Sign-out successful.
-            this.$router.push("/")
-            console.log("ログアウトしました")
-          })
-          .catch((error) => {
-            // An error happened.
-            console.log(error)
-          })
-        this.isAuth = true
+        if (window.confirm("ログアウトしますか？")) {
+          const auth = getAuth()
+          signOut(auth)
+            .then(() => {
+              // Sign-out successful.
+              this.$router.push("/")
+              console.log("ログアウトしました")
+              this.hoverMypage = true
+              this.hoverProfile = true
+            })
+            .catch((error) => {
+              // An error happened.
+              console.log(error)
+            })
+          this.isAuth = true
+        }
       }
     },
     topPageBtn() {
@@ -201,6 +204,7 @@ $hover-color: brightness(90%);
 
 .allContainer {
   // border: 2px solid blue;
+  border-bottom: 4px solid #c7887fdd;
   width: 100%;
   height: 60px;
   user-select: none;
@@ -224,6 +228,8 @@ $hover-color: brightness(90%);
       cursor: pointer;
       &:hover {
         filter: $hover-color;
+        // text-decoration: underline;
+        // text-decoration-color: rgb(255, 123, 0);
       }
     }
 
@@ -258,6 +264,12 @@ $hover-color: brightness(90%);
       /* border: 2px solid black; */
       display: flex;
       align-items: center;
+    }
+    .navItemName {
+      font-weight: bold;
+    }
+    .PleaseLog {
+      color: rgb(255, 102, 0);
     }
     .loginNav {
       /* border: 2px solid red; */
