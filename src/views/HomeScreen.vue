@@ -7,7 +7,7 @@
           <p class="timelineSpace-headerTitle-one">みんなのメモ一覧</p>
           <div class="timelineSpace-headerTitle-two">
             <!-- <p>コースごとにメモを選んでね！</p> -->
-            <!-- <div class="timelineSpace-button">
+            <div class="timelineSpace-button">
               <select class="Couse-Selecter">
                 <option value="AllCouse">すべて表示</option>
                 <option value="iPhoneAppDevCouse">
@@ -22,7 +22,7 @@
                 <option value="PythonCouse">Pythonコース</option>
               </select>
               <button class="timelineSpace-button-serch">検索</button>
-            </div> -->
+            </div>
           </div>
           <!-- <div class="timelineSpace-headerTitle-three">
             <span>他のユーザーが作ったメモを参考にしてみよう！</span>
@@ -34,46 +34,6 @@
             v-bind:key="memo.id"
             v-bind:memo="memo"
           />
-          <!-- <div class="timelineSpace-upload-headerTitle">
-            <span> 更新日:2022/06/10 </span>
-          </div>
-          <div class="timelineSpace-upload-user">
-            <div class="timelineSpace-upload-user-information">
-              <router-link to="myAcount">
-                <input
-                  type="submit"
-                  value="icon"
-                  class="timelineSpace-upload-user-information-iconButton"
-              /></router-link>
-
-              <div class="timelineSpace-upload-user-information-name">
-                <span>名前</span>
-              </div>
-              <div class="timelineSpace-upload-user-information-course">
-                <span>コース名</span>
-              </div>
-            </div>
-            <div class="timelineSpace-upload-user-favorite">
-              <label>
-                <input
-                  type="checkbox"
-                  class="timelineSpace-upload-user-favorite-input"
-                />
-                <span>お気に入り</span>
-              </label>
-            </div>
-            <nav>
-              <li>
-                <a href="#" class="timelineSpace-upload-user-link">
-                  <div class="timelineSpace-upload-user-link-titleName">
-                    タイトル
-                  </div>
-                </a>
-              </li>
-            </nav>
-            タイトルの表示
-            <p v-for="memo in memos" :key="memo.id">{{ memo.title }}</p>
-          </div> -->
         </div>
       </section>
       <!-- タイムラインに入れこむ場所 終わり -->
@@ -106,27 +66,7 @@
             <button class="acountSpace-header-button-serch">検索</button>
           </div>
         </div>
-        <div class="acountSpace-user">
-          <div class="acountSpace-user-individual">
-            <router-link to="myAcount">
-              <input
-                type="submit"
-                value="icon"
-                class="acountSpace-user-individual-icon"
-                id="acountSpace-user-individual-icon"
-            /></router-link>
-
-            <div class="acountSpace-user-individual-course">
-              <span class="acountSpace-user-individual-course-userName"
-                >あいうえおかきくけこ</span
-              >
-              <span class="acountSpace-user-individual-course-courseName"
-                >Gameアプリ開発コース</span
-              >
-            </div> -->
-      <!-- </div> -->
-      <!-- </div> -->
-      <!-- </section>  -->
+      </section> -->
 
       <!-- 投稿する場所 始まり -->
       <router-link to="memoFormat">
@@ -144,10 +84,18 @@
   <router-vue />
 </template>
 
-<!-- <script>
+<script>
 import PostedMemo from "@/components/PostedMemo.vue"
-import { collection, doc, getDoc, getDocs } from "firebase/firestore"
-import { db } from "../firebase"
+import {
+  doc,
+  getDoc,
+  getDocs,
+  collection,
+  query,
+  orderBy,
+} from "firebase/firestore"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { db } from "@/firebase"
 
 export default {
   components: {
@@ -155,39 +103,49 @@ export default {
   },
   data() {
     return {
+      user: null,
       memos: [],
+      inputUserImage: "",
+      userCourse: "WebExpert",
+      userName: "名無し",
     }
   },
   async created() {
-    getDocs(collection(db, "testUsersMemos")).then((snapshot) => {
-      snapshot.forEach(async (article) => {
-        const docRef = doc(db, "users", `${article.data().user}`)
-        const user = await getDoc(docRef)
-        console.log(user.data())
-        // 並び変える sort mdn
-        // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#sorting_with_map
+    const auth = getAuth()
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const uid = user.uid
+        const docRef = doc(db, "users", uid)
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+          this.inputUserImage = docSnap.data()
+          this.userName = docSnap.data().userName
+          this.userCourse = docSnap.data().userCourse
+          this.inputUserImage = docSnap.data().userImg
+        }
 
-        // this.memos.sort(function (a, b) {
-        //   if (a[this.memo.Date.now()] > b[this.memo.Date.now()]) {
-        //     return 1
-        //   }
-        //   if (a[this.memo.Date.now()] < b[this.memo.Date.now()]) {
-        //     return -1
-        //   }
-        //   return 0
-        // })
-        this.memos.unshift({
-          id: article.id,
-          userName: user.data().userName,
-          course: user.data().course,
-          img: user.data().img,
-          ...article.data(),
+        const a = query(
+          collection(db, "userMemos"),
+          orderBy("createGetTime", "asc")
+        )
+        const querySnapshot = await getDocs(a)
+
+        querySnapshot.forEach((doc) => {
+          this.memos.unshift({
+            userName: doc.data().userName,
+            userCourse: doc.data().userCourse,
+            title: doc.data().title,
+            memo: doc.data().memo,
+            userImg: doc.data().userImg,
+            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+            TimeRemains: doc.data().createGetTime,
+          })
         })
-      })
+      }
     })
   },
 }
-</script> -->
+</script>
 
 <style scoped>
 .all {
