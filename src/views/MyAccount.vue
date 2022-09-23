@@ -120,7 +120,7 @@ export default {
             title: doc.data().title,
             memo: doc.data().memo,
             userImg: doc.data().userImg,
-            createMemoTime: doc.data().createMemoTime,
+            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
             TimeRemains: doc.data().createGetTime,
           })
         })

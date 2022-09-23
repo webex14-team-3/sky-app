@@ -26,7 +26,7 @@
               <span>お気に入り</span>
             </label>
             <div>
-              {{ memo.createMemoTime }}
+              {{ memo.DetailcreateMemoTime }}
             </div>
           </div>
           <hr />
