@@ -1,16 +1,22 @@
 <template>
   <div class="allContainer">
-    <!-- <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" /> -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
     <header class="LinkContainer">
       <div class="TopPageNav" @click="topPageBtn">
         <router-link to="/" class="navItem"
           ><p class="navItemName">TopPage</p></router-link
         >
       </div>
-      <div class="MyPageNav" @click="MyPageBtn">
+      <div
+        class="MyPageNav"
+        @click="MyPageBtn"
+        @mouseover="mouseOverAction"
+        @mouseleave="mouseLeaveAction"
+      >
         <router-link to="/MyAccount" class="navItem"
-          ><p class="navItemName">MyPage</p></router-link
-        >
+          ><p class="navItemName">MyPage</p>
+          <p v-if="hoverFlag">hoverされました</p>
+        </router-link>
       </div>
       <div class="ProfileNav" @click="ProfilePageBtn">
         <router-link to="/ProfilePage" class="navItem"
@@ -148,66 +154,84 @@ export default {
 }
 </script>
 
-<style scoped>
-/* background-color: rgba(255, 235, 205, 0.747); */
-/* background-color: #fccb90; */
-/* border-right: 5px solid #df5f5f; */
+<style scoped lang="scss">
+@import "@/assets/css/_reset.scss";
+$main-bgColor: rgba(255, 235, 205, 0.747);
+$hover-color: brightness(90%);
+
 .allContainer {
-  /* border: 2px solid blue; */
+  // border: 2px solid blue;
   width: 100%;
   height: 60px;
-  background-color: #c7887fdd;
   user-select: none;
-}
-.LinkContainer {
-  /* border: 2px solid red; */
-  height: 100%;
-  display: flex;
-  align-items: center;
-  background-color: rgba(255, 235, 205, 0.747);
-  list-style-type: none;
-}
-.TopPageNav {
-  /* border: 2px solid yellow; */
-  width: 50%;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  border-right: 4px solid #c7887fdd;
-  height: 100%;
-  cursor: pointer;
-}
-.MyPageNav {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  border-right: 4px solid #c7887fdd;
-  height: 100%;
-  width: 20%;
-  cursor: pointer;
-}
-.ProfileNav {
-  /* border: 2px solid red; */
-  width: 20%;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  border-right: 4px solid #c7887fdd;
-  height: 100%;
-  cursor: pointer;
-}
-.navItem {
-  /* border: 2px solid black; */
-  display: flex;
-  align-items: center;
-}
-.loginNav {
-  /* border: 2px solid red; */
-  width: 10%;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  height: 100%;
-  cursor: pointer;
+
+  .LinkContainer {
+    /* border: 2px solid red; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+
+    .TopPageNav {
+      // border: 2px solid yellow;
+      width: 50%;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      border-right: 4px solid #c7887fdd;
+      height: 100%;
+      background-color: $main-bgColor;
+      cursor: pointer;
+      &:hover {
+        filter: $hover-color;
+      }
+    }
+
+    .MyPageNav {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      border-right: 4px solid #c7887fdd;
+      height: 100%;
+      width: 20%;
+      background-color: $main-bgColor;
+      cursor: pointer;
+      &:hover {
+        filter: $hover-color;
+      }
+    }
+    .ProfileNav {
+      /* border: 2px solid red; */
+      width: 20%;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      border-right: 4px solid #c7887fdd;
+      height: 100%;
+      background-color: $main-bgColor;
+      cursor: pointer;
+      &:hover {
+        filter: $hover-color;
+      }
+    }
+    .navItem {
+      /* border: 2px solid black; */
+      display: flex;
+      align-items: center;
+    }
+    .loginNav {
+      /* border: 2px solid red; */
+      width: 10%;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      height: 100%;
+      background-color: $main-bgColor;
+      cursor: pointer;
+      &:hover {
+        filter: brightness(90%);
+      }
+    }
+  }
 }
 </style>
