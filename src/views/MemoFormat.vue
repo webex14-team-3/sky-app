@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { collection, addDoc, Timestamp } from "firebase/firestore"
+import { collection, addDoc, doc, getDoc } from "firebase/firestore"
 import { getAuth } from "firebase/auth"
 import { db } from "../firebase"
 
@@ -99,20 +99,42 @@ export default {
         if (window.confirm("これで投稿しますか？")) {
           const auth = getAuth()
           const user = auth.currentUser
-          const memo = {
-            title: this.inputTitle,
-            memo: this.inputMemo,
-            userID: user.uid,
-            userEmail: user.email,
-            createMemoTime: Timestamp.fromDate(new Date()),
+          const userid = user.uid
+          const docRef = doc(db, "users", userid)
+          const docSnap = await getDoc(docRef)
+
+          // 投稿時の時間を作る
+          const now = new Date()
+          const year = now.getFullYear()
+          const month = now.getMonth()
+          const date = now.getDate()
+          const hour = now.getHours()
+          const min = now.getMinutes()
+          const sec = now.getSeconds()
+
+          const displayTime = `${year}/${month + 1}/${date}`
+          const inputTime = `${year}/${month + 1}/${date}/${hour}:${min}:${sec}`
+
+          if (docSnap.exists()) {
+            const memo = {
+              userID: user.uid,
+              userName: docSnap.data().userName,
+              userCourse: docSnap.data().userCourse,
+              userEmail: docSnap.data().userEmail,
+              userImg: docSnap.data().userImg,
+              createMemoTime: displayTime,
+              DetailcreateMemoTime: inputTime,
+              createGetTime: now.getTime(),
+              title: this.inputTitle,
+              memo: this.inputMemo,
+            }
+            await addDoc(collection(db, "userMemos"), memo)
+            alert("投稿が完了しました！")
           }
-          await addDoc(collection(db, "userMemos"), memo)
-          alert("投稿が完了しました！")
         }
       } else {
         alert("どっちも書いてください！")
       }
-      //投稿されたらテキストエリアを空にする
       this.inputTitle = ""
       this.inputMemo = ""
     },

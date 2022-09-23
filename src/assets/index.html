@@ -16,5 +16,19 @@
     <div class="allContainer">
       <h1>test</h1>
     </div>
+    <script>
+      let no = [5, 27, 12, 41]
+      no.sort(function (first, second) {
+        if (first > second) {
+          return 1
+        } else if (first < second) {
+          return -1
+        } else {
+          return 0
+        }
+      })
+
+      console.log(no)
+    </script>
   </body>
 </html>

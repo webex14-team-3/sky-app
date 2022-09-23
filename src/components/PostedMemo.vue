@@ -1,43 +1,46 @@
 <template>
   <div class="posted-memo">
-    <div class="timelineSpace-upload-user" v-bind:class="memoClass">
+    <div class="timelineSpace-upload-user">
       <div class="timelineSpace-upload-user-information">
         <div class="header">
           <!-- <router-link to="myAcount"> -->
-          <img class="account-icon" v-bind:src="memo.img" />
+          <img class="account-icon" :src="memo.userImg" />
           <!-- </router-link> -->
           <div class="timelineSpace-upload-user-information-name">
             <span>{{ memo.userName }}</span>
           </div>
           <div class="timelineSpace-upload-user-information-course">
-            <span>{{ memo.course }}</span>
+            <span>{{ memo.userCourse }}</span>
           </div>
           <div class="timelineSpace-upload-user-information-title">
             <span>{{ memo.title }}</span>
           </div>
         </div>
         <div class="bottom">
+          <div class="timelineSpace-upload-user-favorite">
+            <label>
+              <input
+                type="checkbox"
+                class="timelineSpace-upload-user-favorite-input"
+              />
+              <span>お気に入り</span>
+            </label>
+            <div>
+              {{ memo.createMemoTime }}
+            </div>
+          </div>
+          <hr />
           <!-- <nav> -->
           <!-- <li> -->
           <a class="timelineSpace-upload-user-link">
             <div class="timelineSpace-upload-user-text">
-              <span>{{ memo.text }}</span>
+              <span>{{ memo.memo }}</span>
             </div>
           </a>
           <!-- </li> -->
           <!-- </nav> -->
         </div>
       </div>
-
-      <!-- <div class="timelineSpace-upload-user-favorite">
-      <label>
-        <input
-          type="checkbox"
-          class="timelineSpace-upload-user-favorite-input"
-        />
-        <span>お気に入り</span>
-      </label>
-    </div> -->
     </div>
   </div>
 </template>
