@@ -82,6 +82,7 @@ import {
 import { db } from "@/firebase"
 
 export default {
+  name: "ProfilePage",
   data() {
     return {
       inputUserCourse: "",

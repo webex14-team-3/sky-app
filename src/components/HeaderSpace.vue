@@ -52,7 +52,7 @@ import {
 import { db } from "@/firebase.js"
 
 export default {
-  name: "headerNav",
+  name: "HeaderPosition",
   data() {
     return {
       isAuth: true,

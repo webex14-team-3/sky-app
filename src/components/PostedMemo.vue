@@ -46,6 +46,7 @@
 </template>
 <script>
 export default {
+  name: "PostedMemoContainer",
   props: {
     memo: {
       type: Object,
