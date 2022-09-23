@@ -3,25 +3,32 @@
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
     <header class="LinkContainer">
       <div class="TopPageNav" @click="topPageBtn">
-        <router-link to="/" class="navItem"
-          ><p class="navItemName">TopPage</p></router-link
-        >
+        <div class="navItem"><p class="navItemName">TopPage</p></div>
       </div>
       <div
         class="MyPageNav"
+        id="MyPageNav"
         @click="MyPageBtn"
-        @mouseover="mouseOverAction"
-        @mouseleave="mouseLeaveAction"
+        @mouseover="MypageMouseOverAction"
+        @mouseleave="MypageMouseLeaveAction"
       >
-        <router-link to="/MyAccount" class="navItem"
-          ><p class="navItemName">MyPage</p>
-          <p v-if="hoverFlag">hoverされました</p>
-        </router-link>
+        <div class="navItem">
+          <p class="navItemName" v-if="hoverMypage">{{ message.mypage }}</p>
+          <p v-else>Please Login</p>
+        </div>
       </div>
-      <div class="ProfileNav" @click="ProfilePageBtn">
-        <router-link to="/ProfilePage" class="navItem"
-          ><p class="navItemName">Profile</p></router-link
-        >
+      <div
+        class="ProfileNav"
+        @click="ProfilePageBtn"
+        @mouseover="ProfileMouseOverAction"
+        @mouseleave="ProfileMouseLeaveAction"
+      >
+        <div class="navItem">
+          <p class="navItemName" v-if="hoverProfile">
+            {{ message.profile }}
+          </p>
+          <p v-else>Please Login</p>
+        </div>
       </div>
       <div class="loginNav" @click="googleLogin">
         <div class="navItem">
@@ -62,6 +69,9 @@ export default {
   data() {
     return {
       isAuth: true,
+      hoverMypage: true,
+      hoverProfile: true,
+      message: { mypage: "MyPage", profile: "Profile" },
     }
   },
   created() {
@@ -109,17 +119,15 @@ export default {
                   // 過去にログインをしていた場合
                 } else {
                   console.log("Header:過去にログインしていた場合の処理")
-                  const docRef = doc(db, "users", user.uid)
-                  const docSnap = await getDoc(docRef)
-                  console.log(docSnap)
+                  // const docRef = doc(db, "users", user.uid)
+                  // const docSnap = await getDoc(docRef)
+                  // console.log(docSnap)
                 }
                 this.isAuth = false
-              } else {
-                console.log("ユーザーなし")
               }
             })
             this.isAuth = false
-            console.log("ログインしました")
+            // console.log("ログインしました")
             this.$router.push("/ProfilePage")
           })
           .catch((error) => {
@@ -145,10 +153,42 @@ export default {
       this.$router.push("/")
     },
     MyPageBtn() {
-      this.$router.push("/MyAccount")
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.$router.push("/MyAccount")
+        }
+      })
     },
     ProfilePageBtn() {
-      this.$router.push("/ProfilePage")
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.$router.push("/ProfilePage")
+        }
+      })
+    },
+    MypageMouseOverAction() {
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          this.hoverMypage = false
+        }
+      })
+    },
+    MypageMouseLeaveAction() {
+      this.hoverMypage = true
+    },
+    ProfileMouseOverAction() {
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          this.hoverProfile = false
+        }
+      })
+    },
+    ProfileMouseLeaveAction() {
+      this.hoverProfile = true
     },
   },
 }
