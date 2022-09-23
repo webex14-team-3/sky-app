@@ -1,72 +1,64 @@
 <template>
-  <div class="all">
-    <div class="allScreen">
-      <!-- アカウント 始まり -->
-      <section class="acount" id="acount">
-        <div class="icon-Container">
-          <img class="icon-Container-user" :src="inputUserImage" />
+  <div class="allContainer">
+    <!-- アカウント 始まり -->
+    <section class="acountArea">
+      <div class="icon_Container A_container">
+        <img class="icon_Image" :src="inputUserImage" />
+      </div>
+      <div class="acountTxtContainer A_container">
+        <div class="A_userNameContainer">
+          <p class="A_userTitle">ユーザー名</p>
+          <p class="userName">
+            {{ this.userName }}
+          </p>
         </div>
-        <div class="acount-text">
-          <div class="acount-text-userName">
-            <a class="acount-text-title" id="acount-text-userName-title">
-              ユーザー名
-            </a>
-            <a class="acount-text-userName-name">
-              {{ this.userName }}
-            </a>
-          </div>
-          <div class="acount-text-userCourse">
-            <a class="acount-text-title" id="acount-text-userCourse-title">
-              コース名
-            </a>
-            <a class="acount-text-userCourse-name">
-              {{ this.userCourse }}
-            </a>
+        <div class="A_userCourseContainer">
+          <p class="A_userTitle">コース名</p>
+          <div class="userCourse">
+            <p>{{ this.userCourse }}</p>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- 投稿する場所 始まり -->
-        <router-link to="memoFormat">
-          <section class="uploadSpace">
-            <button class="uploadSpace-button">
-              <span class="uploadSpace-button-text">投稿する</span>
-            </button>
-          </section>
-        </router-link>
-        <!-- 投稿する場所 終わり -->
-      </section>
-      <!-- アカウント 終わり -->
+    <!-- 投稿する場所 始まり -->
+    <MemoBtn />
+    <!-- 投稿する場所 終わり -->
+    <!-- アカウント 終わり -->
 
-      <!-- メモ 始まり -->
-      <section class="memo">
-        <div class="memo-header">
-          <div class="memo-header-memoTitle">
-            <span class="memo-header-memoTitle-title">マイメモ一覧</span>
-          </div>
-          <div class="memo-header-inputButton">
-            <select class="memo-header-selector">
-              <option value="mostRecent">新しい順</option>
-              <option value="aiueo">古い順</option>
-              <option value="favorite">お気に入り順</option>
-            </select>
-            <button class="memo-header-selectorButton">決定</button>
-          </div>
+    <!-- メモ 始まり -->
+    <section class="memoArea">
+      <div class="M_header">
+        <div class="headerTitle_container">
+          <p class="headerTitle">マイメモ一覧</p>
         </div>
-        <div class="memo-space">
-          <posted-memo
-            v-for="memo in memos"
-            v-bind:key="memo.id"
-            v-bind:memo="memo"
-          />
+        <div class="select_container">
+          <select>
+            <option value="mostRecent"><p>新しい順</p></option>
+            <option value="aiueo"><p>古い順</p></option>
+            <option value="favorite"><p>お気に入り順</p></option>
+          </select>
+          <button class="selectBtn">決定</button>
         </div>
-      </section>
-      <!-- メモ 終わり -->
-    </div>
+      </div>
+      <div class="M_container">
+        <posted-memo
+          v-for="memo in memos"
+          v-bind:key="memo.id"
+          v-bind:memo="memo"
+        />
+      </div>
+    </section>
+    <!-- メモ 終わり -->
   </div>
 </template>
 
 <script>
 import PostedMemo from "@/components/PostedMemo.vue"
+import MemoBtn from "@/components/MemoBtn.vue"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { db } from "@/firebase"
+
 import {
   doc,
   getDoc,
@@ -76,12 +68,12 @@ import {
   where,
   orderBy,
 } from "firebase/firestore"
-import { getAuth, onAuthStateChanged } from "firebase/auth"
-import { db } from "@/firebase"
 
 export default {
+  name: "MyAccountPage",
   components: {
     PostedMemo,
+    MemoBtn,
   },
   data() {
     return {
@@ -130,326 +122,163 @@ export default {
 }
 </script>
 
-<style scoped>
-.all {
-  padding: 0px;
-  margin: -10px;
+<style lang="scss" scoped>
+@import "@/assets/css/_reset.scss";
+%userInfoUnder {
+  text-decoration: underline;
+  text-decoration-color: rgb(218, 142, 30);
+  text-decoration-thickness: 4px;
+  text-underline-offset: 7px;
 }
 
-.allScreen {
-  /* border: 2px solid black; */
+.allContainer {
+  // border: 2px solid black;
   width: 100%;
   height: 100vh;
   min-height: 650px;
   display: flex;
-}
-
-/* アカウント 始まり */
-.acount {
-  /* border: 2px solid red; */
-  width: 30%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  /* background-color: ; */
-}
-
-.acount-icon {
-  width: 100px;
-  height: 100px;
-  background-color: aqua;
-  border-radius: 50% 50%;
-  position: absolute;
-  top: 35px;
-}
-
-.acount-text {
-  /* border: 2px solid green; */
-  width: 100%;
-  height: auto;
-  position: relative;
-  top: 150px;
-  left: 0px;
-  margin: 0 5px;
-}
-
-.acount-text-userName {
-  /* border: 2px solid red; */
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.acount-text-title {
-  font-size: 20px;
-  font-weight: 900;
-  /* border: 2px solid green; */
-  width: 100%;
-  text-align: center;
   user-select: none;
+
+  // -----------------------------
+  /* アカウント 始まり */
+  // ---------------------------------
+
+  .acountArea {
+    // border: 2px solid red;
+    width: 30%;
+    height: 100%;
+
+    .A_container {
+      // border: 2px solid black;
+      margin-top: 40px;
+    }
+    .icon_Container {
+      // border: 2px solid green;
+      display: flex;
+      justify-content: center;
+
+      .icon_Image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+      }
+    }
+    .acountTxtContainer {
+      // border: 2px solid red;
+
+      .A_userNameContainer {
+        // border: 2px solid black;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+
+        .userName {
+          // border: 2px solid blue;
+          @extend %userInfoUnder;
+          font-size: 2em;
+          font-weight: 900;
+          text-align: center;
+          margin: 10px auto;
+        }
+      }
+    }
+    .A_userTitle {
+      font-size: 1.7em;
+      font-weight: 900;
+      // border: 2px solid green;
+      width: 100%;
+      text-align: center;
+    }
+    .userCourse {
+      // border: 2px solid red;
+      font-size: 1.5em;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+
+      p {
+        @extend %userInfoUnder;
+      }
+    }
+  }
+
+  // --------------------------
+  /* メモ 始まり */
+  // -------------------------
+  .memoArea {
+    // border: 1px solid blue;
+    width: 70%;
+    height: 100%;
+
+    .M_header {
+      // border: 1px solid red;
+      width: 100%;
+      height: 15%;
+      background-color: #c7887fdd;
+
+      .headerTitle_container {
+        // border: 2px solid blue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .headerTitle {
+          font-size: 30px;
+          font-family: "Roboto";
+          font-weight: bold;
+          color: white;
+        }
+      }
+
+      .select_container {
+        // border: 2px solid black;
+        margin: 15px auto 0;
+        display: flex;
+        justify-content: center;
+
+        select {
+          border: 2px solid black;
+          background-color: white;
+          font-size: 20px;
+          font-weight: bold;
+          border-radius: 5px;
+          width: 50%;
+          -moz-appearance: menulist;
+          -webkit-appearance: menulist;
+          text-align: center;
+        }
+
+        .selectBtn {
+          font-size: 1.2em;
+          font-family: "Roboto";
+          font-weight: bold;
+          border: 2px solid black;
+          background-color: rgb(247, 224, 170);
+          border-radius: 5px;
+          padding: 6px 10px;
+          margin: 0 5px;
+
+          &:hover {
+            cursor: pointer;
+            filter: brightness(110%);
+          }
+          &:active {
+            transform: scale(0.98);
+          }
+        }
+      }
+    }
+
+    .M_container {
+      border: 2px solid rgba(255, 239, 216, 0.747);
+      background-color: rgba(255, 239, 216, 0.747);
+      width: 100%;
+      min-height: 100%;
+      display: block;
+    }
+  }
 }
-
-.acount-text-userName-name {
-  /* border: 2px solid blue; */
-  border-bottom: 2px solid black;
-  font-size: 30px;
-  font-weight: 900;
-  text-align: center;
-}
-
-.acount-text-userCourse {
-  /* border: 2px solid blue; */
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 10px auto;
-}
-
-.acount-text-userCourse-name {
-  /* border: 2px solid blue; */
-  border-bottom: 2px solid black;
-  font-size: 30px;
-  font-weight: 900;
-  text-align: center;
-}
-
-/* アカウント 終わり */
-
-/* メモ 始まり */
-.memo {
-  /* border: 1px solid blue; */
-  width: 70%;
-  height: 100%;
-}
-
-.memo-header {
-  /* border: 1px solid red; */
-  width: 100%;
-  /* height: 15%; */
-  background-color: #c7887fdd;
-}
-
-.memo-header-memoTitle {
-  /* border: 2px solid blue; */
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-.memo-header-memoTitle-title {
-  font-size: 30px;
-  font-family: "Roboto";
-  font-style: italic;
-  font-weight: 1000;
-  font-display: swap;
-  user-select: none;
-  color: white;
-}
-
-.memo-header-inputButton {
-  /* border: 2px solid black; */
-  margin: 12px auto;
-  position: relative;
-  bottom: 2px;
-  display: flex;
-  justify-content: center;
-}
-
-.memo-header-selector {
-  font-size: 20px;
-  width: 250px;
-}
-
-.memo-header-selectorButton {
-  font-size: 15px;
-  font-family: "Roboto";
-  font-style: italic;
-  font-weight: 1000;
-  font-display: swap;
-  border-radius: 5px;
-  padding: 6px 10px;
-  margin: 0 5px;
-  position: relative;
-  top: 0px;
-  user-select: none;
-}
-
-.memo-header-selectorButton:hover {
-  cursor: pointer;
-  background-color: rgb(229, 230, 231);
-}
-
-.memo-header-selectorButton:active {
-  transform: scale(0.98);
-}
-
-.memo-space {
-  /* border: 2px solid red; */
-  width: 100%;
-  display: block;
-  min-height: 100%;
-  background-color: rgba(255, 239, 216, 0.747);
-}
-
-.memo-space-user {
-  /* border: 2px solid royalblue; */
-  filter: drop-shadow(1px 2px 3px #dddddd);
-  width: 90%;
-  height: 25%;
-  margin: 15px auto;
-  background-color: white;
-}
-
-.memo-space-user-information {
-  /* border: 2px solid red; */
-  display: flex;
-  position: relative;
-  border-bottom: 3px solid black;
-}
-
-.memo-space-user-information-iconButton {
-  /* border: 2px solid peru; */
-  width: 20px;
-  height: 20px;
-  border-radius: 50% 50%;
-  background-color: aqua;
-  margin: 3px;
-}
-
-.memo-space-user-information-name {
-  /* border: 2px solid blue; */
-  margin: auto 10px;
-  position: relative;
-  top: 15px;
-}
-
-.memo-space-user-information-course {
-  /* border: 2px solid blue; */
-  margin: auto 10px;
-  position: relative;
-  top: 15px;
-}
-
-.memo-space-user-information-button {
-  position: absolute;
-  right: 3px;
-  top: 3px;
-  border: 2px solid black;
-  border-radius: 5px;
-}
-
-.memo-space-user-information-button:hover {
-  cursor: pointer;
-  background-color: rgb(229, 230, 231);
-}
-
-.memo-space-user-information-button:active {
-  transform: scale(0.98);
-}
-
-.memo-space-user-favorite {
-  /* border: 2px solid red; */
-  display: flex;
-  position: relative;
-}
-
-.memo-space-user-favorite-input {
-  position: relative;
-  top: 0px;
-}
-
-.memo-space-user-favorite-input:hover {
-  cursor: pointer;
-}
-
-.memo-space-user-favorite span {
-  /* border: 2px solid blue; */
-  color: red;
-  font-weight: bold;
-  position: relative;
-  bottom: 0;
-}
-
-nav {
-  list-style: none;
-}
-
-nav li {
-  /* border: 2px solid red; */
-  width: 100%;
-  height: 75px;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.memo-space-user-link {
-  /* border: 2px solid green; */
-  width: 100%;
-  height: 70%;
-  position: relative;
-  bottom: 11px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.memo-space-user-link-titleName {
-  position: absolute;
-  left: 0px;
-}
-
-/* メモ 終わり */
-
-/* 投稿する場所 始まり */
-.uploadSpace {
-  /* border: 2px solid black; */
-  width: 30%;
-  height: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  bottom: 30px;
-  left: 0px;
-  z-index: 1;
-  padding: 0px;
-  margin: 0px;
-}
-
-.uploadSpace-button {
-  border: 2px solid #ce8d83dd;
-  border-radius: 5px;
-  padding: 0px;
-  width: 80%;
-  height: 100%;
-  background-color: #dd988edd;
-  color: white;
-  z-index: 0;
-}
-
-.uploadSpace-button:hover {
-  cursor: pointer;
-  filter: brightness(105%);
-}
-
-.uploadSpace-button:active {
-  transform: scale(0.99);
-}
-
-.uploadSpace-button-text {
-  /* border: 2px solid red; */
-  font-size: 30px;
-  font-family: "Roboto";
-  font-style: italic;
-  font-weight: 900;
-  font-display: swap;
-  padding: 0px;
-  margin: 0px;
-  user-select: none;
-}
-
-/* 投稿する場所 終わり */
 
 /* スマートフォン用 始まり */
 @media screen and (max-width: 640px) {

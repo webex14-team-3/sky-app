@@ -1,9 +1,11 @@
 <template>
-  <div class="header">
-    <HeaderSpace />
-  </div>
-  <div class="contents">
-    <router-view />
+  <div class="App">
+    <div class="HeaderContainer">
+      <HeaderSpace />
+    </div>
+    <div class="Contents">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -15,3 +17,7 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/css/_reset.scss";
+</style>

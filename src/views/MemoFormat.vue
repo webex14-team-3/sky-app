@@ -85,6 +85,7 @@ import { getAuth } from "firebase/auth"
 import { db } from "../firebase"
 
 export default {
+  name: "MemoFormatPage",
   data() {
     return {
       inputTitle: "",

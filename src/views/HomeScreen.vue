@@ -81,7 +81,6 @@
       <!-- ユーザーのアカウントを一覧させる場所 終わり -->
     </div>
   </div>
-  <router-vue />
 </template>
 
 <script>
@@ -98,6 +97,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "@/firebase"
 
 export default {
+  name: "HomePage",
   components: {
     PostedMemo,
   },

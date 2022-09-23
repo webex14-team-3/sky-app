@@ -1,26 +1,40 @@
 <template>
   <div class="allContainer">
-    <!-- <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" /> -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
     <header class="LinkContainer">
       <div class="TopPageNav" @click="topPageBtn">
-        <router-link to="/" class="navItem"
-          ><p class="navItemName">TopPage</p></router-link
-        >
-      </div>
-      <div class="MyPageNav" @click="MyPageBtn">
-        <router-link to="/MyAccount" class="navItem"
-          ><p class="navItemName">MyPage</p></router-link
-        >
-      </div>
-      <div class="ProfileNav" @click="ProfilePageBtn">
-        <router-link to="/ProfilePage" class="navItem"
-          ><p class="navItemName">Profile</p></router-link
-        >
-      </div>
-      <div class="loginNav" @click="googleLogin">
         <div class="navItem">
-          <a class="container" v-if="isAuth">Login</a>
-          <a class="container" v-else>Logout</a>
+          <p class="navItemName">TopPage</p>
+        </div>
+      </div>
+      <div
+        class="MyPageNav"
+        @click="MyPageBtn"
+        @mouseover="MypageMouseOverAction"
+        @mouseleave="MypageMouseLeaveAction"
+      >
+        <div class="navItem">
+          <p class="navItemName" v-if="hoverMypage">{{ message.mypage }}</p>
+          <p v-else class="navItemName PleaseLog">Please Login</p>
+        </div>
+      </div>
+      <div
+        class="ProfileNav"
+        @click="ProfilePageBtn"
+        @mouseover="ProfileMouseOverAction"
+        @mouseleave="ProfileMouseLeaveAction"
+      >
+        <div class="navItem">
+          <p class="navItemName" v-if="hoverProfile">
+            {{ message.profile }}
+          </p>
+          <p v-else class="navItemName PleaseLog">Please Login</p>
+        </div>
+      </div>
+      <div class="LoginNav" @click="googleLogin">
+        <div class="navItem">
+          <a class="navItemName" v-if="isAuth">Login</a>
+          <a class="navItemName" v-else>Logout</a>
         </div>
       </div>
     </header>
@@ -52,10 +66,13 @@ import {
 import { db } from "@/firebase.js"
 
 export default {
-  name: "headerNav",
+  name: "HeaderPosition",
   data() {
     return {
       isAuth: true,
+      hoverMypage: true,
+      hoverProfile: true,
+      message: { mypage: "MyPage", profile: "Profile" },
     }
   },
   created() {
@@ -103,17 +120,15 @@ export default {
                   // 過去にログインをしていた場合
                 } else {
                   console.log("Header:過去にログインしていた場合の処理")
-                  const docRef = doc(db, "users", user.uid)
-                  const docSnap = await getDoc(docRef)
-                  console.log(docSnap)
+                  // const docRef = doc(db, "users", user.uid)
+                  // const docSnap = await getDoc(docRef)
+                  // console.log(docSnap)
                 }
                 this.isAuth = false
-              } else {
-                console.log("ユーザーなし")
               }
             })
             this.isAuth = false
-            console.log("ログインしました")
+            // console.log("ログインしました")
             this.$router.push("/ProfilePage")
           })
           .catch((error) => {
@@ -121,93 +136,170 @@ export default {
             console.log(error)
           })
       } else {
-        const auth = getAuth()
-        signOut(auth)
-          .then(() => {
-            // Sign-out successful.
-            this.$router.push("/")
-            console.log("ログアウトしました")
-          })
-          .catch((error) => {
-            // An error happened.
-            console.log(error)
-          })
-        this.isAuth = true
+        if (window.confirm("ログアウトしますか？")) {
+          const auth = getAuth()
+          signOut(auth)
+            .then(() => {
+              // Sign-out successful.
+              this.$router.push("/")
+              console.log("ログアウトしました")
+              this.hoverMypage = true
+              this.hoverProfile = true
+            })
+            .catch((error) => {
+              // An error happened.
+              console.log(error)
+            })
+          this.isAuth = true
+        }
       }
     },
     topPageBtn() {
       this.$router.push("/")
     },
     MyPageBtn() {
-      this.$router.push("/MyAccount")
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.$router.push("/MyAccount")
+        }
+      })
     },
     ProfilePageBtn() {
-      this.$router.push("/ProfilePage")
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.$router.push("/ProfilePage")
+        }
+      })
+    },
+    MypageMouseOverAction() {
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          this.hoverMypage = false
+        }
+      })
+    },
+    MypageMouseLeaveAction() {
+      this.hoverMypage = true
+    },
+    ProfileMouseOverAction() {
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          this.hoverProfile = false
+        }
+      })
+    },
+    ProfileMouseLeaveAction() {
+      this.hoverProfile = true
     },
   },
 }
 </script>
 
-<style scoped>
-/* background-color: rgba(255, 235, 205, 0.747); */
-/* background-color: #fccb90; */
-/* border-right: 5px solid #df5f5f; */
+<style lang="scss" scoped>
+@import "@/assets/css/_reset.scss";
+$main-bgColor: rgba(255, 235, 205, 0.747);
+$hover-color: brightness(90%);
+%hoverEffect {
+  filter: $hover-color;
+  text-decoration: underline;
+  text-decoration-color: rgb(255, 123, 0) !important;
+  text-decoration-thickness: 5px;
+  text-underline-offset: 5px;
+}
+
 .allContainer {
-  /* border: 2px solid blue; */
+  // border: 2px solid blue;
+  border-bottom: 4px solid #c7887fdd;
   width: 100%;
   height: 60px;
-  background-color: #c7887fdd;
   user-select: none;
+
+  .LinkContainer {
+    /* border: 2px solid red; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+
+    .TopPageNav {
+      // border: 2px solid yellow;
+      width: 50%;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      border-right: 4px solid #c7887fdd;
+      height: 100%;
+      background-color: $main-bgColor;
+      cursor: pointer;
+
+      &:hover {
+        @extend %hoverEffect;
+      }
+    }
+
+    .MyPageNav {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      border-right: 4px solid #c7887fdd;
+      height: 100%;
+      width: 20%;
+      background-color: $main-bgColor;
+      cursor: pointer;
+
+      &:hover {
+        @extend %hoverEffect;
+      }
+    }
+
+    .ProfileNav {
+      /* border: 2px solid red; */
+      width: 20%;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      border-right: 4px solid #c7887fdd;
+      height: 100%;
+      background-color: $main-bgColor;
+      cursor: pointer;
+
+      &:hover {
+        @extend %hoverEffect;
+      }
+    }
+
+    .navItem {
+      /* border: 2px solid black; */
+      display: flex;
+      align-items: center;
+    }
+
+    .navItemName {
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    .PleaseLog {
+      color: rgb(255, 0, 119);
+    }
+  }
 }
-.LinkContainer {
-  /* border: 2px solid red; */
-  height: 100%;
-  display: flex;
-  align-items: center;
-  background-color: rgba(255, 235, 205, 0.747);
-  list-style-type: none;
-}
-.TopPageNav {
-  /* border: 2px solid yellow; */
-  width: 50%;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  border-right: 4px solid #c7887fdd;
-  height: 100%;
-  cursor: pointer;
-}
-.MyPageNav {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  border-right: 4px solid #c7887fdd;
-  height: 100%;
-  width: 20%;
-  cursor: pointer;
-}
-.ProfileNav {
-  /* border: 2px solid red; */
-  width: 20%;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  border-right: 4px solid #c7887fdd;
-  height: 100%;
-  cursor: pointer;
-}
-.navItem {
-  /* border: 2px solid black; */
-  display: flex;
-  align-items: center;
-}
-.loginNav {
+.LoginNav {
   /* border: 2px solid red; */
   width: 10%;
   display: flex;
   align-content: center;
   justify-content: center;
   height: 100%;
+  background-color: $main-bgColor;
   cursor: pointer;
+
+  &:hover {
+    @extend %hoverEffect;
+  }
 }
 </style>
