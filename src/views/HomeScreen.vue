@@ -239,7 +239,15 @@ export default {
       }
     }
     .memoBtn_Area {
-      left: 100px;
+      width: 30%;
+      height: 20%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      bottom: 30px;
+      right: 0px;
+      z-index: 1;
     }
   }
 }

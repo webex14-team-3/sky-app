@@ -53,7 +53,7 @@
     <!-- メモ 終わり -->
 
     <!-- 投稿する場所 始まり -->
-    <section class="memoBtn_Area">
+    <section class="upload_Area">
       <MemoBtn />
     </section>
     <!-- 投稿する場所 終わり -->
@@ -292,7 +292,16 @@ export default {
     }
   }
 
-  .memoBtn_Area {
+  .upload_Area {
+    width: 30%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 30px;
+    left: 0px;
+    z-index: 1;
   }
 }
 
