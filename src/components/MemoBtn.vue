@@ -27,7 +27,6 @@ export default {
 @import "@/assets/css/_reset.scss";
 
 .uploadArea {
-  //   border: 2px solid black;
   width: 30%;
   height: 20%;
   display: flex;
@@ -35,7 +34,7 @@ export default {
   align-items: center;
   position: fixed;
   bottom: 30px;
-  left: 0px;
+  right: 0px;
   z-index: 1;
 
   .uploadBtn {

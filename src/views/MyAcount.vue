@@ -21,11 +21,6 @@
       </div>
     </section>
 
-    <!-- 投稿する場所 始まり -->
-    <MemoBtn />
-    <!-- 投稿する場所 終わり -->
-    <!-- アカウント 終わり -->
-
     <!-- メモ 始まり -->
     <section class="memoArea">
       <div class="M_header">
@@ -34,9 +29,15 @@
         </div>
         <div class="select_container">
           <select>
-            <option value="mostRecent"><p>新しい順</p></option>
-            <option value="aiueo"><p>古い順</p></option>
-            <option value="favorite"><p>お気に入り順</p></option>
+            <option value="mostRecent">
+              <p>新しい順</p>
+            </option>
+            <option value="aiueo">
+              <p>古い順</p>
+            </option>
+            <option value="favorite">
+              <p>お気に入り順</p>
+            </option>
           </select>
           <button class="selectBtn">決定</button>
         </div>
@@ -50,6 +51,12 @@
       </div>
     </section>
     <!-- メモ 終わり -->
+
+    <!-- 投稿する場所 始まり -->
+    <section class="memoBtn_Area">
+      <MemoBtn />
+    </section>
+    <!-- 投稿する場所 終わり -->
   </div>
 </template>
 
@@ -124,6 +131,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/_reset.scss";
+
 %userInfoUnder {
   text-decoration: underline;
   text-decoration-color: rgb(218, 142, 30);
@@ -152,6 +160,7 @@ export default {
       // border: 2px solid black;
       margin-top: 40px;
     }
+
     .icon_Container {
       // border: 2px solid green;
       display: flex;
@@ -163,6 +172,7 @@ export default {
         border-radius: 50%;
       }
     }
+
     .acountTxtContainer {
       // border: 2px solid red;
 
@@ -183,6 +193,7 @@ export default {
         }
       }
     }
+
     .A_userTitle {
       font-size: 1.7em;
       font-weight: 900;
@@ -190,6 +201,7 @@ export default {
       width: 100%;
       text-align: center;
     }
+
     .userCourse {
       // border: 2px solid red;
       font-size: 1.5em;
@@ -263,6 +275,7 @@ export default {
             cursor: pointer;
             filter: brightness(110%);
           }
+
           &:active {
             transform: scale(0.98);
           }
@@ -277,6 +290,9 @@ export default {
       min-height: 100%;
       display: block;
     }
+  }
+
+  .memoBtn_Area {
   }
 }
 

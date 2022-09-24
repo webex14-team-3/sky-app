@@ -239,6 +239,7 @@ export default {
       }
     }
     .memoBtn_Area {
+      left: 100px;
     }
   }
 }
