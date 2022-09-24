@@ -1,24 +1,36 @@
 <template>
-  <div class="memoAll">
-    <div class="container">
-      <span class="title">タイトル</span>
+  <div class="all_Container">
+    <div class="Format_container">
+      <!-- 投稿 始まり -->
+      <section class="upload_Area">
+        <div v-if="MyuserSpace" class="Btn_Container">
+          <button class="saveBtn uploadBtn" @click="saveMemo">
+            <p>保存</p>
+          </button>
+          <button class="postBtn uploadBtn" @click="postMemo">
+            <p>投稿</p>
+          </button>
+        </div>
+      </section>
+      <!-- 投稿 終わり -->
+
       <!-- タイトル 始まり -->
-      <section class="container-title">
+      <section class="inputtitle_Area">
+        <p class="title theme">タイトル</p>
         <input
           type="text"
           maxlength="15"
-          class="contaner-title-input"
+          class="userInput_title"
           v-model="inputTitle"
         />
       </section>
       <!-- タイトル 終わり -->
 
-      <span class="main">本文</span>
       <!-- 本文 始まり -->
-      <section class="container-main">
+      <section class="memo_Area">
+        <p class="title memo">本文</p>
         <textarea
-          class="container-main-input"
-          id="container-main-input"
+          class="userInput_memo"
           name="main"
           v-model="inputMemo"
           placeholder="勉強したことをメモに書いて投稿しよう！"
@@ -62,19 +74,6 @@
         </button>
       </section> -->
       <!-- 機能 終わり -->
-
-      <!-- 投稿 始まり -->
-      <section class="container-upload">
-        <div v-if="MyuserSpace">
-          <button class="container-upload-button" @click="saveMemo">
-            保存
-          </button>
-          <button class="container-upload-button" @click="postMemo">
-            投稿
-          </button>
-        </div>
-      </section>
-      <!-- 投稿 終わり -->
     </div>
   </div>
 </template>
@@ -143,206 +142,191 @@ export default {
 }
 </script>
 
-<style scoped>
-.memoAll {
+<style lang="scss" scoped>
+@import "@/assets/css/_reset.scss";
+
+.all_Container {
+  // border: 2px solid red;
   display: flex;
   justify-content: center;
-  position: relative;
-  padding: 0px;
-}
-.container {
-  border: 2px solid black;
-  margin-top: 10px;
-  border-radius: 5px;
-  width: 90%;
-  height: 600px;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  background-color: rgb(247, 247, 247);
-}
-.container span {
-  color: black;
-  font-size: 20px;
-  font-weight: 900;
-}
-.container .title {
-  position: absolute;
-  left: 25px;
-  top: 7px;
-}
-.container .main {
-  position: absolute;
-  left: 25px;
-  top: 90px;
-}
-.container .function {
-  position: fixed;
-  left: 90px;
-  bottom: 65px;
-  z-index: 101;
-}
+  background-color: rgba(255, 239, 216, 0.747);
+  height: 100vh;
 
-/* タイトル 始まり */
-.title {
-  user-select: none;
-}
-.container-title {
-  /* border: 2px solid red; */
-  width: 90%;
-  height: 50px;
-  position: absolute;
-  bottom: auto;
-  top: 35px;
-  display: flex;
-  justify-content: center;
-}
-.contaner-title-input {
-  width: 100%;
-  height: 80%;
-  font-size: large;
-  font-weight: 900;
-  position: absolute;
-  bottom: 0px;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-/* タイトル 終わり */
+  .Format_container {
+    border: 2px solid black;
+    margin-top: 20px;
+    border-radius: 3%;
+    width: 90%;
+    min-height: 70vh;
+    background-color: rgb(247, 247, 247);
+    position: relative;
 
-/* 本文 始まり */
-.main {
-  user-select: none;
-}
-.container-main {
-  /* border: 2px solid green; */
-  width: 90%;
-  height: 70%;
-  position: absolute;
-  top: 120px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.container-main-input {
-  /* border: 2px solid red; */
-  padding: 7px 5px 10px 5px;
-  overflow: scroll;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  /* margin: auto auto 150px; */
-  font-size: 15px;
-  font-weight: 900;
-  resize: none;
-  overflow: scroll;
-  max-width: 100%;
-  max-height: 100%;
-  min-width: 100%;
-  min-height: 100%;
-  width: 100%;
-  height: 100%;
-  line-height: 1.3em;
-}
-/* 本文 終わり */
+    /* 投稿 始まり */
+    .upload_Area {
+      // border: 2px solid red;
+      width: 30%;
+      height: 50px;
+      margin-top: 4px;
+      position: absolute;
+      right: 10%;
 
-/* 機能 始まり */
-.container-function {
-  /* border: 4px solid #f5a194dd; */
-  width: 90%;
-  height: 45px;
-  position: fixed;
-  bottom: 10px;
-  display: flex;
-  justify-content: space-around;
-  background-color: white;
-  z-index: 100;
-}
-.container-function-underbar {
-  /* border: 2px solid red; */
-  width: auto;
-  height: 100%;
-  display: flex;
-}
-.container-function-underbarButton-option {
-  width: 20px;
-  display: block;
-  font-size: 20px;
-  font-weight: bold;
-  padding: 0;
-  background-color: rgb(247, 239, 227);
-  border: 2px solid #c7887fdd;
-}
-.container-function-underbarButton-option:hover {
-  cursor: pointer;
-  background-color: rgb(239, 231, 219);
-}
-.container-function-underbarButton-option:active {
-  transform: scale(0.98);
-}
-.container-function button {
-  border: 2px solid #c7887fdd;
-  background-color: rgb(247, 239, 227);
-}
-.container-function button:hover {
-  cursor: pointer;
-  background-color: rgb(239, 231, 219);
-}
-.container-function button:active {
-  transform: scale(0.98);
-}
+      .Btn_Container {
+        display: flex;
 
-/* 機能 終わり */
+        .uploadBtn {
+          border: 2px solid #ce8d83dd;
+          height: 100%;
+          width: 100%;
+          background-color: #dd988edd;
+          border-radius: 10%;
+          color: white;
+          margin-left: 0.8em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
 
-/* 投稿 始まり */
-.container-upload {
-  /* border: 2px solid red; */
-  width: 90%;
-  height: 40px;
-  position: absolute;
-  top: 2px;
-  display: flex;
-  justify-content: flex-end;
-}
-.container-upload-button {
-  /* ボーダーを追加し、homeScreenの投稿ボタンの色に合わせました */
-  border: 2px solid #ce8d83dd;
-  width: 30%;
-  height: 100%;
-  background-color: #dd988edd;
-  border-radius: 5px;
-  color: white;
-}
-.container-upload-button:hover {
-  cursor: pointer;
-  filter: brightness(90%);
-}
-.container-upload-button:active {
-  transform: scale(0.98);
-}
-.container-upload-button p {
-  font-size: 25px;
-  font-weight: 900;
-  color: white;
-  user-select: none;
+          &:hover {
+            cursor: pointer;
+            filter: brightness(110%);
+          }
+          &:active {
+            transform: scale(0.98);
+          }
+          p {
+            font-size: 1.7em;
+            font-weight: bold;
+            color: white;
+          }
+        }
+      }
+    }
+    /* タイトル 始まり */
+    .title {
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+    .inputtitle_Area {
+      // border: 2px solid black;
+      width: 90%;
+      height: 14%;
+      margin: 0 auto;
+      margin-top: 30px;
+
+      .theme {
+      }
+
+      .userInput_title {
+        border: 2px solid black;
+        background-color: white;
+        width: 100%;
+        height: 50px;
+        font-size: large;
+        font-weight: bold;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+    }
+    /* タイトル 終わり */
+
+    /* 本文 始まり */
+    .memo {
+    }
+    .memo_Area {
+      // border: 2px solid green;
+      margin: 0 auto;
+      width: 90%;
+      height: 70%;
+
+      .userInput_memo {
+        border: 2px solid black;
+        background-color: white;
+        padding: 7px 5px 10px 5px;
+        overflow: scroll;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        font-size: 15px;
+        font-weight: 900;
+        resize: none;
+        overflow: scroll;
+        max-width: 100%;
+        max-height: 100%;
+        min-width: 100%;
+        min-height: 100%;
+        width: 100%;
+        height: 100%;
+        line-height: 1.3em;
+      }
+      /* 本文 終わり */
+
+      /* 機能 始まり */
+      // .container-function {
+      //   /* border: 4px solid #f5a194dd; */
+      //   width: 90%;
+      //   height: 45px;
+      //   position: fixed;
+      //   bottom: 10px;
+      //   display: flex;
+      //   justify-content: space-around;
+      //   background-color: white;
+      //   z-index: 100;
+      // }
+      // .container-function-underbar {
+      //   /* border: 2px solid red; */
+      //   width: auto;
+      //   height: 100%;
+      //   display: flex;
+      // }
+      // .container-function-underbarButton-option {
+      //   width: 20px;
+      //   display: block;
+      //   font-size: 20px;
+      //   font-weight: bold;
+      //   padding: 0;
+      //   background-color: rgb(247, 239, 227);
+      //   border: 2px solid #c7887fdd;
+      // }
+      // .container-function-underbarButton-option:hover {
+      //   cursor: pointer;
+      //   background-color: rgb(239, 231, 219);
+      // }
+      // .container-function-underbarButton-option:active {
+      //   transform: scale(0.98);
+      // }
+      // .container-function button {
+      //   border: 2px solid #c7887fdd;
+      //   background-color: rgb(247, 239, 227);
+      // }
+      // .container-function button:hover {
+      //   cursor: pointer;
+      //   background-color: rgb(239, 231, 219);
+      // }
+      // .container-function button:active {
+      //   transform: scale(0.98);
+      // }
+    }
+    /* 機能 終わり */
+  }
 }
 /* 投稿 終わり */
-@media screen and (max-width: 640px) {
-  body {
-    margin: 5px auto auto;
-  }
-  .container {
-    height: 80vh;
-    width: 90vw;
-  }
-  .container .function {
-    left: 45px;
-    /* bottom: 100px; */
-  }
-  /* .container-function {
-    flex-wrap: wrap;
-    justify-content: space-around;
-    bottom: 50px;
-    line-height: 1.25em;
-  } */
-}
+
+// @media screen and (max-width: 640px) {
+//   body {
+//     margin: 5px auto auto;
+//   }
+//   .container {
+//     height: 80vh;
+//     width: 90vw;
+//   }
+//   .container .function {
+//     left: 45px;
+//     /* bottom: 100px; */
+//   }
+//   /* .container-function {
+//     flex-wrap: wrap;
+//     justify-content: space-around;
+//     bottom: 50px;
+//     line-height: 1.25em;
+//   } */
+// }
 </style>

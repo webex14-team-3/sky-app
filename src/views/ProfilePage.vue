@@ -113,14 +113,21 @@ export default {
   methods: {
     async allSave() {
       if (this.inputUserName !== "" && this.inputUserCourse !== "") {
-        console.log(this.inputUserName)
-        console.log(this.inputUserCourse)
+        // console.log(this.inputUserName)
+        // console.log(this.inputUserCourse)
         const auth = getAuth()
         const user = auth.currentUser
         await updateDoc(doc(db, "users", user.uid), {
           userName: this.inputUserName,
           userCourse: this.inputUserCourse,
         })
+
+        // 初めてアカウントを作った場合、リロードすることで画像が表示される仕組みにする
+        const firstCreateData = user.metadata.creationTime
+        const lastCreateData = user.metadata.lastSignInTime
+        if (firstCreateData === lastCreateData) {
+          location.reload()
+        }
         alert("変更しました！")
       } else {
         alert("どっちも入力してね!")
