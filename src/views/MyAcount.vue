@@ -28,11 +28,11 @@
           <p class="headerTitle">マイメモ一覧</p>
         </div>
         <div class="select_container">
-          <select>
-            <option value="mostRecent">
+          <select @change="optionContainerBtn" v-model="changedSelect">
+            <option value="new">
               <p>新しい順</p>
             </option>
-            <option value="aiueo">
+            <option value="old">
               <p>古い順</p>
             </option>
             <option value="favorite">
@@ -43,11 +43,8 @@
         </div>
       </div>
       <div class="M_container">
-        <posted-memo
-          v-for="memo in memos"
-          v-bind:key="memo.id"
-          v-bind:memo="memo"
-        />
+        <posted-memo v-for="memo in memos" :key="memo.id" :memo="memo">
+        </posted-memo>
       </div>
     </section>
     <!-- メモ 終わり -->
@@ -89,6 +86,8 @@ export default {
       inputUserImage: "",
       userCourse: "WebExpert",
       userName: "名無し",
+      changedSelect: "new",
+      hiddenDisplay: "",
     }
   },
   async created() {
@@ -126,6 +125,59 @@ export default {
       }
     })
   },
+  methods: {
+    async optionContainerBtn() {
+      const auth = getAuth()
+      onAuthStateChanged(auth, async (user) => {
+        const uid = user.uid
+        const a = query(
+          collection(db, "userMemos"),
+          orderBy("createGetTime", "asc"),
+          where("userID", "==", uid)
+        )
+        const memoContainerSnap = await getDocs(a)
+        this.memos = []
+
+        if (this.changedSelect === "new") {
+          this.notLiked = ""
+
+          memoContainerSnap.forEach((doc) => {
+            this.memos.unshift({
+              userName: doc.data().userName,
+              userCourse: doc.data().userCourse,
+              title: doc.data().title,
+              memo: doc.data().memo,
+              userImg: doc.data().userImg,
+              DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+              TimeRemains: doc.data().createGetTime,
+            })
+          })
+        } else if (this.changedSelect === "old") {
+          this.Liked = ""
+
+          memoContainerSnap.forEach((doc) => {
+            this.memos.push({
+              userName: doc.data().userName,
+              userCourse: doc.data().userCourse,
+              title: doc.data().title,
+              memo: doc.data().memo,
+              userImg: doc.data().userImg,
+              DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+              TimeRemains: doc.data().createGetTime,
+            })
+          })
+        } else {
+          // console.log("favorite")
+          // const allMemosSnapshot = await getDocs(collection(db, "userMemos"))
+          // console.log(allMemosSnapshot.docs[0])
+          // this.hiddenDisplay = "hidden"
+        }
+      })
+    },
+    favoriteChange() {
+      console.log("TEST")
+    },
+  },
 }
 </script>
 
@@ -138,7 +190,9 @@ export default {
   text-decoration-thickness: 4px;
   text-underline-offset: 7px;
 }
-
+.hiddenDisplay {
+  display: none;
+}
 .allContainer {
   // border: 2px solid black;
   width: 100%;

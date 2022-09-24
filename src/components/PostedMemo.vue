@@ -1,5 +1,5 @@
 <template>
-  <div class="all_Container">
+  <div class="all_Container" :class="{ hidden: hiddenDisplay }">
     <section class="header_Area">
       <!-- <router-link to="myAcount"> -->
       <img class="icon" :src="memo.userImg" />
@@ -18,10 +18,10 @@
     </section>
     <section class="bottom_Area">
       <div class="favorite_Container">
-        <label>
-          <input type="checkbox" />
+        <!-- <label>
+          <input type="checkbox" @change="favoriteChange" v-model="change" />
           <p>お気に入り</p>
-        </label>
+        </label> -->
         <div class="DetailcreateMemoTime">
           <p>{{ memo.DetailcreateMemoTime }}</p>
         </div>
@@ -41,6 +41,29 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      change: false,
+    }
+  },
+  computed: {
+    hiddenDisplay() {
+      if (this.change === true) {
+        return "hidden"
+      } else {
+        return ""
+      }
+    },
+  },
+  methods: {
+    // favoriteChange() {
+    //   if (this.change === true) {
+    //     console.log("true")
+    //   } else {
+    //     console.log("false")
+    //   }
+    // },
+  },
 }
 </script>
 
@@ -53,6 +76,9 @@ export default {
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
 }
+// .hidden {
+//   display: none;
+// }
 
 .all_Container {
   // border: 2px solid red;
@@ -111,39 +137,37 @@ export default {
     .favorite_Container {
       // border: 2px solid red;
       display: flex;
-      position: relative;
 
-      label {
-        display: flex;
-        text-decoration: underline;
-        text-decoration-color: black;
-        text-decoration-thickness: 2px;
-        text-underline-offset: 3px;
+      // label {
+      //   display: flex;
+      //   text-decoration: underline;
+      //   text-decoration-color: black;
+      //   text-decoration-thickness: 2px;
+      //   text-underline-offset: 3px;
 
-        input {
-          margin-left: 5px;
-        }
-        p {
-          margin-left: 5px;
-          margin-top: 3px;
-          color: red;
-          font-weight: bold;
-        }
-      }
+      //   input {
+      //     margin-left: 5px;
+      //   }
+      //   p {
+      //     margin-left: 5px;
+      //     margin-top: 3px;
+      //     color: red;
+      //     font-weight: bold;
+      //   }
+      // }
 
       .DetailcreateMemoTime {
         position: absolute;
-        right: 15px;
+        right: 0;
       }
     }
     .memoContainer {
-      /* border: 2px solid red; */
+      border: 2px solid red;
       max-width: 100%;
       max-height: 300px;
       height: 100%;
-      margin-top: 10px;
+      margin-top: 20px;
       margin-left: 10px;
-      /* font-size: 20px; */
       position: relative;
       top: 0px;
       word-break: break-word;
