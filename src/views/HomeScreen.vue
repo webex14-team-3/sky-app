@@ -236,6 +236,7 @@ export default {
       .timeline_Area {
         border: 2px solid rgba(255, 239, 216, 0.747);
         background-color: rgba(255, 239, 216, 0.747);
+        min-height: 100vh;
       }
     }
     .memoBtn_Area {

@@ -65,15 +65,13 @@ import {
   // setDoc,
   doc,
   updateDoc,
-  // updateDoc,
-  // collection,
+  collection,
   // addDoc,
-  // updateDoc,
   // deleteField,
   getDoc,
-  // getDocs,
-  // query,
-  // where,
+  getDocs,
+  query,
+  where,
 } from "firebase/firestore"
 import { db } from "@/firebase"
 
@@ -121,6 +119,26 @@ export default {
           userName: this.inputUserName,
           userCourse: this.inputUserCourse,
         })
+
+        // --------------------------------------------------------
+        // 更新したとき、過去に投稿したメモのユーザー名も更新するコード
+        // ------------------------------------------------------------
+        const a = query(
+          collection(db, "userMemos"),
+          where("userID", "==", user.uid)
+        )
+        const querySnapshot = await getDocs(a)
+
+        let idBoxes = []
+        querySnapshot.forEach(async (doc) => {
+          idBoxes.push(doc.id)
+        })
+        for (let i = 0; i < idBoxes.length; i++) {
+          const userMemosRef = doc(db, "userMemos", idBoxes[i])
+          updateDoc(userMemosRef, {
+            userName: this.inputUserName,
+          })
+        }
 
         // 初めてアカウントを作った場合、リロードすることで画像が表示される仕組みにする
         const firstCreateData = user.metadata.creationTime
