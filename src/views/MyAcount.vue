@@ -35,16 +35,15 @@
             <option value="old">
               <p>古い順</p>
             </option>
-            <option value="favorite">
+            <!-- <option value="favorite">
               <p>お気に入り順</p>
-            </option>
+            </option> -->
           </select>
           <button class="selectBtn">決定</button>
         </div>
       </div>
       <div class="M_container">
-        <posted-memo v-for="memo in memos" :key="memo.id" :memo="memo">
-        </posted-memo>
+        <posted-memo v-for="memo in memos" :key="memo.id" :memo="memo" />
       </div>
     </section>
     <!-- メモ 終わり -->

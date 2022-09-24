@@ -76,6 +76,7 @@ export default {
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
 }
+
 // .hidden {
 //   display: none;
 // }
@@ -83,7 +84,7 @@ export default {
 .all_Container {
   // border: 2px solid red;
   width: 90%;
-  margin: 20px auto;
+  margin: 40px auto;
   user-select: none;
   background-color: white;
   border-radius: 10px;
@@ -101,6 +102,7 @@ export default {
       height: 60px;
       border-radius: 50% 50%;
     }
+
     .user_container {
       // border: 2px solid red;
       min-width: 35%;
@@ -113,6 +115,7 @@ export default {
         padding: 5px 10px 0;
         @extend %userInfoUnder;
       }
+
       .userCourse {
         // border: 2px solid blue;
         padding: 10px 10px 0;
@@ -120,6 +123,7 @@ export default {
         @extend %userInfoUnder;
       }
     }
+
     .memoTitle {
       // border: 2px solid blue;
       width: 100%;
@@ -133,7 +137,16 @@ export default {
       }
     }
   }
+
   .bottom_Area {
+    // border: 2px solid blue;
+    word-break: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+    max-height: 250px;
+    height: 100%;
+    overflow: auto;
+
     .favorite_Container {
       // border: 2px solid red;
       display: flex;
@@ -158,20 +171,14 @@ export default {
 
       .DetailcreateMemoTime {
         position: absolute;
-        right: 0;
+        right: 20px;
+        top: -23px;
       }
     }
+
     .memoContainer {
-      border: 2px solid red;
-      max-width: 100%;
-      max-height: 300px;
-      height: 100%;
-      margin-top: 20px;
-      margin-left: 10px;
-      position: relative;
-      top: 0px;
-      word-break: break-word;
-      white-space: pre-wrap;
+      // border: 2px solid red;
+      margin-top: 30px;
       text-align: left;
     }
   }
