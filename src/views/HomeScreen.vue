@@ -9,7 +9,7 @@
             <!-- <p>コースごとにメモを選んでね！</p> -->
             <div class="select_Container">
               <div class="select_Area">
-                <select>
+                <select @change="optionContainerBtn" v-model="changedSelect">
                   <option value="AllCouse">すべて表示</option>
                   <option value="iPhoneAppDevCouse">
                     iPhoneアプリ開発コース
@@ -30,7 +30,7 @@
                   v-model="inputSearch"
                   placeholder="知りたいことを検索しよう！"
                 /><br />
-                <button class="search_Btn">検索</button>
+                <button class="search_Btn" @click="Search">検索</button>
               </div>
             </div>
           </div>
@@ -99,6 +99,7 @@ import {
   collection,
   query,
   orderBy,
+  where,
 } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "@/firebase"
@@ -116,6 +117,8 @@ export default {
       inputUserImage: "",
       userCourse: "WebExpert",
       userName: "名無し",
+      changedSelect: "AllCouse",
+      inputSearch: "",
     }
   },
   async created() {
@@ -152,6 +155,194 @@ export default {
       }
     })
   },
+  methods: {
+    async Search() {
+      let remains = []
+      remains.push("ZRw4e5gy4e")
+      console.log(remains)
+      const str = "Lorem ipsum dolor sit amet"
+      const search = "sit"
+
+      console.log(str.includes(search))
+    },
+    async optionContainerBtn() {
+      if (this.changedSelect === "AllCouse") {
+        console.log("AllCourse")
+        const querySnapshot = await getDocs(collection(db, "userMemos"))
+        this.memos = []
+        querySnapshot.forEach((doc) => {
+          this.memos.unshift({
+            userName: doc.data().userName,
+            userCourse: doc.data().userCourse,
+            title: doc.data().title,
+            memo: doc.data().memo,
+            userImg: doc.data().userImg,
+            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+            TimeRemains: doc.data().createGetTime,
+          })
+        })
+      } else if (this.changedSelect === "iPhoneAppDevCouse") {
+        this.memos = []
+        const iphone = query(
+          collection(db, "userMemos"),
+          orderBy("createGetTime", "asc"),
+          where("userCourse", "==", "IPhone")
+        )
+        const iPhoneSnap = await getDocs(iphone)
+        iPhoneSnap.forEach(async (doc) => {
+          this.memos.unshift({
+            userName: doc.data().userName,
+            userCourse: doc.data().userCourse,
+            title: doc.data().title,
+            memo: doc.data().memo,
+            userImg: doc.data().userImg,
+            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+            TimeRemains: doc.data().createGetTime,
+          })
+        })
+      } else if (this.changedSelect === "GameAppDevCouse") {
+        console.log("GameAppDevCouse")
+        this.memos = []
+        const Game = query(
+          collection(db, "userMemos"),
+          orderBy("createGetTime", "asc"),
+          where("userCourse", "==", "Game")
+        )
+        const GameSnap = await getDocs(Game)
+        GameSnap.forEach(async (doc) => {
+          this.memos.unshift({
+            userName: doc.data().userName,
+            userCourse: doc.data().userCourse,
+            title: doc.data().title,
+            memo: doc.data().memo,
+            userImg: doc.data().userImg,
+            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+            TimeRemains: doc.data().createGetTime,
+          })
+        })
+      } else if (this.changedSelect === "webServeDevCouse") {
+        console.log("webServeDevCouse")
+        this.memos = []
+        const Web = query(
+          collection(db, "userMemos"),
+          orderBy("createGetTime", "asc"),
+          where("userCourse", "==", "Web")
+        )
+        const WebSnap = await getDocs(Web)
+        WebSnap.forEach(async (doc) => {
+          this.memos.unshift({
+            userName: doc.data().userName,
+            userCourse: doc.data().userCourse,
+            title: doc.data().title,
+            memo: doc.data().memo,
+            userImg: doc.data().userImg,
+            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+            TimeRemains: doc.data().createGetTime,
+          })
+        })
+      } else if (this.changedSelect === "WebExpertCouse") {
+        console.log("WebExpertCouse")
+        this.memos = []
+        const WebExpert = query(
+          collection(db, "userMemos"),
+          orderBy("createGetTime", "asc"),
+          where("userCourse", "==", "WebExpert")
+        )
+        const WebExpertSnap = await getDocs(WebExpert)
+        WebExpertSnap.forEach(async (doc) => {
+          this.memos.unshift({
+            userName: doc.data().userName,
+            userCourse: doc.data().userCourse,
+            title: doc.data().title,
+            memo: doc.data().memo,
+            userImg: doc.data().userImg,
+            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+            TimeRemains: doc.data().createGetTime,
+          })
+        })
+      } else if (this.changedSelect === "VideoEditorCouse") {
+        console.log("VideoEditorCouse")
+        this.memos = []
+        const VideoEditor = query(
+          collection(db, "userMemos"),
+          orderBy("createGetTime", "asc"),
+          where("userCourse", "==", "VideoEditor")
+        )
+        const VideoEditorSnap = await getDocs(VideoEditor)
+        VideoEditorSnap.forEach(async (doc) => {
+          this.memos.unshift({
+            userName: doc.data().userName,
+            userCourse: doc.data().userCourse,
+            title: doc.data().title,
+            memo: doc.data().memo,
+            userImg: doc.data().userImg,
+            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+            TimeRemains: doc.data().createGetTime,
+          })
+        })
+      } else if (this.changedSelect === "UI-UTCouse") {
+        console.log("UI-UTCouse")
+        this.memos = []
+        const UIUX = query(
+          collection(db, "userMemos"),
+          orderBy("createGetTime", "asc"),
+          where("userCourse", "==", "UIUX")
+        )
+        const UIUXSnap = await getDocs(UIUX)
+        UIUXSnap.forEach(async (doc) => {
+          this.memos.unshift({
+            userName: doc.data().userName,
+            userCourse: doc.data().userCourse,
+            title: doc.data().title,
+            memo: doc.data().memo,
+            userImg: doc.data().userImg,
+            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+            TimeRemains: doc.data().createGetTime,
+          })
+        })
+      } else if (this.changedSelect === "AICouse") {
+        console.log("AICouse")
+        this.memos = []
+        const AI = query(
+          collection(db, "userMemos"),
+          orderBy("createGetTime", "asc"),
+          where("userCourse", "==", "AI")
+        )
+        const AISnap = await getDocs(AI)
+        AISnap.forEach(async (doc) => {
+          this.memos.unshift({
+            userName: doc.data().userName,
+            userCourse: doc.data().userCourse,
+            title: doc.data().title,
+            memo: doc.data().memo,
+            userImg: doc.data().userImg,
+            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+            TimeRemains: doc.data().createGetTime,
+          })
+        })
+      } else {
+        console.log("PythonCouse")
+        this.memos = []
+        const Python = query(
+          collection(db, "userMemos"),
+          orderBy("createGetTime", "asc"),
+          where("userCourse", "==", "Python")
+        )
+        const PythonSnap = await getDocs(Python)
+        PythonSnap.forEach(async (doc) => {
+          this.memos.unshift({
+            userName: doc.data().userName,
+            userCourse: doc.data().userCourse,
+            title: doc.data().title,
+            memo: doc.data().memo,
+            userImg: doc.data().userImg,
+            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+            TimeRemains: doc.data().createGetTime,
+          })
+        })
+      }
+    },
+  },
 }
 </script>
 
@@ -160,7 +351,6 @@ export default {
 
 .all_Container {
   // border: 2px solid red;
-  user-select: none;
   .home_Container {
     // border: 2px solid blue;
     .timeline_Area {
@@ -170,6 +360,7 @@ export default {
         // border: 2px solid blue;
         height: 15vh;
         background-color: #c7887fdd;
+        user-select: none;
 
         .minnanoMemoItiran {
           // border: 2px solid green;

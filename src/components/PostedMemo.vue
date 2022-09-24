@@ -85,7 +85,6 @@ export default {
   // border: 2px solid red;
   width: 90%;
   margin: 40px auto;
-  user-select: none;
   background-color: white;
   border-radius: 10px;
   filter: drop-shadow(2px 6px 8px #dddddd);
@@ -101,6 +100,7 @@ export default {
       width: 60px;
       height: 60px;
       border-radius: 50% 50%;
+      user-select: none;
     }
 
     .user_container {
@@ -180,6 +180,7 @@ export default {
       // border: 2px solid red;
       margin-top: 30px;
       text-align: left;
+      user-select: contain;
     }
   }
 }

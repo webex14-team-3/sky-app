@@ -39,7 +39,7 @@
               <p>お気に入り順</p>
             </option> -->
           </select>
-          <button class="selectBtn">決定</button>
+          <!-- <button class="selectBtn">決定</button> -->
         </div>
       </div>
       <div class="M_container">
