@@ -19,7 +19,7 @@
         <p class="title theme">タイトル</p>
         <input
           type="text"
-          maxlength="15"
+          maxlength="30"
           class="userInput_title"
           v-model="inputTitle"
         />

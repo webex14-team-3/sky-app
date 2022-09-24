@@ -1,5 +1,5 @@
 <template>
-  <div class="all_Container">
+  <div class="all_Container" :class="{ hidden: hiddenDisplay }">
     <section class="header_Area">
       <!-- <router-link to="myAcount"> -->
       <img class="icon" :src="memo.userImg" />
@@ -18,10 +18,10 @@
     </section>
     <section class="bottom_Area">
       <div class="favorite_Container">
-        <label>
-          <input type="checkbox" />
+        <!-- <label>
+          <input type="checkbox" @change="favoriteChange" v-model="change" />
           <p>お気に入り</p>
-        </label>
+        </label> -->
         <div class="DetailcreateMemoTime">
           <p>{{ memo.DetailcreateMemoTime }}</p>
         </div>
@@ -41,6 +41,29 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      change: false,
+    }
+  },
+  computed: {
+    hiddenDisplay() {
+      if (this.change === true) {
+        return "hidden"
+      } else {
+        return ""
+      }
+    },
+  },
+  methods: {
+    // favoriteChange() {
+    //   if (this.change === true) {
+    //     console.log("true")
+    //   } else {
+    //     console.log("false")
+    //   }
+    // },
+  },
 }
 </script>
 
@@ -54,11 +77,14 @@ export default {
   text-underline-offset: 3px;
 }
 
+// .hidden {
+//   display: none;
+// }
+
 .all_Container {
   // border: 2px solid red;
   width: 90%;
-  margin: 20px auto;
-  user-select: none;
+  margin: 40px auto;
   background-color: white;
   border-radius: 10px;
   filter: drop-shadow(2px 6px 8px #dddddd);
@@ -74,7 +100,9 @@ export default {
       width: 60px;
       height: 60px;
       border-radius: 50% 50%;
+      user-select: none;
     }
+
     .user_container {
       // border: 2px solid red;
       min-width: 35%;
@@ -87,6 +115,7 @@ export default {
         padding: 5px 10px 0;
         @extend %userInfoUnder;
       }
+
       .userCourse {
         // border: 2px solid blue;
         padding: 10px 10px 0;
@@ -94,6 +123,7 @@ export default {
         @extend %userInfoUnder;
       }
     }
+
     .memoTitle {
       // border: 2px solid blue;
       width: 100%;
@@ -107,48 +137,50 @@ export default {
       }
     }
   }
+
   .bottom_Area {
+    // border: 2px solid blue;
+    word-break: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+    max-height: 250px;
+    height: 100%;
+    overflow: auto;
+
     .favorite_Container {
       // border: 2px solid red;
       display: flex;
-      position: relative;
 
-      label {
-        display: flex;
-        text-decoration: underline;
-        text-decoration-color: black;
-        text-decoration-thickness: 2px;
-        text-underline-offset: 3px;
+      // label {
+      //   display: flex;
+      //   text-decoration: underline;
+      //   text-decoration-color: black;
+      //   text-decoration-thickness: 2px;
+      //   text-underline-offset: 3px;
 
-        input {
-          margin-left: 5px;
-        }
-        p {
-          margin-left: 5px;
-          margin-top: 3px;
-          color: red;
-          font-weight: bold;
-        }
-      }
+      //   input {
+      //     margin-left: 5px;
+      //   }
+      //   p {
+      //     margin-left: 5px;
+      //     margin-top: 3px;
+      //     color: red;
+      //     font-weight: bold;
+      //   }
+      // }
 
       .DetailcreateMemoTime {
         position: absolute;
-        right: 15px;
+        right: 20px;
+        top: -23px;
       }
     }
+
     .memoContainer {
-      /* border: 2px solid red; */
-      max-width: 100%;
-      max-height: 300px;
-      height: 100%;
-      margin-top: 10px;
-      margin-left: 10px;
-      /* font-size: 20px; */
-      position: relative;
-      top: 0px;
-      word-break: break-word;
-      white-space: pre-wrap;
+      // border: 2px solid red;
+      margin-top: 30px;
       text-align: left;
+      user-select: contain;
     }
   }
 }
