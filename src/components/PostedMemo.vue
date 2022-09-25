@@ -5,10 +5,10 @@
       <img class="icon" :src="memo.userImg" />
       <!-- </router-link> -->
       <div class="user_container">
-        <div class="userName">
+        <div class="userName userTitle">
           <p>{{ memo.userName }}</p>
         </div>
-        <div class="userCourse">
+        <div class="userCourse userTitle">
           <p>{{ memo.userCourse }}</p>
         </div>
       </div>
@@ -185,6 +185,25 @@ export default {
   }
 }
 
-/* スマートフォン用 始まり */
-// @media screen and (max-width: 640px) {}
+// ----------------------------
+// スマホ版
+// ------------------------------
+
+@media screen and (max-width: 690px) {
+  .memoTitle {
+    // border: 2px solid blue;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    p {
+      font-size: 15px;
+      font-weight: bold;
+      // border: 2px solid red;
+    }
+  }
+  .userTitle {
+    font-size: 15px;
+  }
+}
 </style>

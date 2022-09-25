@@ -7,7 +7,7 @@
       </div>
       <div class="acountTxtContainer A_container">
         <div class="A_userNameContainer">
-          <p class="A_userTitle">ユーザー名</p>
+          <p class="A_userTitle userTitle">ユーザー名</p>
           <p class="userName">
             {{ this.userName }}
           </p>
@@ -236,34 +236,46 @@ export default {
         flex-wrap: wrap;
         margin-bottom: 20px;
 
+        .userTitle {
+          margin-top: 20px;
+          font-size: 1.7em;
+          font-weight: 900;
+          // border: 2px solid green;
+          width: 100%;
+          text-align: center;
+        }
         .userName {
           // border: 2px solid blue;
           @extend %userInfoUnder;
           font-size: 2em;
           font-weight: 900;
-          text-align: center;
           margin: 10px auto;
         }
       }
-    }
 
-    .A_userTitle {
-      font-size: 1.7em;
-      font-weight: 900;
-      // border: 2px solid green;
-      width: 100%;
-      text-align: center;
-    }
+      .A_userCourseContainer {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
 
-    .userCourse {
-      // border: 2px solid red;
-      font-size: 1.5em;
-      text-align: center;
-      font-weight: bold;
-      margin-top: 10px;
+        .A_userTitle {
+          font-size: 1.7em;
+          font-weight: 900;
+          // border: 2px solid green;
+          width: 100%;
+          text-align: center;
+        }
 
-      p {
-        @extend %userInfoUnder;
+        .userCourse {
+          // border: 2px solid red;
+          font-size: 2em;
+          font-weight: bold;
+
+          p {
+            @extend %userInfoUnder;
+          }
+        }
       }
     }
   }
@@ -359,56 +371,155 @@ export default {
 }
 
 /* スマートフォン用 始まり */
-@media screen and (max-width: 640px) {
-  /* アカウント 始まり */
-  .acount-icon {
-    top: 20px;
-  }
+@media screen and (max-width: 1080px) {
+  .allContainer {
+    // border: 2px solid black;
+    position: relative;
 
-  .acount-text {
-    top: 125px;
-  }
+    // -----------------------------
+    /* アカウント 始まり */
+    // ---------------------------------
 
-  .acount-text-title {
-    font-size: 18px;
-  }
+    .acountArea {
+      // border: 2px solid black;
+      width: 100%;
+      height: 20%;
+      position: absolute;
+      display: flex;
 
-  .acount-text-userName-name {
-    font-size: 15px;
-  }
+      .A_container {
+        // border: 2px solid black;
+        display: flex;
+        width: 30%;
+      }
 
-  .acount-text-userCourse-name {
-    font-size: 15px;
-  }
+      .icon_Container {
+        // border: 2px solid green;
+        margin: 0px;
 
-  /* アカウント 終わり */
+        .icon_Image {
+          width: 170px;
+          height: 170px;
+          border-radius: 50%;
+        }
+      }
 
-  /* メモ 始まり */
-  .memo-header-selector {
-    border: 2px solid black;
-    height: 25px;
-    width: 150px;
-  }
+      .acountTxtContainer {
+        // border: 2px solid orange;
+        margin: 0px;
+        width: 65%;
 
-  .memo-header-selectorButton {
-    top: -8px;
-  }
+        .A_userNameContainer {
+          // border: 2px solid plum;
+          display: block;
+          height: 100%;
+          width: 45%;
+          text-align: center;
 
-  /* メモ 終わり */
+          .userName {
+            // border: 2px solid blue;
+            font-size: 2em;
+            font-weight: 900;
+            text-align: center;
+            margin-top: 25px;
+          }
+        }
 
-  /* 投稿する場所 始まり */
-  .uploadSpace {
-    height: 120px;
-    left: 0px;
-    bottom: 50px;
-  }
+        .A_userCourseContainer {
+          .A_userTitle {
+            font-size: 1.7em;
+            font-weight: 900;
+            // border: 2px solid green;
+            width: 100%;
+            text-align: center;
+          }
 
-  .uploadSpace-button-text {
-    font-size: 20px;
+          .userCourse {
+            // border: 2px solid red;
+            font-size: 2em;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    // --------------------------
+    /* メモ 始まり */
+    // -------------------------
+    .memoArea {
+      // border: 1px solid blue;
+      width: 100%;
+      height: 50%;
+      margin-top: 200px;
+
+      .M_header {
+        // border: 1px solid red;
+        width: 100%;
+        height: 25%;
+        background-color: #c7887fdd;
+
+        // .headerTitle_container {
+        //   // border: 2px solid blue;
+        //   display: flex;
+        //   justify-content: center;
+        //   align-items: center;
+
+        //   .headerTitle {
+        //     font-size: 30px;
+        //     font-family: "Roboto";
+        //     font-weight: bold;
+        //     color: white;
+        //   }
+        // }
+
+        // .select_container {
+        //   // border: 2px solid black;
+        //   margin: 15px auto 0;
+        //   display: flex;
+        //   justify-content: center;
+
+        //   select {
+        //     border: 2px solid black;
+        //     background-color: white;
+        //     font-size: 20px;
+        //     font-weight: bold;
+        //     border-radius: 5px;
+        //     width: 50%;
+        //     -moz-appearance: menulist;
+        //     -webkit-appearance: menulist;
+        //     text-align: center;
+        //   }
+
+        //   .selectBtn {
+        //     font-size: 1.2em;
+        //     font-family: "Roboto";
+        //     font-weight: bold;
+        //     border: 2px solid black;
+        //     background-color: rgb(247, 224, 170);
+        //     border-radius: 5px;
+        //     padding: 6px 10px;
+        //     margin: 0 5px;
+
+        //     &:hover {
+        //       cursor: pointer;
+        //       filter: brightness(110%);
+        //     }
+
+        //     &:active {
+        //       transform: scale(0.98);
+        //     }
+        //   }
+        // }
+      }
+
+      // .M_container {
+      //   border: 2px solid rgba(255, 239, 216, 0.747);
+      //   background-color: rgba(255, 239, 216, 0.747);
+      //   width: 100%;
+      //   min-height: 100%;
+      //   display: block;
+      // }
+    }
   }
 }
-
-/* 投稿する場所 終わり */
-
-/* スマートフォン用 終わり */
 </style>

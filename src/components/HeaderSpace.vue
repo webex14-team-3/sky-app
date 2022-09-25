@@ -33,8 +33,8 @@
       </div>
       <div class="LoginNav" @click="googleLogin">
         <div class="navItem">
-          <a class="navItemName" v-if="isAuth">Login</a>
-          <a class="navItemName" v-else>Logout</a>
+          <a class="navItemName loginName" v-if="isAuth">Login</a>
+          <a class="navItemName loginName" v-else>Logout</a>
         </div>
       </div>
     </header>
@@ -301,6 +301,18 @@ $hover-color: brightness(90%);
     &:hover {
       @extend %hoverEffect;
     }
+  }
+}
+
+// ----------------------------
+// スマホ版
+// ------------------------------
+
+@media screen and (max-width: 1024px) {
+  .loginName {
+    // border: 2px solid red;
+    font-size: 20px;
+    position: absolute;
   }
 }
 </style>
