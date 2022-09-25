@@ -4,9 +4,12 @@
       <!-- 投稿 始まり -->
       <section class="upload_Area">
         <div v-if="MyuserSpace" class="Btn_Container">
-          <!-- <button class="saveBtn uploadBtn" @click="saveMemo">
+          <button class="saveBtn uploadBtn" @click="deleteBtn">
+            <p>削除</p>
+          </button>
+          <button class="saveBtn uploadBtn" @click="saveMemo">
             <p>保存</p>
-          </button> -->
+          </button>
           <button class="postBtn uploadBtn" @click="postMemo">
             <p>投稿</p>
           </button>
@@ -87,10 +90,16 @@ export default {
   name: "MemoFormatPage",
   data() {
     return {
-      inputTitle: "",
       inputMemo: "",
       MyuserSpace: true,
+      inputTitle: "",
+      titleBox: [],
+      memoBox: [],
     }
+  },
+  created() {
+    this.inputTitle = JSON.parse(localStorage["title"] || "[]")
+    this.inputMemo = JSON.parse(localStorage["memo"] || "[]")
   },
   methods: {
     async postMemo() {
@@ -137,6 +146,24 @@ export default {
       }
       this.inputTitle = ""
       this.inputMemo = ""
+    },
+    saveMemo() {
+      if (this.inputTitle !== "" || this.inputMemo !== "") {
+        this.titleBox.push(this.inputTitle)
+        this.memoBox.push(this.inputMemo)
+        localStorage.setItem("title", JSON.stringify(this.inputTitle))
+        localStorage.setItem("memo", JSON.stringify(this.inputMemo))
+        console.log(this.titleBox)
+        console.log(this.memoBox)
+      }
+    },
+    deleteBtn() {
+      if (this.inputTitle !== "" || this.inputMemo !== "") {
+        if (window.confirm("タイトルと本文を真っ白にしますか？")) {
+          this.inputTitle = ""
+          this.inputMemo = ""
+        }
+      }
     },
   },
 }
