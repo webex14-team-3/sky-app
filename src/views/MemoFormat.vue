@@ -82,8 +82,15 @@
 </template>
 
 <script>
-import { collection, addDoc, doc, getDoc } from "firebase/firestore"
-import { getAuth } from "firebase/auth"
+import {
+  collection,
+  addDoc,
+  doc,
+  getDoc,
+  setDoc,
+  deleteDoc,
+} from "firebase/firestore"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "../firebase"
 
 export default {
@@ -93,13 +100,23 @@ export default {
       inputMemo: "",
       MyuserSpace: true,
       inputTitle: "",
-      titleBox: [],
-      memoBox: [],
     }
   },
-  created() {
-    this.inputTitle = JSON.parse(localStorage["title"] || "[]")
-    this.inputMemo = JSON.parse(localStorage["memo"] || "[]")
+  async created() {
+    const auth = getAuth()
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const user = auth.currentUser
+        const userID = user.uid
+        const docRef = doc(db, "testMemos", userID)
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.exists()) {
+          this.inputTitle = docSnap.data().title
+          this.inputMemo = docSnap.data().memo
+        }
+      }
+    })
   },
   methods: {
     async postMemo() {
@@ -147,21 +164,49 @@ export default {
       this.inputTitle = ""
       this.inputMemo = ""
     },
-    saveMemo() {
+    async saveMemo() {
       if (this.inputTitle !== "" || this.inputMemo !== "") {
-        this.titleBox.push(this.inputTitle)
-        this.memoBox.push(this.inputMemo)
-        localStorage.setItem("title", JSON.stringify(this.inputTitle))
-        localStorage.setItem("memo", JSON.stringify(this.inputMemo))
-        console.log(this.titleBox)
-        console.log(this.memoBox)
+        const auth = getAuth()
+        const user = auth.currentUser
+        const userid = user.uid
+        const docRef = doc(db, "users", userid)
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.exists()) {
+          const memo = {
+            userID: user.uid,
+            title: this.inputTitle,
+            memo: this.inputMemo,
+            email: user.email,
+          }
+          await setDoc(doc(db, "testMemos", userid), memo)
+        }
+        console.log(user)
+        alert("保存しました！")
       }
     },
-    deleteBtn() {
+    async deleteBtn() {
       if (this.inputTitle !== "" || this.inputMemo !== "") {
         if (window.confirm("タイトルと本文を真っ白にしますか？")) {
-          this.inputTitle = ""
-          this.inputMemo = ""
+          if (this.inputTitle !== "" || this.inputMemo !== "") {
+            const auth = getAuth()
+            const user = auth.currentUser
+            const userid = user.uid
+            const docRef = doc(db, "testMemos", userid)
+            const docSnap = await getDoc(docRef)
+
+            if (docSnap.exists()) {
+              const memo = {
+                userID: user.uid,
+                title: this.inputTitle,
+                memo: this.inputMemo,
+                email: user.email,
+              }
+              await deleteDoc(doc(db, "testMemos", userid), memo)
+            }
+            this.inputTitle = ""
+            this.inputMemo = ""
+          }
         }
       }
     },
