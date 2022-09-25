@@ -25,13 +25,13 @@
                   <option value="PythonCouse">Pythonコース</option>
                 </select>
               </div>
-              <div class="input_Area">
+              <!-- <div class="input_Area">
                 <input
                   v-model="inputSearch"
                   placeholder="知りたいことを検索しよう！"
                 /><br />
                 <button class="search_Btn" @click="Search">検索</button>
-              </div>
+              </div> -->
             </div>
           </div>
           <!-- <div class="timelineSpace-headerTitle-three">
@@ -156,15 +156,26 @@ export default {
     })
   },
   methods: {
-    async Search() {
-      let remains = []
-      remains.push("ZRw4e5gy4e")
-      console.log(remains)
-      const str = "Lorem ipsum dolor sit amet"
-      const search = "sit"
+    // async Search() {
+    //   // this.memos = []
 
-      console.log(str.includes(search))
-    },
+    //   const userMemosRef = collection(db, "userMemos")
+    //   let q = query(userMemosRef, where("memo", "array-contains", "123"))
+
+    //   let querySnapshot = await getDocs(q)
+    //   console.log(querySnapshot)
+    //   querySnapshot.forEach((doc) => {
+    //     this.memos.unshift({
+    //       userName: doc.data().userName,
+    //       userCourse: doc.data().userCourse,
+    //       title: doc.data().title,
+    //       memo: doc.data().memo,
+    //       userImg: doc.data().userImg,
+    //       DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+    //       TimeRemains: doc.data().createGetTime,
+    //     })
+    //   })
+    // },
     async optionContainerBtn() {
       if (this.changedSelect === "AllCouse") {
         console.log("AllCourse")

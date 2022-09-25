@@ -4,9 +4,9 @@
       <!-- 投稿 始まり -->
       <section class="upload_Area">
         <div v-if="MyuserSpace" class="Btn_Container">
-          <button class="saveBtn uploadBtn" @click="saveMemo">
+          <!-- <button class="saveBtn uploadBtn" @click="saveMemo">
             <p>保存</p>
-          </button>
+          </button> -->
           <button class="postBtn uploadBtn" @click="postMemo">
             <p>投稿</p>
           </button>
