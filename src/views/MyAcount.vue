@@ -396,6 +396,8 @@ export default {
       .icon_Container {
         // border: 2px solid green;
         margin: 0px;
+        margin-top: 12px;
+        margin-left: 10px;
 
         .icon_Image {
           width: 170px;
@@ -408,6 +410,7 @@ export default {
         // border: 2px solid orange;
         margin: 0px;
         width: 65%;
+        margin-top: 10px;
 
         .A_userNameContainer {
           // border: 2px solid plum;
