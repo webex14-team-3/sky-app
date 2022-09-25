@@ -80,7 +80,7 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.isAuth = false
-        console.log(user.emailVerified ? "済" : "未")
+        // console.log(user.emailVerified ? "済" : "未")
       } else {
         this.isAuth = true
       }
@@ -280,7 +280,7 @@ $hover-color: brightness(90%);
 
     .navItemName {
       font-weight: bold;
-      font-size: 1.3em;
+      font-size: 1.3rem;
     }
 
     .PleaseLog {
@@ -301,18 +301,6 @@ $hover-color: brightness(90%);
     &:hover {
       @extend %hoverEffect;
     }
-  }
-}
-
-// ----------------------------
-// スマホ版
-// ------------------------------
-
-@media screen and (max-width: 1024px) {
-  .loginName {
-    // border: 2px solid red;
-    font-size: 20px;
-    position: absolute;
   }
 }
 </style>
