@@ -431,13 +431,17 @@ export default {
             font-weight: 900;
             // border: 2px solid green;
             width: 100%;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5px;
           }
 
           .userCourse {
             // border: 2px solid red;
             font-size: 2em;
             font-weight: bold;
+            padding-top: 5px;
           }
         }
       }
