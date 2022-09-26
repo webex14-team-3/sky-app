@@ -155,6 +155,10 @@ export default {
               memo: this.inputMemo,
             }
             await addDoc(collection(db, "userMemos"), memo)
+            await addDoc(collection(db, "searchMemos"), {
+              title: this.inputTitle,
+              memo: this.inputMemo,
+            })
             alert("投稿が完了しました！")
           }
         }
