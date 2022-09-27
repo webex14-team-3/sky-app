@@ -25,13 +25,13 @@
                   <option value="PythonCouse">Pythonコース</option>
                 </select>
               </div>
-              <div class="input_Area">
+              <!-- <div class="input_Area">
                 <input
                   v-model="inputSearch"
                   placeholder="知りたいことを検索しよう！"
                 /><br />
                 <button class="search_Btn" @click="Search">検索</button>
-              </div>
+              </div> -->
             </div>
           </div>
           <!-- <div class="timelineSpace-headerTitle-three">
@@ -158,97 +158,117 @@ export default {
     })
   },
   methods: {
-    async Search() {
-      if (this.inputSearch !== "") {
-        this.memos = []
+    // async Search() {
+    //   if (this.inputSearch !== "") {
+    //     const auth = getAuth()
+    //     onAuthStateChanged(auth, async (user) => {
+    //       if (user) {
+    //         this.memos = []
+    //         // ----------------------------
+    //         // メモ情報を入れ込む
+    //         // -----------------------------
+    //         let users = []
+    //         const querySnapshot = await getDocs(collection(db, "users"))
+    //         querySnapshot.forEach((doc) => {
+    //           users.push(doc.data().userName)
+    //         })
+    //         console.log(users)
 
-        const memoSnapshot = await getDocs(collection(db, "searchMemos"))
-        memoSnapshot.forEach((doc) => {
-          this.memoBoxes.push(doc.data().memo)
-        })
-        // console.log(this.memoBoxes)
+    //         let memosItems = []
+    //         const memoquerySnapshot = await getDocs(
+    //           collection(db, "users", user.uid, "searchMemos")
+    //         )
+    //         memoquerySnapshot.forEach((doc) => {
+    //           memosItems.push(doc.data().memo)
+    //         })
+    //         console.log(memosItems)
+    //         for (let i = 0; i < users.length; i++) {
+    //           let q = query(
+    //             collection(db, "users", user.id, "searchMemos"),
+    //             where("memoBoxes", "array-contains", this.inputSearch)
+    //           )
+    //           let querySnapshot = await getDocs(q)
+    //           querySnapshot.forEach((doc) => {
+    //             this.memos.unshift({
+    //               userName: doc.data().userName,
+    //               userCourse: doc.data().userCourse,
+    //               title: doc.data().title,
+    //               memo: doc.data().memo,
+    //               userImg: doc.data().userImg,
+    //               DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+    //               TimeRemains: doc.data().createGetTime,
+    //             })
+    //           })
+    //         }
 
-        const titleSnapshot = await getDocs(collection(db, "searchMemos"))
-        titleSnapshot.forEach((doc) => {
-          this.titleBoxes.push(doc.data().memo)
-        })
-        // console.log(this.titleBoxes)
+    //         // -----------------------------
+    //         // タイトル情報を入れ込む
+    //         // -------------------------------
+    //         // const titleSnapshot = await getDocs(collection(db, "searchMemos"))
+    //         // titleSnapshot.forEach((doc) => {
+    //         //   this.titleBoxes.push(doc.data().title)
+    //         // })
+    //         // let newTitleBoxes = []
+    //         // for (let i = 0; i < this.titleBoxes.length; i++) {
+    //         //   newTitleBoxes.push(this.titleBoxes[i])
+    //         // }
 
-        const userMemosRef = collection(db, "userMemos")
-        let memoQ = query(
-          userMemosRef,
-          where("memoBoxes", "array-contains", this.inputSearch)
-        )
+    //         // const userTitleRef = collection(db, "userMemos")
+    //         // let titleQ = query(
+    //         //   userTitleRef,
+    //         //   where(newTitleBoxes, "array-contains", this.inputSearch)
+    //         // )
 
-        const userTitleRef = collection(db, "userMemos")
-        let titleQ = query(
-          userTitleRef,
-          where("titleBoxes", "array-contains", this.inputSearch)
-        )
+    //         // let titleQuerySnapshot = await getDocs(titleQ)
+    //         // titleQuerySnapshot.forEach((doc) => {
+    //         //   this.memos.unshift({
+    //         //     userName: doc.data().userName,
+    //         //     userCourse: doc.data().userCourse,
+    //         //     title: doc.data().title,
+    //         //     memo: doc.data().memo,
+    //         //     userImg: doc.data().userImg,
+    //         //     DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+    //         //     TimeRemains: doc.data().createGetTime,
+    //         //   })
+    //         // })
+    //       }
+    //     })
+    //   } else {
+    //     this.memos = []
+    //     const auth = getAuth()
+    //     onAuthStateChanged(auth, async (user) => {
+    //       if (user) {
+    //         const uid = user.uid
+    //         const docRef = doc(db, "users", uid)
+    //         const docSnap = await getDoc(docRef)
+    //         if (docSnap.exists()) {
+    //           this.inputUserImage = docSnap.data()
+    //           this.userName = docSnap.data().userName
+    //           this.userCourse = docSnap.data().userCourse
+    //           this.inputUserImage = docSnap.data().userImg
+    //         }
 
-        let memoQuerySnapshot = await getDocs(memoQ)
-        console.log(memoQuerySnapshot)
+    //         const a = query(
+    //           collection(db, "userMemos"),
+    //           orderBy("createGetTime", "asc")
+    //         )
+    //         const querySnapshot = await getDocs(a)
 
-        memoQuerySnapshot.forEach((doc) => {
-          this.memos.unshift({
-            userName: doc.data().userName,
-            userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
-            userImg: doc.data().userImg,
-            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
-            TimeRemains: doc.data().createGetTime,
-          })
-        })
-
-        let titleQuerySnapshot = await getDocs(titleQ)
-        titleQuerySnapshot.forEach((doc) => {
-          this.memos.unshift({
-            userName: doc.data().userName,
-            userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
-            userImg: doc.data().userImg,
-            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
-            TimeRemains: doc.data().createGetTime,
-          })
-        })
-      } else {
-        this.memos = []
-        const auth = getAuth()
-        onAuthStateChanged(auth, async (user) => {
-          if (user) {
-            const uid = user.uid
-            const docRef = doc(db, "users", uid)
-            const docSnap = await getDoc(docRef)
-            if (docSnap.exists()) {
-              this.inputUserImage = docSnap.data()
-              this.userName = docSnap.data().userName
-              this.userCourse = docSnap.data().userCourse
-              this.inputUserImage = docSnap.data().userImg
-            }
-
-            const a = query(
-              collection(db, "userMemos"),
-              orderBy("createGetTime", "asc")
-            )
-            const querySnapshot = await getDocs(a)
-
-            querySnapshot.forEach((doc) => {
-              this.memos.unshift({
-                userName: doc.data().userName,
-                userCourse: doc.data().userCourse,
-                title: doc.data().title,
-                memo: doc.data().memo,
-                userImg: doc.data().userImg,
-                DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
-                TimeRemains: doc.data().createGetTime,
-              })
-            })
-          }
-        })
-      }
-    },
+    //         querySnapshot.forEach((doc) => {
+    //           this.memos.unshift({
+    //             userName: doc.data().userName,
+    //             userCourse: doc.data().userCourse,
+    //             title: doc.data().title,
+    //             memo: doc.data().memo,
+    //             userImg: doc.data().userImg,
+    //             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+    //             TimeRemains: doc.data().createGetTime,
+    //           })
+    //         })
+    //       }
+    //     })
+    //   }
+    // },
     async optionContainerBtn() {
       if (this.changedSelect === "AllCouse") {
         console.log("AllCourse")
@@ -440,6 +460,7 @@ export default {
     .timeline_Area {
       // border: 2px solid green;
       text-align: center;
+
       .header_Container {
         // border: 2px solid blue;
         height: 15vh;
@@ -454,6 +475,7 @@ export default {
           font-family: "Franklin Gothic Medium", "Arial Narrow", Arial,
             sans-serif;
         }
+
         .search_Container {
           // border: 2px solid orange;
           font-size: 20px;
@@ -468,6 +490,7 @@ export default {
               // border: 2px solid pink;
               width: 45%;
               height: 100%;
+
               select {
                 min-width: 60%;
                 border: 2px solid black;
@@ -477,15 +500,18 @@ export default {
                 border-radius: 5px;
               }
             }
+
             .input_Area {
               // border: 2px solid red;
               width: 45%;
+
               input {
                 min-width: 60%;
                 border: 2px solid black;
                 background-color: white;
                 border-radius: 5px;
               }
+
               .search_Btn {
                 margin-top: 5px;
                 border-radius: 5px;
@@ -500,6 +526,7 @@ export default {
                   cursor: pointer;
                   filter: brightness(110%);
                 }
+
                 &:active {
                   transform: scale(0.98);
                 }
@@ -508,12 +535,14 @@ export default {
           }
         }
       }
+
       .timeline_Area {
         border: 2px solid rgba(255, 239, 216, 0.747);
         background-color: rgba(255, 239, 216, 0.747);
         min-height: 100vh;
       }
     }
+
     .memoBtn_Area {
       width: 30%;
       height: 20%;

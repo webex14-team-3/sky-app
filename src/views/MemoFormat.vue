@@ -155,10 +155,23 @@ export default {
               memo: this.inputMemo,
             }
             await addDoc(collection(db, "userMemos"), memo)
-            await addDoc(collection(db, "searchMemos"), {
+            await addDoc(collection(db, "users", user.uid, "searchMemos"), {
               title: this.inputTitle,
               memo: this.inputMemo,
             })
+
+            const test = doc(db, "testMemos", userid)
+            const testdocSnap = await getDoc(test)
+
+            if (testdocSnap.exists()) {
+              const memo = {
+                userID: user.uid,
+                title: this.inputTitle,
+                memo: this.inputMemo,
+                email: user.email,
+              }
+              await deleteDoc(doc(db, "testMemos", userid), memo)
+            }
             alert("投稿が完了しました！")
           }
         }
