@@ -186,17 +186,19 @@ export default {
           this.inputMemo = ""
         }
       } else {
-        if (this.inputTitle !== "") {
-          let remainTitle = []
-          remainTitle.push({ text: this.inputTitle })
-          this.inputTitle = remainTitle.text
-        }
-        if (this.inputMemo !== "") {
-          let remainMemo = []
-          remainMemo.push({ text: this.inputMemo })
-          this.inputMemo = remainMemo.text
-        }
         alert("どっちも書いてください！")
+        // if (this.inputTitle !== "") {
+        //   console.log("1")
+        //   let remainTitle = []
+        //   remainTitle.push({ text: this.inputTitle })
+        //   this.inputTitle = remainTitle.text
+        // }
+        // if (this.inputMemo !== "") {
+        //   console.log("2")
+        //   let remainMemo = []
+        //   remainMemo.push({ text: this.inputMemo })
+        //   this.inputMemo = remainMemo.text
+        // }
       }
     },
     async saveMemo() {
