@@ -122,10 +122,6 @@ export default {
   },
   methods: {
     async postMemo() {
-      let remainTitle = []
-      let remainMemo = []
-      remainTitle.push(this.inputTitle)
-      remainMemo.push(this.inputMemo)
       // タイトルとテキストの両方が書かれていないと投稿できないようにする
       if (this.inputTitle !== "" && this.inputMemo !== "") {
         if (window.confirm("これで投稿しますか？")) {
@@ -190,9 +186,13 @@ export default {
           this.inputMemo = ""
         }
       } else {
-        alert("どっちも書いてください！")
+        let remainTitle = []
+        let remainMemo = []
+        remainTitle.push(this.inputTitle)
+        remainMemo.push(this.inputMemo)
         this.inputTitle = remainTitle
         this.inputMemo = remainMemo
+        alert("どっちも書いてください！")
       }
     },
     async saveMemo() {
