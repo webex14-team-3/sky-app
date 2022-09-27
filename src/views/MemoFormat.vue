@@ -89,6 +89,8 @@ import {
   getDoc,
   setDoc,
   deleteDoc,
+  arrayUnion,
+  updateDoc,
 } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "../firebase"
@@ -155,9 +157,15 @@ export default {
               memo: this.inputMemo,
             }
             await addDoc(collection(db, "userMemos"), memo)
-            await addDoc(collection(db, "users", user.uid, "searchMemos"), {
-              title: this.inputTitle,
-              memo: this.inputMemo,
+            // await setDoc(doc(db, "searchMemos", "allMemos"), {
+            //   searchTitles: this.inputTitle,
+            //   searchMemos: this.inputMemo,
+            // })
+            await updateDoc(doc(db, "searchMemos", "allMemos"), {
+              searchMemos: arrayUnion(this.inputMemo),
+            })
+            await updateDoc(doc(db, "searchMemos", "allMemos"), {
+              searchMemos: arrayUnion(this.inputTitle),
             })
 
             const test = doc(db, "testMemos", userid)
@@ -174,12 +182,12 @@ export default {
             }
             alert("投稿が完了しました！")
           }
+          this.inputTitle = ""
+          this.inputMemo = ""
+        } else {
+          alert("どっちも書いてください！")
         }
-      } else {
-        alert("どっちも書いてください！")
       }
-      this.inputTitle = ""
-      this.inputMemo = ""
     },
     async saveMemo() {
       if (this.inputTitle !== "" || this.inputMemo !== "") {
@@ -253,11 +261,12 @@ export default {
     /* 投稿 始まり */
     .upload_Area {
       // border: 2px solid red;
-      width: 30%;
+      width: 40%;
       height: 50px;
       margin-top: 4px;
       position: absolute;
-      right: 10%;
+      right: 5%;
+      max-width: 50%;
 
       .Btn_Container {
         display: flex;

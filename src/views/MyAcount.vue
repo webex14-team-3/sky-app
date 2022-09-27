@@ -437,14 +437,14 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 5px;
+            margin-top: 8px;
           }
 
           .userCourse {
             // border: 2px solid red;
             font-size: 2em;
             font-weight: bold;
-            padding-top: 5px;
+            padding-top: 10px;
           }
         }
       }

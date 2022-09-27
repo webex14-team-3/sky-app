@@ -178,9 +178,12 @@ export default {
 
     .memoContainer {
       // border: 2px solid red;
-      margin-top: 30px;
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-bottom: 5px;
       text-align: left;
       user-select: contain;
+      font-weight: bold;
     }
   }
 }

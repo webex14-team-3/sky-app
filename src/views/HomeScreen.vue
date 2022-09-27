@@ -31,6 +31,7 @@
                   placeholder="知りたいことを検索しよう！"
                 /><br />
                 <button class="search_Btn" @click="Search">検索</button>
+                <button class="search_Btn" @click="StopSearch">戻る</button>
               </div> -->
             </div>
           </div>
@@ -119,7 +120,6 @@ export default {
       userName: "名無し",
       changedSelect: "AllCouse",
       inputSearch: "",
-      memoBoxes: [],
       titleBoxes: [],
     }
   },
@@ -158,117 +158,103 @@ export default {
     })
   },
   methods: {
-    // async Search() {
-    //   if (this.inputSearch !== "") {
-    //     const auth = getAuth()
-    //     onAuthStateChanged(auth, async (user) => {
-    //       if (user) {
-    //         this.memos = []
-    //         // ----------------------------
-    //         // メモ情報を入れ込む
-    //         // -----------------------------
-    //         let users = []
-    //         const querySnapshot = await getDocs(collection(db, "users"))
-    //         querySnapshot.forEach((doc) => {
-    //           users.push(doc.data().userName)
-    //         })
-    //         console.log(users)
+    async Search() {
+      if (this.inputSearch !== "") {
+        const auth = getAuth()
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            this.memos = []
 
-    //         let memosItems = []
-    //         const memoquerySnapshot = await getDocs(
-    //           collection(db, "users", user.uid, "searchMemos")
-    //         )
-    //         memoquerySnapshot.forEach((doc) => {
-    //           memosItems.push(doc.data().memo)
-    //         })
-    //         console.log(memosItems)
-    //         for (let i = 0; i < users.length; i++) {
-    //           let q = query(
-    //             collection(db, "users", user.id, "searchMemos"),
-    //             where("memoBoxes", "array-contains", this.inputSearch)
-    //           )
-    //           let querySnapshot = await getDocs(q)
-    //           querySnapshot.forEach((doc) => {
-    //             this.memos.unshift({
-    //               userName: doc.data().userName,
-    //               userCourse: doc.data().userCourse,
-    //               title: doc.data().title,
-    //               memo: doc.data().memo,
-    //               userImg: doc.data().userImg,
-    //               DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
-    //               TimeRemains: doc.data().createGetTime,
-    //             })
-    //           })
-    //         }
+            let serachtitle = query(
+              collection(db, "searchMemos"),
+              where("searchMemos", "array-contains", this.inputSearch)
+            )
+            const titleFinalquerySnapshot = await getDocs(serachtitle)
+            titleFinalquerySnapshot.forEach((doc) => {
+              this.memos.unshift({
+                userName: doc.data().userName,
+                userCourse: doc.data().userCourse,
+                title: doc.data().title,
+                memo: doc.data().memo,
+                userImg: doc.data().userImg,
+                DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+                TimeRemains: doc.data().createGetTime,
+              })
+            })
+          }
+        })
+      } else {
+        this.memos = []
+        const auth = getAuth()
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            const uid = user.uid
+            const docRef = doc(db, "users", uid)
+            const docSnap = await getDoc(docRef)
+            if (docSnap.exists()) {
+              this.inputUserImage = docSnap.data()
+              this.userName = docSnap.data().userName
+              this.userCourse = docSnap.data().userCourse
+              this.inputUserImage = docSnap.data().userImg
+            }
 
-    //         // -----------------------------
-    //         // タイトル情報を入れ込む
-    //         // -------------------------------
-    //         // const titleSnapshot = await getDocs(collection(db, "searchMemos"))
-    //         // titleSnapshot.forEach((doc) => {
-    //         //   this.titleBoxes.push(doc.data().title)
-    //         // })
-    //         // let newTitleBoxes = []
-    //         // for (let i = 0; i < this.titleBoxes.length; i++) {
-    //         //   newTitleBoxes.push(this.titleBoxes[i])
-    //         // }
+            const a = query(
+              collection(db, "userMemos"),
+              orderBy("createGetTime", "asc")
+            )
+            const querySnapshot = await getDocs(a)
 
-    //         // const userTitleRef = collection(db, "userMemos")
-    //         // let titleQ = query(
-    //         //   userTitleRef,
-    //         //   where(newTitleBoxes, "array-contains", this.inputSearch)
-    //         // )
+            querySnapshot.forEach((doc) => {
+              this.memos.unshift({
+                userName: doc.data().userName,
+                userCourse: doc.data().userCourse,
+                title: doc.data().title,
+                memo: doc.data().memo,
+                userImg: doc.data().userImg,
+                DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+                TimeRemains: doc.data().createGetTime,
+              })
+            })
+          }
+        })
+      }
+    },
+    StopSearch() {
+      this.memos = []
+      const auth = getAuth()
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const uid = user.uid
+          const docRef = doc(db, "users", uid)
+          const docSnap = await getDoc(docRef)
+          if (docSnap.exists()) {
+            this.inputUserImage = docSnap.data()
+            this.userName = docSnap.data().userName
+            this.userCourse = docSnap.data().userCourse
+            this.inputUserImage = docSnap.data().userImg
+          }
 
-    //         // let titleQuerySnapshot = await getDocs(titleQ)
-    //         // titleQuerySnapshot.forEach((doc) => {
-    //         //   this.memos.unshift({
-    //         //     userName: doc.data().userName,
-    //         //     userCourse: doc.data().userCourse,
-    //         //     title: doc.data().title,
-    //         //     memo: doc.data().memo,
-    //         //     userImg: doc.data().userImg,
-    //         //     DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
-    //         //     TimeRemains: doc.data().createGetTime,
-    //         //   })
-    //         // })
-    //       }
-    //     })
-    //   } else {
-    //     this.memos = []
-    //     const auth = getAuth()
-    //     onAuthStateChanged(auth, async (user) => {
-    //       if (user) {
-    //         const uid = user.uid
-    //         const docRef = doc(db, "users", uid)
-    //         const docSnap = await getDoc(docRef)
-    //         if (docSnap.exists()) {
-    //           this.inputUserImage = docSnap.data()
-    //           this.userName = docSnap.data().userName
-    //           this.userCourse = docSnap.data().userCourse
-    //           this.inputUserImage = docSnap.data().userImg
-    //         }
+          const a = query(
+            collection(db, "userMemos"),
+            orderBy("createGetTime", "asc")
+          )
+          const querySnapshot = await getDocs(a)
 
-    //         const a = query(
-    //           collection(db, "userMemos"),
-    //           orderBy("createGetTime", "asc")
-    //         )
-    //         const querySnapshot = await getDocs(a)
-
-    //         querySnapshot.forEach((doc) => {
-    //           this.memos.unshift({
-    //             userName: doc.data().userName,
-    //             userCourse: doc.data().userCourse,
-    //             title: doc.data().title,
-    //             memo: doc.data().memo,
-    //             userImg: doc.data().userImg,
-    //             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
-    //             TimeRemains: doc.data().createGetTime,
-    //           })
-    //         })
-    //       }
-    //     })
-    //   }
-    // },
+          querySnapshot.forEach((doc) => {
+            this.memos.unshift({
+              userName: doc.data().userName,
+              userCourse: doc.data().userCourse,
+              title: doc.data().title,
+              memo: doc.data().memo,
+              userImg: doc.data().userImg,
+              DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+              TimeRemains: doc.data().createGetTime,
+            })
+          })
+        }
+      })
+      this.inputSearch = ""
+    },
     async optionContainerBtn() {
       if (this.changedSelect === "AllCouse") {
         console.log("AllCourse")
