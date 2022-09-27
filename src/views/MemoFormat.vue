@@ -188,13 +188,13 @@ export default {
       } else {
         if (this.inputTitle !== "") {
           let remainTitle = []
-          remainTitle.push(this.inputTitle)
-          this.inputTitle = remainTitle
+          remainTitle.push({ text: this.inputTitle })
+          this.inputTitle = remainTitle.text
         }
         if (this.inputMemo !== "") {
           let remainMemo = []
-          remainMemo.push(this.inputMemo)
-          this.inputMemo = remainMemo
+          remainMemo.push({ text: this.inputMemo })
+          this.inputMemo = remainMemo.text
         }
         alert("どっちも書いてください！")
       }
