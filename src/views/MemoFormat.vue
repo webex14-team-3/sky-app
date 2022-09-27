@@ -89,8 +89,8 @@ import {
   getDoc,
   setDoc,
   deleteDoc,
-  arrayUnion,
-  updateDoc,
+  // arrayUnion,
+  // updateDoc,
 } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "../firebase"
@@ -161,12 +161,12 @@ export default {
             //   searchTitles: this.inputTitle,
             //   searchMemos: this.inputMemo,
             // })
-            await updateDoc(doc(db, "searchMemos", "allMemos"), {
-              searchMemos: arrayUnion(this.inputMemo),
-            })
-            await updateDoc(doc(db, "searchMemos", "allMemos"), {
-              searchMemos: arrayUnion(this.inputTitle),
-            })
+            // await updateDoc(doc(db, "searchMemos", "allMemos"), {
+            //   searchMemos: arrayUnion(this.inputMemo),
+            // })
+            // await updateDoc(doc(db, "searchMemos", "allMemos"), {
+            //   searchMemos: arrayUnion(this.inputTitle),
+            // })
 
             const test = doc(db, "testMemos", userid)
             const testdocSnap = await getDoc(test)
