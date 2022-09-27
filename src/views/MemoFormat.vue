@@ -186,12 +186,16 @@ export default {
           this.inputMemo = ""
         }
       } else {
-        let remainTitle = []
-        let remainMemo = []
-        remainTitle.push(this.inputTitle)
-        remainMemo.push(this.inputMemo)
-        this.inputTitle = remainTitle
-        this.inputMemo = remainMemo
+        if (this.inputTitle !== "") {
+          let remainTitle = []
+          remainTitle.push(this.inputTitle)
+          this.inputTitle = remainTitle
+        }
+        if (this.inputMemo !== "") {
+          let remainMemo = []
+          remainMemo.push(this.inputMemo)
+          this.inputMemo = remainMemo
+        }
         alert("どっちも書いてください！")
       }
     },
@@ -212,7 +216,7 @@ export default {
           }
           await setDoc(doc(db, "testMemos", userid), memo)
         }
-        console.log(user)
+        // console.log(user)
         alert("保存しました！")
       }
     },

@@ -111,8 +111,6 @@ export default {
   methods: {
     async allSave() {
       if (this.inputUserName !== "" && this.inputUserCourse !== "") {
-        // console.log(this.inputUserName)
-        // console.log(this.inputUserCourse)
         const auth = getAuth()
         const user = auth.currentUser
         await updateDoc(doc(db, "users", user.uid), {
