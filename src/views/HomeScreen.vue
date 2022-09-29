@@ -261,7 +261,7 @@ export default {
         const querySnapshot = await getDocs(collection(db, "userMemos"))
         this.memos = []
         querySnapshot.forEach((doc) => {
-          this.memos.unshift({
+          this.memos.push({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
             title: doc.data().title,
