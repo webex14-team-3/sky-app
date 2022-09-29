@@ -257,19 +257,38 @@ export default {
     // },
     async optionContainerBtn() {
       if (this.changedSelect === "AllCouse") {
-        console.log("AllCourse")
-        const querySnapshot = await getDocs(collection(db, "userMemos"))
         this.memos = []
-        querySnapshot.forEach((doc) => {
-          this.memos.push({
-            userName: doc.data().userName,
-            userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
-            userImg: doc.data().userImg,
-            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
-            TimeRemains: doc.data().createGetTime,
-          })
+        const auth = getAuth()
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            const uid = user.uid
+            const docRef = doc(db, "users", uid)
+            const docSnap = await getDoc(docRef)
+            if (docSnap.exists()) {
+              this.inputUserImage = docSnap.data()
+              this.userName = docSnap.data().userName
+              this.userCourse = docSnap.data().userCourse
+              this.inputUserImage = docSnap.data().userImg
+            }
+
+            const a = query(
+              collection(db, "userMemos"),
+              orderBy("createGetTime", "asc")
+            )
+            const querySnapshot = await getDocs(a)
+
+            querySnapshot.forEach((doc) => {
+              this.memos.unshift({
+                userName: doc.data().userName,
+                userCourse: doc.data().userCourse,
+                title: doc.data().title,
+                memo: doc.data().memo,
+                userImg: doc.data().userImg,
+                DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+                TimeRemains: doc.data().createGetTime,
+              })
+            })
+          }
         })
       } else if (this.changedSelect === "iPhoneAppDevCouse") {
         this.memos = []
