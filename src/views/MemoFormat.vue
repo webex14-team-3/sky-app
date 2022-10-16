@@ -89,8 +89,8 @@ import {
   getDoc,
   setDoc,
   deleteDoc,
-  // arrayUnion,
-  // updateDoc,
+  updateDoc,
+  arrayUnion,
 } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "../firebase"
@@ -157,16 +157,22 @@ export default {
               memo: this.inputMemo,
             }
             await addDoc(collection(db, "userMemos"), memo)
+
+            // 「searchMemos」がなければ新しく作り、あるなら更新する
+            // const serachDocs = doc(db, "searchMemos", "allMemos")
+            // if (!serachDocs.exists()) {
             // await setDoc(doc(db, "searchMemos", "allMemos"), {
-            //   searchTitles: this.inputTitle,
-            //   searchMemos: this.inputMemo,
-            // })
-            // await updateDoc(doc(db, "searchMemos", "allMemos"), {
-            //   searchMemos: arrayUnion(this.inputMemo),
-            // })
-            // await updateDoc(doc(db, "searchMemos", "allMemos"), {
-            //   searchMemos: arrayUnion(this.inputTitle),
-            // })
+            //   searchTitles: [this.inputTitle],
+            //   searchMemos: [this.inputMemo],
+            //   })
+            //   console.log("setDoc")
+            // } else {
+            // console.log("updateDoc")
+            await updateDoc(doc(db, "searchMemos", "allMemos"), {
+              searchTitles: [arrayUnion(this.inputTitle)],
+              searchMemos: [arrayUnion(this.inputMemo)],
+            })
+            // }
 
             const test = doc(db, "testMemos", userid)
             const testdocSnap = await getDoc(test)
