@@ -114,8 +114,8 @@ export default {
           this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
+            title: doc.data().title[0],
+            memo: doc.data().memo[0],
             userImg: doc.data().userImg,
             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
             TimeRemains: doc.data().createGetTime,
@@ -144,8 +144,8 @@ export default {
             this.memos.unshift({
               userName: doc.data().userName,
               userCourse: doc.data().userCourse,
-              title: doc.data().title,
-              memo: doc.data().memo,
+              title: doc.data().title[0],
+              memo: doc.data().memo[0],
               userImg: doc.data().userImg,
               DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
               TimeRemains: doc.data().createGetTime,
@@ -158,8 +158,8 @@ export default {
             this.memos.push({
               userName: doc.data().userName,
               userCourse: doc.data().userCourse,
-              title: doc.data().title,
-              memo: doc.data().memo,
+              title: doc.data().title[0],
+              memo: doc.data().memo[0],
               userImg: doc.data().userImg,
               DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
               TimeRemains: doc.data().createGetTime,

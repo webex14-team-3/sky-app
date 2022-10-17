@@ -89,8 +89,8 @@ import {
   getDoc,
   setDoc,
   deleteDoc,
-  updateDoc,
-  arrayUnion,
+  // updateDoc,
+  // arrayUnion,
 } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "../firebase"
@@ -153,26 +153,10 @@ export default {
               createMemoTime: displayTime,
               DetailcreateMemoTime: inputTime,
               createGetTime: now.getTime(),
-              title: this.inputTitle,
-              memo: this.inputMemo,
+              title: [this.inputTitle],
+              memo: [this.inputMemo],
             }
             await addDoc(collection(db, "userMemos"), memo)
-
-            // 「searchMemos」がなければ新しく作り、あるなら更新する
-            // const serachDocs = doc(db, "searchMemos", "allMemos")
-            // if (!serachDocs.exists()) {
-            // await setDoc(doc(db, "searchMemos", "allMemos"), {
-            //   searchTitles: [this.inputTitle],
-            //   searchMemos: [this.inputMemo],
-            //   })
-            //   console.log("setDoc")
-            // } else {
-            // console.log("updateDoc")
-            await updateDoc(doc(db, "searchMemos", "allMemos"), {
-              searchTitles: [arrayUnion(this.inputTitle)],
-              searchMemos: [arrayUnion(this.inputMemo)],
-            })
-            // }
 
             const test = doc(db, "testMemos", userid)
             const testdocSnap = await getDoc(test)
@@ -193,18 +177,6 @@ export default {
         }
       } else {
         alert("どっちも書いてください！")
-        // if (this.inputTitle !== "") {
-        //   console.log("1")
-        //   let remainTitle = []
-        //   remainTitle.push({ text: this.inputTitle })
-        //   this.inputTitle = remainTitle.text
-        // }
-        // if (this.inputMemo !== "") {
-        //   console.log("2")
-        //   let remainMemo = []
-        //   remainMemo.push({ text: this.inputMemo })
-        //   this.inputMemo = remainMemo.text
-        // }
       }
     },
     async saveMemo() {

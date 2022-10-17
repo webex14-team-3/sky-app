@@ -147,8 +147,8 @@ export default {
           this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
+            title: doc.data().title[0],
+            memo: doc.data().memo[0],
             userImg: doc.data().userImg,
             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
             TimeRemains: doc.data().createGetTime,
@@ -166,19 +166,57 @@ export default {
             this.memos = []
 
             let serachtitle = query(
-              collection(db, "searchMemos"),
-              where("searchMemos", "array-contains", this.inputSearch)
+              collection(db, "userMemos"),
+              orderBy("createGetTime", "asc"),
+              where("title", "array-contains", this.inputSearch)
+            )
+            let serachMemos = query(
+              collection(db, "userMemos"),
+              orderBy("createGetTime", "asc"),
+              where("memo", "array-contains", this.inputSearch)
             )
             const titleFinalquerySnapshot = await getDocs(serachtitle)
+            const MemoFinalquerySnapshot = await getDocs(serachMemos)
             titleFinalquerySnapshot.forEach((doc) => {
               this.memos.unshift({
                 userName: doc.data().userName,
                 userCourse: doc.data().userCourse,
-                title: doc.data().title,
-                memo: doc.data().memo,
+                title: doc.data().title[0],
+                memo: doc.data().memo[0],
                 userImg: doc.data().userImg,
                 DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
                 TimeRemains: doc.data().createGetTime,
+              })
+            })
+            MemoFinalquerySnapshot.forEach((doc) => {
+              this.memos.unshift({
+                userName: doc.data().userName,
+                userCourse: doc.data().userCourse,
+                title: doc.data().title[0],
+                memo: doc.data().memo[0],
+                userImg: doc.data().userImg,
+                DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
+                TimeRemains: doc.data().createGetTime,
+              })
+            })
+
+            const result = this.memos.filter(
+              (x, i, array) =>
+                array.findIndex(
+                  (y) => y.title === x.title && y.memo === x.memo
+                ) === i
+            )
+
+            this.memos = []
+            result.forEach((doc) => {
+              this.memos.unshift({
+                userName: doc.userName,
+                userCourse: doc.userCourse,
+                title: doc.title,
+                memo: doc.memo,
+                userImg: doc.userImg,
+                DetailcreateMemoTime: doc.DetailcreateMemoTime,
+                TimeRemains: doc.createGetTime,
               })
             })
           }
@@ -208,8 +246,8 @@ export default {
               this.memos.unshift({
                 userName: doc.data().userName,
                 userCourse: doc.data().userCourse,
-                title: doc.data().title,
-                memo: doc.data().memo,
+                title: doc.data().title[0],
+                memo: doc.data().memo[0],
                 userImg: doc.data().userImg,
                 DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
                 TimeRemains: doc.data().createGetTime,
@@ -245,8 +283,8 @@ export default {
               this.memos.unshift({
                 userName: doc.data().userName,
                 userCourse: doc.data().userCourse,
-                title: doc.data().title,
-                memo: doc.data().memo,
+                title: doc.data().title[0],
+                memo: doc.data().memo[0],
                 userImg: doc.data().userImg,
                 DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
                 TimeRemains: doc.data().createGetTime,
@@ -283,8 +321,8 @@ export default {
               this.memos.unshift({
                 userName: doc.data().userName,
                 userCourse: doc.data().userCourse,
-                title: doc.data().title,
-                memo: doc.data().memo,
+                title: doc.data().title[0],
+                memo: doc.data().memo[0],
                 userImg: doc.data().userImg,
                 DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
                 TimeRemains: doc.data().createGetTime,
@@ -304,8 +342,8 @@ export default {
           this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
+            title: doc.data().title[0],
+            memo: doc.data().memo[0],
             userImg: doc.data().userImg,
             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
             TimeRemains: doc.data().createGetTime,
@@ -324,8 +362,8 @@ export default {
           this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
+            title: doc.data().title[0],
+            memo: doc.data().memo[0],
             userImg: doc.data().userImg,
             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
             TimeRemains: doc.data().createGetTime,
@@ -344,8 +382,8 @@ export default {
           this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
+            title: doc.data().title[0],
+            memo: doc.data().memo[0],
             userImg: doc.data().userImg,
             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
             TimeRemains: doc.data().createGetTime,
@@ -364,8 +402,8 @@ export default {
           this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
+            title: doc.data().title[0],
+            memo: doc.data().memo[0],
             userImg: doc.data().userImg,
             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
             TimeRemains: doc.data().createGetTime,
@@ -384,8 +422,8 @@ export default {
           this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
+            title: doc.data().title[0],
+            memo: doc.data().memo[0],
             userImg: doc.data().userImg,
             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
             TimeRemains: doc.data().createGetTime,
@@ -404,8 +442,8 @@ export default {
           this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
+            title: doc.data().title[0],
+            memo: doc.data().memo[0],
             userImg: doc.data().userImg,
             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
             TimeRemains: doc.data().createGetTime,
@@ -424,8 +462,8 @@ export default {
           this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
+            title: doc.data().title[0],
+            memo: doc.data().memo[0],
             userImg: doc.data().userImg,
             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
             TimeRemains: doc.data().createGetTime,
@@ -444,8 +482,8 @@ export default {
           this.memos.unshift({
             userName: doc.data().userName,
             userCourse: doc.data().userCourse,
-            title: doc.data().title,
-            memo: doc.data().memo,
+            title: doc.data().title[0],
+            memo: doc.data().memo[0],
             userImg: doc.data().userImg,
             DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
             TimeRemains: doc.data().createGetTime,
