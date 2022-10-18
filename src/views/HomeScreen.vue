@@ -199,17 +199,17 @@ export default {
                 TimeRemains: doc.data().createGetTime,
               })
             })
+            // console.log(this.memos)
 
+            // 重複したメモにフィルターをかける処理
             const result = this.memos.filter(
               (x, i, array) =>
-                array.findIndex(
-                  (y) => y.title === x.title && y.memo === x.memo
-                ) === i
+                array.findIndex((y) => y.TimeRemains === x.TimeRemains) === i
             )
 
             this.memos = []
             result.forEach((doc) => {
-              this.memos.unshift({
+              this.memos.push({
                 userName: doc.userName,
                 userCourse: doc.userCourse,
                 title: doc.title,
