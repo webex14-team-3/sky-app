@@ -173,9 +173,6 @@ export default {
         }
       })
     },
-    favoriteChange() {
-      console.log("TEST")
-    },
   },
 }
 </script>
@@ -464,68 +461,7 @@ export default {
         width: 100%;
         height: 25%;
         background-color: #c7887fdd;
-
-        // .headerTitle_container {
-        //   // border: 2px solid blue;
-        //   display: flex;
-        //   justify-content: center;
-        //   align-items: center;
-
-        //   .headerTitle {
-        //     font-size: 30px;
-        //     font-family: "Roboto";
-        //     font-weight: bold;
-        //     color: white;
-        //   }
-        // }
-
-        // .select_container {
-        //   // border: 2px solid black;
-        //   margin: 15px auto 0;
-        //   display: flex;
-        //   justify-content: center;
-
-        //   select {
-        //     border: 2px solid black;
-        //     background-color: white;
-        //     font-size: 20px;
-        //     font-weight: bold;
-        //     border-radius: 5px;
-        //     width: 50%;
-        //     -moz-appearance: menulist;
-        //     -webkit-appearance: menulist;
-        //     text-align: center;
-        //   }
-
-        //   .selectBtn {
-        //     font-size: 1.2em;
-        //     font-family: "Roboto";
-        //     font-weight: bold;
-        //     border: 2px solid black;
-        //     background-color: rgb(247, 224, 170);
-        //     border-radius: 5px;
-        //     padding: 6px 10px;
-        //     margin: 0 5px;
-
-        //     &:hover {
-        //       cursor: pointer;
-        //       filter: brightness(110%);
-        //     }
-
-        //     &:active {
-        //       transform: scale(0.98);
-        //     }
-        //   }
-        // }
       }
-
-      // .M_container {
-      //   border: 2px solid rgba(255, 239, 216, 0.747);
-      //   background-color: rgba(255, 239, 216, 0.747);
-      //   width: 100%;
-      //   min-height: 100%;
-      //   display: block;
-      // }
     }
   }
 }

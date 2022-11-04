@@ -24,7 +24,7 @@ export default {
 @media screen and (max-width: 700px) {
   .App {
     height: 1080px;
-    width: 1920px;
+    width: 700px;
     position: absolute;
     transform-origin: 0% 0%;
   }

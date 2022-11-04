@@ -18,10 +18,10 @@
     </section>
     <section class="bottom_Area">
       <div class="favorite_Container">
-        <!-- <label>
-          <input type="checkbox" @change="favoriteChange" v-model="change" />
+        <label>
+          <input type="checkbox" @click="favoriteChange" v-model="change" />
           <p>お気に入り</p>
-        </label> -->
+        </label>
         <div class="DetailcreateMemoTime">
           <p>{{ memo.DetailcreateMemoTime }}</p>
         </div>
@@ -56,13 +56,13 @@ export default {
     },
   },
   methods: {
-    // favoriteChange() {
-    //   if (this.change === true) {
-    //     console.log("true")
-    //   } else {
-    //     console.log("false")
-    //   }
-    // },
+    favoriteChange() {
+      if (this.change === false) {
+        console.log("test")
+      } else {
+        console.log("123")
+      }
+    },
   },
 }
 </script>
@@ -105,8 +105,8 @@ export default {
 
     .user_container {
       // border: 2px solid red;
-      min-width: 35%;
-      max-width: 40%;
+      min-width: 25%;
+      max-width: 30%;
       // border-right: 2px solid black;
 
       .userName {
@@ -151,23 +151,24 @@ export default {
       // border: 2px solid red;
       display: flex;
 
-      // label {
-      //   display: flex;
-      //   text-decoration: underline;
-      //   text-decoration-color: black;
-      //   text-decoration-thickness: 2px;
-      //   text-underline-offset: 3px;
+      label {
+        display: flex;
+        text-decoration: underline;
+        text-decoration-color: black;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+        user-select: none;
 
-      //   input {
-      //     margin-left: 5px;
-      //   }
-      //   p {
-      //     margin-left: 5px;
-      //     margin-top: 3px;
-      //     color: red;
-      //     font-weight: bold;
-      //   }
-      // }
+        input {
+          margin-left: 5px;
+        }
+        p {
+          margin-left: 5px;
+          margin-top: 3px;
+          color: red;
+          font-weight: bold;
+        }
+      }
 
       .DetailcreateMemoTime {
         position: absolute;
