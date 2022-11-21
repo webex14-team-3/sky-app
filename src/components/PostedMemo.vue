@@ -18,10 +18,11 @@
     </section>
     <section class="bottom_Area">
       <div class="favorite_Container">
-        <label>
-          <input type="checkbox" @click="favoriteChange" v-model="change" />
-          <p>お気に入り</p>
-        </label>
+        <font-awesome-icon
+          icon="fa-heart"
+          class="fa-beat"
+          style="--fa-animation-duration: 0.5s"
+        />
         <div class="DetailcreateMemoTime">
           <p>{{ memo.DetailcreateMemoTime }}</p>
         </div>

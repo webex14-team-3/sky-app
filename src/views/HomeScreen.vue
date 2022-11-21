@@ -49,36 +49,6 @@
       </section>
       <!-- タイムラインに入れこむ場所 終わり -->
 
-      <!-- 一端みんアカは他の機能が完成してから実装する -->
-      <!-- ユーザーのアカウントを一覧させる場所 始まり -->
-      <!-- <section class="acountSpace">
-        <div class="acountSpace-header">
-          <div class="acountSpace-header-title">
-            <span>みんアカ</span>
-          </div>
-          <div class="acountSpace-header-button">
-            <select class="minaka-Couse-Selecter">
-              <option value="minaka-AllCouse">すべて表示</option>
-              <option value="minaka-iPhoneAppDevCouse">
-                iPhoneアプリ開発コース
-              </option>
-              <option value="minaka-GameAppDevCouse">
-                Gameアプリ開発コース
-              </option>
-              <option value="minaka-webServeDevCouse">
-                webサービス開発コース
-              </option>
-              <option value="minaka-WebExpertCouse">WebExpertコース</option>
-              <option value="minaka-VideoEditorCouse">VideoEditorコース</option>
-              <option value="minaka-UI-UTCouse">UI/UXコース</option>
-              <option value="minaka-AICouse">AIコース</option>
-              <option value="minaka-PythonCouse">Pythonコース</option>
-            </select>
-            <button class="acountSpace-header-button-serch">検索</button>
-          </div>
-        </div>
-      </section> -->
-
       <!-- 投稿する場所 始まり -->
       <section class="memoBtn_Area">
         <MemoBtn />
