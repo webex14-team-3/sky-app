@@ -1,5 +1,5 @@
 <template>
-  <div class="all_Container" :class="{ hidden: hiddenDisplay }">
+  <div class="all_Container">
     <section class="header_Area">
       <!-- <router-link to="myAcount"> -->
       <img class="icon" :src="memo.userImg" />
@@ -18,11 +18,16 @@
     </section>
     <section class="bottom_Area">
       <div class="favorite_Container">
-        <font-awesome-icon
-          icon="fa-heart"
-          class="fa-beat"
-          style="--fa-animation-duration: 0.5s"
-        />
+        <div class="box">
+          <button
+            class="bubbly-button"
+            @click="likeBtn = !likeBtn"
+            :class="{ change: likeBtn }"
+          >
+            <font-awesome-icon icon="fa-heart" class="fa-solid fa-heart" />
+          </button>
+        </div>
+        <p class="countMsg">{{ count }}</p>
         <div class="DetailcreateMemoTime">
           <p>{{ memo.DetailcreateMemoTime }}</p>
         </div>
@@ -44,32 +49,16 @@ export default {
   },
   data() {
     return {
-      change: false,
+      count: 0,
+      likeBtn: false,
     }
   },
-  computed: {
-    hiddenDisplay() {
-      if (this.change === true) {
-        return "hidden"
-      } else {
-        return ""
-      }
-    },
-  },
-  methods: {
-    favoriteChange() {
-      if (this.change === false) {
-        console.log("test")
-      } else {
-        console.log("123")
-      }
-    },
-  },
+  methods: {},
 }
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/css/_reset.scss";
+@import "@/assets/CSS/likeIcon.scss";
 
 %userInfoUnder {
   text-decoration: underline;
@@ -77,10 +66,6 @@ export default {
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
 }
-
-// .hidden {
-//   display: none;
-// }
 
 .all_Container {
   // border: 2px solid red;
@@ -108,7 +93,6 @@ export default {
       // border: 2px solid red;
       min-width: 25%;
       max-width: 30%;
-      // border-right: 2px solid black;
 
       .userName {
         // border: 2px solid blue;
@@ -152,23 +136,9 @@ export default {
       // border: 2px solid red;
       display: flex;
 
-      label {
-        display: flex;
-        text-decoration: underline;
-        text-decoration-color: black;
-        text-decoration-thickness: 2px;
-        text-underline-offset: 3px;
-        user-select: none;
-
-        input {
-          margin-left: 5px;
-        }
-        p {
-          margin-left: 5px;
-          margin-top: 3px;
-          color: red;
-          font-weight: bold;
-        }
+      .countMsg {
+        font-weight: bold;
+        margin: 5px 0 0 40px;
       }
 
       .DetailcreateMemoTime {

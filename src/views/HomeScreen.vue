@@ -35,9 +35,6 @@
               </div>
             </div>
           </div>
-          <!-- <div class="timelineSpace-headerTitle-three">
-            <span>他のユーザーが作ったメモを参考にしてみよう！</span>
-          </div> -->
         </div>
         <div class="timeline_Area">
           <posted-memo
