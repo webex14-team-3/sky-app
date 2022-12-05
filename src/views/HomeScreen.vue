@@ -103,7 +103,6 @@ export default {
           this.userCourse = docSnap.data().userCourse
           this.inputUserImage = docSnap.data().userImg
         }
-
         const a = query(
           collection(db, "userMemos"),
           orderBy("createGetTime", "asc")
@@ -165,7 +164,6 @@ export default {
                 TimeRemains: doc.data().createGetTime,
               })
             })
-
             // 重複したメモにフィルターをかける処理
             const result = this.memos.filter(
               (x, i, array) =>

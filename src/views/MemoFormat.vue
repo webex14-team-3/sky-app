@@ -111,6 +111,7 @@ export default {
               userEmail: docSnap.data().userEmail,
               userImg: docSnap.data().userImg,
               DetailcreateMemoTime: inputTime,
+              createGetTime: 
               title: [this.inputTitle],
               memo: [this.inputMemo],
               likeCount: 0,
@@ -118,10 +119,10 @@ export default {
             }
             await addDoc(collection(db, "userMemos"), memo)
 
-            const test = doc(db, "saveMemos", userid)
-            const testdocSnap = await getDoc(test)
+            const save = doc(db, "saveMemos", userid)
+            const savedocSnap = await getDoc(save)
 
-            if (testdocSnap.exists()) {
+            if (savedocSnap.exists()) {
               const memo = {
                 userID: user.uid,
                 title: this.inputTitle,
