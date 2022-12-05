@@ -40,43 +40,6 @@
         ></textarea>
       </section>
       <!-- 本文 終わり -->
-
-      <!-- 機能 始まり -->
-      <!-- <span class="function">機能</span>
-      <section class="container-function">
-        <button class="container-function-colorChangeButton">
-          <span>C</span>
-        </button>
-        <button class="container-function-fontSizeUpChangeButton">
-          <span>A↑</span>
-        </button>
-        <button class="container-function-fontSizeDownChangeButton">
-          <span>A↓</span>
-        </button>
-        <div class="container-function-underbar">
-          <button class="container-function-underbarButton">
-            <span>＿</span>
-          </button>
-          <input
-            type="submit"
-            class="container-function-underbarButton-option"
-            value="C"
-          />
-        </div>
-        <button class="container-function-bold">
-          <span>B</span>
-        </button>
-        <button class="container-function-VScode">
-          <span>VScode</span>
-        </button>
-        <button class="container-function-img">
-          <span>Img</span>
-        </button>
-        <button class="container-function-fail">
-          <span>File</span>
-        </button>
-      </section> -->
-      <!-- 機能 終わり -->
     </div>
   </div>
 </template>
@@ -89,8 +52,6 @@ import {
   getDoc,
   setDoc,
   deleteDoc,
-  // updateDoc,
-  // arrayUnion,
 } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "../firebase"
@@ -110,7 +71,7 @@ export default {
       if (user) {
         const user = auth.currentUser
         const userID = user.uid
-        const docRef = doc(db, "testMemos", userID)
+        const docRef = doc(db, "saveMemos", userID)
         const docSnap = await getDoc(docRef)
 
         if (docSnap.exists()) {
@@ -140,7 +101,6 @@ export default {
           const min = now.getMinutes()
           const sec = now.getSeconds()
 
-          const displayTime = `${year}/${month + 1}/${date}`
           const inputTime = `${year}/${month + 1}/${date}/${hour}:${min}:${sec}`
 
           if (docSnap.exists()) {
@@ -150,25 +110,26 @@ export default {
               userCourse: docSnap.data().userCourse,
               userEmail: docSnap.data().userEmail,
               userImg: docSnap.data().userImg,
-              createMemoTime: displayTime,
               DetailcreateMemoTime: inputTime,
               createGetTime: now.getTime(),
               title: [this.inputTitle],
               memo: [this.inputMemo],
+              likeCount: 0,
+              likeUser: [],
             }
             await addDoc(collection(db, "userMemos"), memo)
 
-            const test = doc(db, "testMemos", userid)
-            const testdocSnap = await getDoc(test)
+            const save = doc(db, "saveMemos", userid)
+            const savedocSnap = await getDoc(save)
 
-            if (testdocSnap.exists()) {
+            if (savedocSnap.exists()) {
               const memo = {
                 userID: user.uid,
                 title: this.inputTitle,
                 memo: this.inputMemo,
                 email: user.email,
               }
-              await deleteDoc(doc(db, "testMemos", userid), memo)
+              await deleteDoc(doc(db, "saveMemos", userid), memo)
             }
             alert("投稿が完了しました！")
           }
@@ -194,9 +155,8 @@ export default {
             memo: this.inputMemo,
             email: user.email,
           }
-          await setDoc(doc(db, "testMemos", userid), memo)
+          await setDoc(doc(db, "saveMemos", userid), memo)
         }
-        // console.log(user)
         alert("保存しました！")
       }
     },
@@ -207,7 +167,7 @@ export default {
             const auth = getAuth()
             const user = auth.currentUser
             const userid = user.uid
-            const docRef = doc(db, "testMemos", userid)
+            const docRef = doc(db, "saveMemos", userid)
             const docSnap = await getDoc(docRef)
 
             if (docSnap.exists()) {
@@ -217,7 +177,7 @@ export default {
                 memo: this.inputMemo,
                 email: user.email,
               }
-              await deleteDoc(doc(db, "testMemos", userid), memo)
+              await deleteDoc(doc(db, "saveMemos", userid), memo)
             }
             this.inputTitle = ""
             this.inputMemo = ""
@@ -300,9 +260,6 @@ export default {
       margin: 0 auto;
       margin-top: 30px;
 
-      .theme {
-      }
-
       .userInput_title {
         border: 2px solid black;
         background-color: white;
@@ -318,8 +275,6 @@ export default {
     /* タイトル 終わり */
 
     /* 本文 始まり */
-    .memo {
-    }
     .memo_Area {
       // border: 2px solid green;
       margin: 0 auto;

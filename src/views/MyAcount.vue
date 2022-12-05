@@ -165,11 +165,6 @@ export default {
               TimeRemains: doc.data().createGetTime,
             })
           })
-        } else {
-          // console.log("favorite")
-          // const allMemosSnapshot = await getDocs(collection(db, "userMemos"))
-          // console.log(allMemosSnapshot.docs[0])
-          // this.hiddenDisplay = "hidden"
         }
       })
     },

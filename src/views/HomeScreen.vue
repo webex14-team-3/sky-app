@@ -35,12 +35,9 @@
               </div>
             </div>
           </div>
-          <!-- <div class="timelineSpace-headerTitle-three">
-            <span>他のユーザーが作ったメモを参考にしてみよう！</span>
-          </div> -->
         </div>
         <div class="timeline_Area">
-          <posted-memo
+          <PostedMemo
             v-for="memo in memos"
             v-bind:key="memo.id"
             v-bind:memo="memo"
@@ -48,36 +45,6 @@
         </div>
       </section>
       <!-- タイムラインに入れこむ場所 終わり -->
-
-      <!-- 一端みんアカは他の機能が完成してから実装する -->
-      <!-- ユーザーのアカウントを一覧させる場所 始まり -->
-      <!-- <section class="acountSpace">
-        <div class="acountSpace-header">
-          <div class="acountSpace-header-title">
-            <span>みんアカ</span>
-          </div>
-          <div class="acountSpace-header-button">
-            <select class="minaka-Couse-Selecter">
-              <option value="minaka-AllCouse">すべて表示</option>
-              <option value="minaka-iPhoneAppDevCouse">
-                iPhoneアプリ開発コース
-              </option>
-              <option value="minaka-GameAppDevCouse">
-                Gameアプリ開発コース
-              </option>
-              <option value="minaka-webServeDevCouse">
-                webサービス開発コース
-              </option>
-              <option value="minaka-WebExpertCouse">WebExpertコース</option>
-              <option value="minaka-VideoEditorCouse">VideoEditorコース</option>
-              <option value="minaka-UI-UTCouse">UI/UXコース</option>
-              <option value="minaka-AICouse">AIコース</option>
-              <option value="minaka-PythonCouse">Pythonコース</option>
-            </select>
-            <button class="acountSpace-header-button-serch">検索</button>
-          </div>
-        </div>
-      </section> -->
 
       <!-- 投稿する場所 始まり -->
       <section class="memoBtn_Area">
@@ -136,13 +103,11 @@ export default {
           this.userCourse = docSnap.data().userCourse
           this.inputUserImage = docSnap.data().userImg
         }
-
         const a = query(
           collection(db, "userMemos"),
           orderBy("createGetTime", "asc")
         )
         const querySnapshot = await getDocs(a)
-
         querySnapshot.forEach((doc) => {
           this.memos.unshift({
             userName: doc.data().userName,
@@ -199,8 +164,6 @@ export default {
                 TimeRemains: doc.data().createGetTime,
               })
             })
-            // console.log(this.memos)
-
             // 重複したメモにフィルターをかける処理
             const result = this.memos.filter(
               (x, i, array) =>
@@ -350,7 +313,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "GameAppDevCouse") {
-        console.log("GameAppDevCouse")
         this.memos = []
         const Game = query(
           collection(db, "userMemos"),
@@ -370,7 +332,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "webServeDevCouse") {
-        console.log("webServeDevCouse")
         this.memos = []
         const Web = query(
           collection(db, "userMemos"),
@@ -390,7 +351,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "WebExpertCouse") {
-        console.log("WebExpertCouse")
         this.memos = []
         const WebExpert = query(
           collection(db, "userMemos"),
@@ -410,7 +370,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "VideoEditorCouse") {
-        console.log("VideoEditorCouse")
         this.memos = []
         const VideoEditor = query(
           collection(db, "userMemos"),
@@ -430,7 +389,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "UI-UTCouse") {
-        console.log("UI-UTCouse")
         this.memos = []
         const UIUX = query(
           collection(db, "userMemos"),
@@ -450,7 +408,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "AICouse") {
-        console.log("AICouse")
         this.memos = []
         const AI = query(
           collection(db, "userMemos"),
@@ -470,7 +427,6 @@ export default {
           })
         })
       } else {
-        console.log("PythonCouse")
         this.memos = []
         const Python = query(
           collection(db, "userMemos"),

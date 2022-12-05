@@ -48,21 +48,8 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signOut,
-  // deleteUser,
-  // updateDoc,
 } from "firebase/auth"
-import {
-  setDoc,
-  doc,
-  // collection,
-  // addDoc,
-  // updateDoc,
-  // deleteField,
-  getDoc,
-  // getDocs,
-  // query,
-  // where,
-} from "firebase/firestore"
+import { setDoc, doc, getDoc } from "firebase/firestore"
 import { db } from "@/firebase.js"
 
 export default {
@@ -80,7 +67,6 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.isAuth = false
-        // console.log(user.emailVerified ? "済" : "未")
       } else {
         this.isAuth = true
       }
@@ -115,20 +101,14 @@ export default {
                     userImg: photoURL,
                     createTime: firstTime,
                     lastCreateTime: lastTime,
+                    likePostCount: 0,
                   })
-                  console.log("Header:firebaseに初めてユーザー情報を入れ込んだ")
                   // 過去にログインをしていた場合
-                } else {
-                  console.log("Header:過去にログインしていた場合の処理")
-                  // const docRef = doc(db, "users", user.uid)
-                  // const docSnap = await getDoc(docRef)
-                  // console.log(docSnap)
                 }
                 this.isAuth = false
               }
             })
             this.isAuth = false
-            // console.log("ログインしました")
             this.$router.push("/ProfilePage")
           })
           .catch((error) => {
@@ -142,12 +122,10 @@ export default {
             .then(() => {
               // Sign-out successful.
               this.$router.push("/")
-              console.log("ログアウトしました")
               this.hoverMypage = true
               this.hoverProfile = true
             })
             .catch((error) => {
-              // An error happened.
               console.log(error)
             })
           this.isAuth = true
