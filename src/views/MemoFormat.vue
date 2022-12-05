@@ -111,7 +111,7 @@ export default {
               userEmail: docSnap.data().userEmail,
               userImg: docSnap.data().userImg,
               DetailcreateMemoTime: inputTime,
-              createGetTime: 
+              createGetTime: now.getTime(),
               title: [this.inputTitle],
               memo: [this.inputMemo],
               likeCount: 0,
