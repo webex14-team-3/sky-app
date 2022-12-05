@@ -37,7 +37,7 @@
           </div>
         </div>
         <div class="timeline_Area">
-          <posted-memo
+          <PostedMemo
             v-for="memo in memos"
             v-bind:key="memo.id"
             v-bind:memo="memo"
@@ -109,7 +109,6 @@ export default {
           orderBy("createGetTime", "asc")
         )
         const querySnapshot = await getDocs(a)
-
         querySnapshot.forEach((doc) => {
           this.memos.unshift({
             userName: doc.data().userName,
@@ -166,7 +165,6 @@ export default {
                 TimeRemains: doc.data().createGetTime,
               })
             })
-            // console.log(this.memos)
 
             // 重複したメモにフィルターをかける処理
             const result = this.memos.filter(
@@ -317,7 +315,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "GameAppDevCouse") {
-        console.log("GameAppDevCouse")
         this.memos = []
         const Game = query(
           collection(db, "userMemos"),
@@ -337,7 +334,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "webServeDevCouse") {
-        console.log("webServeDevCouse")
         this.memos = []
         const Web = query(
           collection(db, "userMemos"),
@@ -357,7 +353,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "WebExpertCouse") {
-        console.log("WebExpertCouse")
         this.memos = []
         const WebExpert = query(
           collection(db, "userMemos"),
@@ -377,7 +372,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "VideoEditorCouse") {
-        console.log("VideoEditorCouse")
         this.memos = []
         const VideoEditor = query(
           collection(db, "userMemos"),
@@ -397,7 +391,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "UI-UTCouse") {
-        console.log("UI-UTCouse")
         this.memos = []
         const UIUX = query(
           collection(db, "userMemos"),
@@ -417,7 +410,6 @@ export default {
           })
         })
       } else if (this.changedSelect === "AICouse") {
-        console.log("AICouse")
         this.memos = []
         const AI = query(
           collection(db, "userMemos"),
@@ -437,7 +429,6 @@ export default {
           })
         })
       } else {
-        console.log("PythonCouse")
         this.memos = []
         const Python = query(
           collection(db, "userMemos"),
