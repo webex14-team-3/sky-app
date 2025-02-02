@@ -1,6 +1,8 @@
 ## ■ アプリ
 アプリ名：GSread
+
 リンク：https://team3-sky.web.app
+
 アプリ概要：GeekSalonを通じて得た知識を、コースの垣根を越えて共有し合うアプリ
 
 ## 公開日
