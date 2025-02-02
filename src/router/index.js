@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 import HomeScreen from "@/views/HomeScreen.vue"
 import MemoFormat from "@/views/MemoFormat.vue"
-import MyAcount from "@/views/MyAcount.vue"
+import MyAccount from "@/views/MyAccount.vue"
 import ProfilePage from "@/views/ProfilePage.vue"
 
 const routes = [
@@ -16,9 +16,9 @@ const routes = [
     component: MemoFormat,
   },
   {
-    path: "/MyAcount",
-    name: "MyAcount",
-    component: MyAcount,
+    path: "/MyAccount",
+    name: "MyAccount",
+    component: MyAccount,
   },
   {
     path: "/ProfilePage",

@@ -1,9 +1,7 @@
 <template>
   <div class="all_Container">
     <section class="header_Area">
-      <!-- <router-link to="myAcount"> -->
       <img class="icon" :src="memo.userImg" />
-      <!-- </router-link> -->
       <div class="user_container">
         <div class="userName userTitle">
           <p>{{ memo.userName }}</p>
@@ -18,18 +16,18 @@
     </section>
     <section class="bottom_Area">
       <div class="favorite_Container">
-        <div class="box">
+        <div class="box" v-if="!hideLikeBtn">
           <button
             class="bubbly-button"
-            @click="likeBtn = !likeBtn"
+            @click="toggleLike"
             :class="{ change: likeBtn }"
           >
             <font-awesome-icon icon="fa-heart" class="fa-solid fa-heart" />
           </button>
         </div>
-        <p class="countMsg">{{ count }}</p>
-        <div class="DetailcreateMemoTime">
-          <p>{{ memo.DetailcreateMemoTime }}</p>
+        <p class="countMsg" v-if="!hideLikeBtn">{{ localMemo.likeCount }}</p>
+        <div class="memoDate">
+          <p>{{ memo.date }}</p>
         </div>
       </div>
       <div class="memoContainer">
@@ -38,7 +36,18 @@
     </section>
   </div>
 </template>
+
 <script>
+import {
+  doc,
+  updateDoc,
+  increment,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore"
+import { db } from "@/firebase"
+import { getAuth } from "firebase/auth"
+
 export default {
   name: "PostedMemoContainer",
   props: {
@@ -46,19 +55,76 @@ export default {
       type: Object,
       required: true,
     },
+    hideLikeBtn: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
-      count: 0,
       likeBtn: false,
+      currentUserId: null,
+      localMemo: { ...this.memo },
     }
   },
-  methods: {},
+  created() {
+    // 現在ログイン中のユーザーIDを取得
+    const auth = getAuth()
+    const user = auth.currentUser
+    if (user) {
+      this.currentUserId = user.uid
+    }
+
+    // ログインユーザーが「いいね」しているかどうかを判定
+    if (
+      this.currentUserId &&
+      this.localMemo.likeUser &&
+      this.localMemo.likeUser.includes(this.currentUserId)
+    ) {
+      this.likeBtn = true
+    } else {
+      this.likeBtn = false
+    }
+  },
+  methods: {
+    async toggleLike() {
+      if (!this.currentUserId) return
+
+      try {
+        const memoRef = doc(db, "userMemos", this.localMemo.id)
+
+        // いいね追加
+        if (!this.likeBtn) {
+          await updateDoc(memoRef, {
+            likeCount: increment(1),
+            likeUser: arrayUnion(this.currentUserId),
+          })
+          this.localMemo.likeCount++
+          this.localMemo.likeUser.push(this.currentUserId)
+          this.likeBtn = true
+
+          // いいね解除
+        } else {
+          await updateDoc(memoRef, {
+            likeCount: increment(-1),
+            likeUser: arrayRemove(this.currentUserId),
+          })
+          this.localMemo.likeCount--
+          this.localMemo.likeUser = this.localMemo.likeUser.filter(
+            (uid) => uid !== this.currentUserId
+          )
+          this.likeBtn = false
+        }
+      } catch (e) {
+        console.error("likeCount の更新に失敗しました", e)
+      }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/CSS/likeIcon.scss";
+@import "@/assets/styles/likeIcon.scss";
 
 %userInfoUnder {
   text-decoration: underline;
@@ -68,7 +134,6 @@ export default {
 }
 
 .all_Container {
-  // border: 2px solid red;
   width: 90%;
   margin: 40px auto;
   background-color: white;
@@ -76,7 +141,6 @@ export default {
   filter: drop-shadow(2px 6px 8px #dddddd);
 
   .header_Area {
-    // border: 2px solid blue;
     border-bottom: 2px solid black;
     display: flex;
     height: 70px;
@@ -90,19 +154,16 @@ export default {
     }
 
     .user_container {
-      // border: 2px solid red;
       min-width: 25%;
       max-width: 30%;
 
       .userName {
-        // border: 2px solid blue;
         font-weight: 900;
         padding: 5px 10px 0;
         @extend %userInfoUnder;
       }
 
       .userCourse {
-        // border: 2px solid blue;
         padding: 10px 10px 0;
         font-weight: bold;
         @extend %userInfoUnder;
@@ -110,7 +171,6 @@ export default {
     }
 
     .memoTitle {
-      // border: 2px solid blue;
       width: 100%;
       display: flex;
       align-items: center;
@@ -118,30 +178,27 @@ export default {
       p {
         font-size: 22px;
         font-weight: bold;
-        // border: 2px solid red;
       }
     }
   }
 
   .bottom_Area {
-    // border: 2px solid blue;
     word-break: break-word;
     white-space: pre-wrap;
     max-width: 100%;
-    max-height: 250px;
     height: 100%;
     overflow: auto;
 
     .favorite_Container {
-      // border: 2px solid red;
       display: flex;
+      padding: 4px 0 0 8px;
 
       .countMsg {
         font-weight: bold;
         margin: 5px 0 0 40px;
       }
 
-      .DetailcreateMemoTime {
+      .memoDate {
         position: absolute;
         right: 20px;
         top: -23px;
@@ -149,7 +206,6 @@ export default {
     }
 
     .memoContainer {
-      // border: 2px solid red;
       margin-top: 10px;
       margin-left: 10px;
       margin-bottom: 5px;
@@ -166,7 +222,6 @@ export default {
 
 @media screen and (max-width: 690px) {
   .memoTitle {
-    // border: 2px solid blue;
     width: 100%;
     display: flex;
     align-items: center;
@@ -174,7 +229,6 @@ export default {
     p {
       font-size: 15px;
       font-weight: bold;
-      // border: 2px solid red;
     }
   }
   .userTitle {
