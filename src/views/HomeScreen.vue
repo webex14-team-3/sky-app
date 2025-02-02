@@ -40,7 +40,7 @@
             v-for="memo in memos"
             :key="memo.id"
             :memo="memo"
-            :hideLikeBtn="!user"
+            :hideLikeBtn="user === null"
           />
         </div>
       </section>
@@ -64,7 +64,7 @@ import {
   orderBy,
   where,
 } from "firebase/firestore"
-import { getAuth } from "firebase/auth"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "@/firebase"
 
 export default {
@@ -86,24 +86,26 @@ export default {
   },
   async created() {
     const auth = getAuth()
-    this.user = auth.currentUser
-    if (this.user) {
-      const uid = this.user.uid
-      const docRef = doc(db, "users", uid)
-      const docSnap = await getDoc(docRef)
-      if (docSnap.exists()) {
-        const data = docSnap.data()
-        this.inputUserImage = data.userImg
-        this.userName = data.userName
-        this.userCourse = data.userCourse
+    onAuthStateChanged(auth, async (user) => {
+      this.user = user
+      if (user) {
+        const uid = user.uid
+        const docRef = doc(db, "users", uid)
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+          const data = docSnap.data()
+          this.inputUserImage = data.userImg
+          this.userName = data.userName
+          this.userCourse = data.userCourse
+        }
       }
-    }
-    // 全投稿を取得
-    const q = query(
-      collection(db, "userMemos"),
-      orderBy("createGetTime", "asc")
-    )
-    await this.fetchMemos(q)
+      // 全投稿を取得
+      const q = query(
+        collection(db, "userMemos"),
+        orderBy("createGetTime", "asc")
+      )
+      await this.fetchMemos(q)
+    })
   },
   methods: {
     async fetchMemos(q) {
