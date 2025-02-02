@@ -1,25 +1,25 @@
 <template>
   <div class="allContainer">
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
-    <header class="LinkContainer">
-      <div class="TopPageNav" @click="topPageBtn">
+    <header class="linkContainer">
+      <div class="topPageNav" @click="topPageBtn">
         <div class="navItem">
           <p class="navItemName">TopPage</p>
         </div>
       </div>
       <div
-        class="MyPageNav"
+        class="myPageNav"
         @click="MyPageBtn"
         @mouseover="MypageMouseOverAction"
         @mouseleave="MypageMouseLeaveAction"
       >
         <div class="navItem">
           <p class="navItemName" v-if="hoverMypage">{{ message.mypage }}</p>
-          <p v-else class="navItemName PleaseLog">Please Login</p>
+          <p v-else class="navItemName pleaseLog">Please Login</p>
         </div>
       </div>
       <div
-        class="ProfileNav"
+        class="profileNav"
         @click="ProfilePageBtn"
         @mouseover="ProfileMouseOverAction"
         @mouseleave="ProfileMouseLeaveAction"
@@ -28,10 +28,10 @@
           <p class="navItemName" v-if="hoverProfile">
             {{ message.profile }}
           </p>
-          <p v-else class="navItemName PleaseLog">Please Login</p>
+          <p v-else class="navItemName pleaseLog">Please Login</p>
         </div>
       </div>
-      <div class="LoginNav" @click="googleLogin">
+      <div class="loginNav" @click="googleLogin">
         <div class="navItem">
           <a class="navItemName loginName" v-if="isAuth">Login</a>
           <a class="navItemName loginName" v-else>Logout</a>
@@ -139,7 +139,7 @@ export default {
       const auth = getAuth()
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          this.$router.push("/MyAcount")
+          this.$router.push("/MyAccount")
         }
       })
     },
@@ -178,7 +178,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/css/_reset.scss";
+@import "@/assets/styles/_reset.scss";
 $main-bgColor: rgba(255, 206, 160, 0.89);
 $hover-color: brightness(90%);
 %hoverEffect {
@@ -190,21 +190,18 @@ $hover-color: brightness(90%);
 }
 
 .allContainer {
-  // border: 2px solid blue;
   border-bottom: 4px solid #c7887fdd;
   width: 100%;
   height: 60px;
   user-select: none;
 
-  .LinkContainer {
-    /* border: 2px solid red; */
+  .linkContainer {
     height: 100%;
     display: flex;
     align-items: center;
     list-style-type: none;
 
-    .TopPageNav {
-      // border: 2px solid yellow;
+    .topPageNav {
       width: 50%;
       display: flex;
       align-content: center;
@@ -219,7 +216,7 @@ $hover-color: brightness(90%);
       }
     }
 
-    .MyPageNav {
+    .myPageNav {
       display: flex;
       align-content: center;
       justify-content: center;
@@ -234,8 +231,7 @@ $hover-color: brightness(90%);
       }
     }
 
-    .ProfileNav {
-      /* border: 2px solid red; */
+    .profileNav {
       width: 20%;
       display: flex;
       align-content: center;
@@ -251,7 +247,6 @@ $hover-color: brightness(90%);
     }
 
     .navItem {
-      /* border: 2px solid black; */
       display: flex;
       align-items: center;
     }
@@ -261,13 +256,12 @@ $hover-color: brightness(90%);
       font-size: 1.3rem;
     }
 
-    .PleaseLog {
+    .pleaseLog {
       color: rgb(255, 0, 119);
     }
   }
 
-  .LoginNav {
-    /* border: 2px solid red; */
+  .loginNav {
     width: 10%;
     display: flex;
     align-content: center;

@@ -21,7 +21,7 @@
           :placeholder="inputPlaceholder"
         />
       </div>
-      <div class="transparentCode">{{ getuserName }}</div>
+      <div class="transparentCode">{{ getUserName }}</div>
     </section>
     <!-- ユーザーネーム 終わり -->
 
@@ -54,20 +54,11 @@
 </template>
 
 <script>
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 import {
-  getAuth,
-  // signInWithPopup,
-  // GoogleAuthProvider,
-  onAuthStateChanged,
-  // signOut,
-} from "firebase/auth"
-import {
-  // setDoc,
   doc,
   updateDoc,
   collection,
-  // addDoc,
-  // deleteField,
   getDoc,
   getDocs,
   query,
@@ -80,8 +71,8 @@ export default {
   data() {
     return {
       inputUserCourse: "",
-      getuserName: "",
-      geetusercourse: "",
+      getUserName: "",
+      getUserCourse: "",
       inputPlaceholder: "名無し",
       inputUserName: "",
       inputUserImage: "",
@@ -135,6 +126,7 @@ export default {
           const userMemosRef = doc(db, "userMemos", idBoxes[i])
           updateDoc(userMemosRef, {
             userName: this.inputUserName,
+            userCourse: this.inputUserCourse,
           })
         }
 
@@ -154,24 +146,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/css/_reset.scss";
+@import "@/assets/styles/_reset.scss";
 
 $containerMargin-top: 40px;
 
 .allContainer {
-  // border: 2px solid red;
   height: 100vh;
   padding-top: 30px;
   background-color: rgba(253, 244, 232, 0.747);
   user-select: none;
 
   section {
-    // border: 2px solid red;
     margin: 30px auto;
   }
 
   .profileTitle {
-    // border: 2px solid green;
     text-align: center;
     font-weight: bold;
     font-size: 1.3em;
@@ -180,17 +169,14 @@ $containerMargin-top: 40px;
 
   /* アイコン 始まり */
   .icon {
-    // border: 2px solid indianred;
     max-width: 80%;
 
     .icon_Container {
-      // border: 2px solid greenyellow;
       display: flex;
       justify-content: center;
     }
 
     .icon_Container_user {
-      // border: 2px solid red;
       margin: auto;
       width: 130px;
       height: 130px;
@@ -205,7 +191,6 @@ $containerMargin-top: 40px;
   // ---------------------------
 
   .userName {
-    /* border: 2px solid blue; */
     max-width: 80%;
   }
 
@@ -232,12 +217,10 @@ $containerMargin-top: 40px;
   // -------------------------------
 
   .courseArea {
-    // border: 2px solid brown;
     max-width: 80%;
   }
 
   .courseContainer {
-    // border: 2px solid red;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -267,7 +250,6 @@ $containerMargin-top: 40px;
   // --------------------------------
 
   .Savebutton {
-    // border: 2px solid red;
     text-align: center;
 
     .Savebutton_button {

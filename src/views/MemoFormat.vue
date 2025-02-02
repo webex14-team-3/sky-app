@@ -1,9 +1,9 @@
 <template>
   <div class="all_Container">
-    <div class="Format_container">
+    <div class="format_container">
       <!-- 投稿 始まり -->
       <section class="upload_Area">
-        <div v-if="MyuserSpace" class="Btn_Container">
+        <div v-if="myUserSpace" class="btn_Container">
           <button class="saveBtn uploadBtn" @click="deleteBtn">
             <p>削除</p>
           </button>
@@ -18,7 +18,7 @@
       <!-- 投稿 終わり -->
 
       <!-- タイトル 始まり -->
-      <section class="inputtitle_Area">
+      <section class="inputTtl_Area">
         <p class="title theme">タイトル</p>
         <input
           type="text"
@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       inputMemo: "",
-      MyuserSpace: true,
+      myUserSpace: true,
       inputTitle: "",
     }
   },
@@ -110,7 +110,7 @@ export default {
               userCourse: docSnap.data().userCourse,
               userEmail: docSnap.data().userEmail,
               userImg: docSnap.data().userImg,
-              DetailcreateMemoTime: inputTime,
+              date: inputTime,
               createGetTime: now.getTime(),
               title: [this.inputTitle],
               memo: [this.inputMemo],
@@ -120,9 +120,9 @@ export default {
             await addDoc(collection(db, "userMemos"), memo)
 
             const save = doc(db, "saveMemos", userid)
-            const savedocSnap = await getDoc(save)
+            const saveDocSnap = await getDoc(save)
 
-            if (savedocSnap.exists()) {
+            if (saveDocSnap.exists()) {
               const memo = {
                 userID: user.uid,
                 title: this.inputTitle,
@@ -190,16 +190,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/css/_reset.scss";
+@import "@/assets/styles/_reset.scss";
 
 .all_Container {
-  // border: 2px solid red;
   display: flex;
   justify-content: center;
   background-color: rgba(255, 239, 216, 0.747);
   height: 100vh;
 
-  .Format_container {
+  .format_container {
     border: 2px solid black;
     margin-top: 20px;
     border-radius: 3%;
@@ -210,7 +209,6 @@ export default {
 
     /* 投稿 始まり */
     .upload_Area {
-      // border: 2px solid red;
       width: 40%;
       height: 50px;
       margin-top: 4px;
@@ -218,7 +216,7 @@ export default {
       right: 5%;
       max-width: 50%;
 
-      .Btn_Container {
+      .btn_Container {
         display: flex;
 
         .uploadBtn {
@@ -253,8 +251,7 @@ export default {
       font-weight: bold;
       font-size: 1.3em;
     }
-    .inputtitle_Area {
-      // border: 2px solid black;
+    .inputTtl_Area {
       width: 90%;
       height: 14%;
       margin: 0 auto;
@@ -276,7 +273,6 @@ export default {
 
     /* 本文 始まり */
     .memo_Area {
-      // border: 2px solid green;
       margin: 0 auto;
       width: 90%;
       height: 70%;
@@ -300,76 +296,7 @@ export default {
         height: 100%;
         line-height: 1.3em;
       }
-      /* 本文 終わり */
-
-      /* 機能 始まり */
-      // .container-function {
-      //   /* border: 4px solid #f5a194dd; */
-      //   width: 90%;
-      //   height: 45px;
-      //   position: fixed;
-      //   bottom: 10px;
-      //   display: flex;
-      //   justify-content: space-around;
-      //   background-color: white;
-      //   z-index: 100;
-      // }
-      // .container-function-underbar {
-      //   /* border: 2px solid red; */
-      //   width: auto;
-      //   height: 100%;
-      //   display: flex;
-      // }
-      // .container-function-underbarButton-option {
-      //   width: 20px;
-      //   display: block;
-      //   font-size: 20px;
-      //   font-weight: bold;
-      //   padding: 0;
-      //   background-color: rgb(247, 239, 227);
-      //   border: 2px solid #c7887fdd;
-      // }
-      // .container-function-underbarButton-option:hover {
-      //   cursor: pointer;
-      //   background-color: rgb(239, 231, 219);
-      // }
-      // .container-function-underbarButton-option:active {
-      //   transform: scale(0.98);
-      // }
-      // .container-function button {
-      //   border: 2px solid #c7887fdd;
-      //   background-color: rgb(247, 239, 227);
-      // }
-      // .container-function button:hover {
-      //   cursor: pointer;
-      //   background-color: rgb(239, 231, 219);
-      // }
-      // .container-function button:active {
-      //   transform: scale(0.98);
-      // }
     }
-    /* 機能 終わり */
   }
 }
-/* 投稿 終わり */
-
-// @media screen and (max-width: 640px) {
-//   body {
-//     margin: 5px auto auto;
-//   }
-//   .container {
-//     height: 80vh;
-//     width: 90vw;
-//   }
-//   .container .function {
-//     left: 45px;
-//     /* bottom: 100px; */
-//   }
-//   /* .container-function {
-//     flex-wrap: wrap;
-//     justify-content: space-around;
-//     bottom: 50px;
-//     line-height: 1.25em;
-//   } */
-// }
 </style>

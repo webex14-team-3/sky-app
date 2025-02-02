@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/css/_reset.scss";
+@import "@/assets/styles/_reset.scss";
 
 .uploadBtn {
   border: 2px solid #ce8d83dd;

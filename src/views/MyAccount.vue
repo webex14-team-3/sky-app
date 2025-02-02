@@ -1,58 +1,49 @@
 <template>
   <div class="allContainer">
-    <!-- アカウント 始まり -->
-    <section class="acountArea">
-      <div class="icon_Container A_container">
+    <!-- アカウント情報 -->
+    <section class="accountArea">
+      <div class="icon_Container a_container">
         <img class="icon_Image" :src="inputUserImage" />
       </div>
-      <div class="acountTxtContainer A_container">
-        <div class="A_userNameContainer">
-          <p class="A_userTitle userTitle">ユーザー名</p>
-          <p class="userName">
-            {{ this.userName }}
-          </p>
+      <div class="accountTxtContainer a_container">
+        <div class="a_userNameContainer">
+          <p class="a_userTitle userTitle">ユーザー名</p>
+          <p class="userName">{{ userName }}</p>
         </div>
-        <div class="A_userCourseContainer">
-          <p class="A_userTitle">コース名</p>
+        <div class="a_userCourseContainer">
+          <p class="a_userTitle">コース名</p>
           <div class="userCourse">
-            <p>{{ this.userCourse }}</p>
+            <p>{{ userCourse }}</p>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- メモ 始まり -->
+    <!-- 投稿一覧 -->
     <section class="memoArea">
-      <div class="M_header">
+      <div class="m_header">
         <div class="headerTitle_container">
           <p class="headerTitle">マイメモ一覧</p>
         </div>
         <div class="select_container">
           <select @change="optionContainerBtn" v-model="changedSelect">
-            <option value="new">
-              <p>新しい順</p>
-            </option>
-            <option value="old">
-              <p>古い順</p>
-            </option>
-            <!-- <option value="favorite">
-              <p>お気に入り順</p>
-            </option> -->
+            <option value="new"><p>新しい順</p></option>
+            <option value="old"><p>古い順</p></option>
           </select>
-          <!-- <button class="selectBtn">決定</button> -->
         </div>
       </div>
-      <div class="M_container">
-        <posted-memo v-for="memo in memos" :key="memo.id" :memo="memo" />
+      <div class="m_container">
+        <PostedMemo
+          v-for="memo in memos"
+          :key="memo.id"
+          :memo="memo"
+          :hideLikeBtn="true"
+        />
       </div>
     </section>
-    <!-- メモ 終わり -->
-
-    <!-- 投稿する場所 始まり -->
+    <!-- 投稿ボタン -->
     <section class="upload_Area">
       <MemoBtn />
     </section>
-    <!-- 投稿する場所 終わり -->
   </div>
 </template>
 
@@ -61,23 +52,19 @@ import PostedMemo from "@/components/PostedMemo.vue"
 import MemoBtn from "@/components/MemoBtn.vue"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { db } from "@/firebase"
-
 import {
   doc,
   getDoc,
   getDocs,
   collection,
   query,
-  where,
   orderBy,
+  where,
 } from "firebase/firestore"
 
 export default {
-  name: "MyAcountPage",
-  components: {
-    PostedMemo,
-    MemoBtn,
-  },
+  name: "MyAccountPage",
+  components: { PostedMemo, MemoBtn },
   data() {
     return {
       user: null,
@@ -86,94 +73,72 @@ export default {
       userCourse: "WebExpert",
       userName: "名無し",
       changedSelect: "new",
-      hiddenDisplay: "",
     }
   },
   async created() {
     const auth = getAuth()
     onAuthStateChanged(auth, async (user) => {
       if (user) {
+        this.user = user
         const uid = user.uid
         const docRef = doc(db, "users", uid)
         const docSnap = await getDoc(docRef)
         if (docSnap.exists()) {
-          this.inputUserImage = docSnap.data()
-          this.userName = docSnap.data().userName
-          this.userCourse = docSnap.data().userCourse
-          this.inputUserImage = docSnap.data().userImg
+          const data = docSnap.data()
+          this.inputUserImage = data.userImg
+          this.userName = data.userName
+          this.userCourse = data.userCourse
         }
-
-        const a = query(
+        const q = query(
           collection(db, "userMemos"),
           orderBy("createGetTime", "asc"),
           where("userID", "==", uid)
         )
-        const querySnapshot = await getDocs(a)
-
-        querySnapshot.forEach((doc) => {
-          this.memos.unshift({
-            userName: doc.data().userName,
-            userCourse: doc.data().userCourse,
-            title: doc.data().title[0],
-            memo: doc.data().memo[0],
-            userImg: doc.data().userImg,
-            DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
-            TimeRemains: doc.data().createGetTime,
-          })
-        })
+        await this.fetchMemos(q)
       }
     })
   },
   methods: {
-    async optionContainerBtn() {
-      const auth = getAuth()
-      onAuthStateChanged(auth, async (user) => {
-        const uid = user.uid
-        const a = query(
-          collection(db, "userMemos"),
-          orderBy("createGetTime", "asc"),
-          where("userID", "==", uid)
-        )
-        const memoContainerSnap = await getDocs(a)
-        this.memos = []
-
+    async fetchMemos(q) {
+      const snap = await getDocs(q)
+      snap.forEach((doc) => {
+        const data = doc.data()
+        const memoObj = {
+          id: doc.id,
+          userName: data.userName,
+          userCourse: data.userCourse,
+          title: data.title[0],
+          memo: data.memo[0],
+          userImg: data.userImg,
+          date: data.date,
+          TimeRemains: data.createGetTime,
+        }
         if (this.changedSelect === "new") {
-          this.notLiked = ""
-
-          memoContainerSnap.forEach((doc) => {
-            this.memos.unshift({
-              userName: doc.data().userName,
-              userCourse: doc.data().userCourse,
-              title: doc.data().title[0],
-              memo: doc.data().memo[0],
-              userImg: doc.data().userImg,
-              DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
-              TimeRemains: doc.data().createGetTime,
-            })
-          })
-        } else if (this.changedSelect === "old") {
-          this.Liked = ""
-
-          memoContainerSnap.forEach((doc) => {
-            this.memos.push({
-              userName: doc.data().userName,
-              userCourse: doc.data().userCourse,
-              title: doc.data().title[0],
-              memo: doc.data().memo[0],
-              userImg: doc.data().userImg,
-              DetailcreateMemoTime: doc.data().DetailcreateMemoTime,
-              TimeRemains: doc.data().createGetTime,
-            })
-          })
+          this.memos.unshift(memoObj)
+        } else {
+          this.memos.push(memoObj)
         }
       })
+    },
+    async optionContainerBtn() {
+      this.memos = []
+      const auth = getAuth()
+      const user = auth.currentUser
+      if (!user) return
+      const uid = user.uid
+      const q = query(
+        collection(db, "userMemos"),
+        orderBy("createGetTime", "asc"),
+        where("userID", "==", uid)
+      )
+      await this.fetchMemos(q)
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/css/_reset.scss";
+@import "@/assets/styles/_reset.scss";
 
 %userInfoUnder {
   text-decoration: underline;
@@ -185,29 +150,21 @@ export default {
   display: none;
 }
 .allContainer {
-  // border: 2px solid black;
   width: 100%;
   height: 100vh;
   min-height: 650px;
   display: flex;
   user-select: none;
 
-  // -----------------------------
-  /* アカウント 始まり */
-  // ---------------------------------
-
-  .acountArea {
-    // border: 2px solid red;
+  .accountArea {
     width: 30%;
     height: 100%;
 
-    .A_container {
-      // border: 2px solid black;
+    .a_container {
       margin-top: 40px;
     }
 
     .icon_Container {
-      // border: 2px solid green;
       display: flex;
       justify-content: center;
 
@@ -218,49 +175,42 @@ export default {
       }
     }
 
-    .acountTxtContainer {
-      // border: 2px solid red;
+    .accountTxtContainer {
+      display: flex;
+      flex-direction: column;
+      row-gap: 16px;
 
-      .A_userNameContainer {
-        // border: 2px solid black;
+      .a_userNameContainer {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        margin-bottom: 20px;
 
         .userTitle {
-          margin-top: 20px;
           font-size: 1.7em;
           font-weight: 900;
-          // border: 2px solid green;
           width: 100%;
           text-align: center;
         }
         .userName {
-          // border: 2px solid blue;
           @extend %userInfoUnder;
           font-size: 2em;
           font-weight: 900;
-          margin: 10px auto;
         }
       }
 
-      .A_userCourseContainer {
+      .a_userCourseContainer {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        margin-bottom: 20px;
 
-        .A_userTitle {
+        .a_userTitle {
           font-size: 1.7em;
           font-weight: 900;
-          // border: 2px solid green;
           width: 100%;
           text-align: center;
         }
 
         .userCourse {
-          // border: 2px solid red;
           font-size: 2em;
           font-weight: bold;
 
@@ -276,18 +226,15 @@ export default {
   /* メモ 始まり */
   // -------------------------
   .memoArea {
-    // border: 1px solid blue;
     width: 70%;
     height: 100%;
 
-    .M_header {
-      // border: 1px solid red;
+    .m_header {
       width: 100%;
       height: 15%;
       background-color: #c7887fdd;
 
       .headerTitle_container {
-        // border: 2px solid blue;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -301,7 +248,6 @@ export default {
       }
 
       .select_container {
-        // border: 2px solid black;
         margin: 15px auto 0;
         display: flex;
         justify-content: center;
@@ -315,6 +261,7 @@ export default {
           width: 50%;
           -moz-appearance: menulist;
           -webkit-appearance: menulist;
+          appearance: menulist;
           text-align: center;
         }
 
@@ -340,7 +287,7 @@ export default {
       }
     }
 
-    .M_container {
+    .m_container {
       border: 2px solid rgba(255, 239, 216, 0.747);
       background-color: rgba(255, 239, 216, 0.747);
       width: 100%;
@@ -365,28 +312,21 @@ export default {
 /* スマートフォン用 始まり */
 @media screen and (max-width: 1080px) {
   .allContainer {
-    // border: 2px solid black;
     position: relative;
 
-    // -----------------------------
-    /* アカウント 始まり */
-    // ---------------------------------
-
-    .acountArea {
-      // border: 2px solid black;
+    .accountArea {
       width: 100%;
-      height: 20%;
+      height: 25%;
       position: absolute;
       display: flex;
 
-      .A_container {
-        // border: 2px solid black;
+      .a_container {
         display: flex;
         width: 30%;
+        margin-top: 0;
       }
 
       .icon_Container {
-        // border: 2px solid green;
         margin: 0px;
         margin-top: 12px;
         margin-left: 10px;
@@ -398,45 +338,31 @@ export default {
         }
       }
 
-      .acountTxtContainer {
-        // border: 2px solid orange;
-        margin: 0px;
-        width: 65%;
-        margin-top: 10px;
+      .accountTxtContainer {
+        width: 80%;
+        height: 100%;
+        flex-direction: row;
+        row-gap: 0;
+        column-gap: 16px;
+        align-items: center;
+        justify-content: center;
 
-        .A_userNameContainer {
-          // border: 2px solid plum;
-          display: block;
-          height: 100%;
-          width: 45%;
-          text-align: center;
-
+        .a_userNameContainer {
           .userName {
-            // border: 2px solid blue;
             font-size: 2em;
             font-weight: 900;
-            text-align: center;
-            margin-top: 25px;
           }
         }
 
-        .A_userCourseContainer {
-          .A_userTitle {
+        .a_userCourseContainer {
+          .a_userTitle {
             font-size: 1.7em;
             font-weight: 900;
-            // border: 2px solid green;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 8px;
           }
 
           .userCourse {
-            // border: 2px solid red;
             font-size: 2em;
             font-weight: bold;
-            padding-top: 10px;
           }
         }
       }
@@ -446,13 +372,11 @@ export default {
     /* メモ 始まり */
     // -------------------------
     .memoArea {
-      // border: 1px solid blue;
       width: 100%;
       height: 50%;
       margin-top: 200px;
 
-      .M_header {
-        // border: 1px solid red;
+      .m_header {
         width: 100%;
         height: 25%;
         background-color: #c7887fdd;
